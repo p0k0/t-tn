@@ -40,18 +40,36 @@ namespace Storage
     {
         //scopeHeads - mean numbers beginnigs
         private IList<RefData> _heads;
+        private RefDataHeadTraverser _headTraverser;
+        private RefDataFactory _factory;
 
-        public void Add(string Number)
+        public RefDataScope()
         {
+            _heads = new List<RefData>();
+            _headTraverser = new RefDataHeadTraverser(_heads);
+            _factory = new RefDataFactory();
+        }
 
+        public void Add(string number)
+        {
+            var head = default(RefData);
+            if (!_headTraverser.TryFind(number, out head))
+            {
+                var prefixPath = _factory.Create(number);
+                head = prefixPath.First();
+                _heads.Add(head);
+                return;
+            }
+
+            //TODO:traverse from node until find unequal digit
         }
     }
 
-    public class RefDataTraverser//find numbers over group of refData's
+    public class RefDataHeadTraverser//find numbers over group of refData's
     {
         private readonly IEnumerable<RefData> _refDatas;
 
-        public RefDataTraverser(IEnumerable<RefData> refDatas)
+        public RefDataHeadTraverser(IEnumerable<RefData> refDatas)
         {
             _refDatas = refDatas ?? throw new ArgumentNullException(nameof(refDatas));
         }
@@ -62,6 +80,34 @@ namespace Storage
             foreach (var digit in prefix)
             {
                 refHead = _refDatas.FirstOrDefault(x => x.Data == digit);
+                break;
+            }
+
+            refData = refHead;
+
+            if (refHead != default(RefData))
+                return true;
+
+            return false;
+        }
+    }
+
+    public class RefDataNodeTraverser//find numbers over group of refData's
+    {
+        private readonly RefData _refData;
+
+        public RefDataNodeTraverser(RefData refData)
+        {
+            _refData = refData ?? throw new ArgumentNullException(nameof(refData));
+        }
+
+        public bool TryFind(string prefix, out RefData refData)
+        {
+            //TODO: find/implement traverse from head to tail using parent referencing tree style
+            var refHead = default(RefData);
+            foreach (var digit in prefix)
+            {
+                refHead = _refData.FirstOrDefault(x => x.Data == digit);
                 break;
             }
 
