@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xunit;
 
 namespace telephone_number.tests
@@ -10,15 +11,8 @@ namespace telephone_number.tests
         {
             var tree = new Tree();
 
-            tree.Insert(0);
-            tree.Insert(4);
-            tree.Insert(1);
-            tree.Insert(2);
-
-            tree.Insert(0);
-            tree.Insert(4);
-            tree.Insert(6);
-            tree.Insert(8);
+            tree.Insert("0412");
+            tree.Insert("0468");
 
             Assert.Equal(6, tree.NodeCount());
         }
@@ -28,21 +22,14 @@ namespace telephone_number.tests
         {
             var tree = new Tree();
 
-            tree.Insert(0);
-            tree.Insert(4);
-            tree.Insert(1);
-            tree.Insert(2);
-
-            tree.Insert(0);
-            tree.Insert(4);
-            tree.Insert(6);
-            tree.Insert(8);
+            tree.Insert("0412");
+            tree.Insert("0468");
 
             var foundNumbers = tree.Find("04");
 
             Assert.Equal(2, foundNumbers.Count());
-            Assert.True(foundNumbers.Any(telephoneNumber => telephoneNumber = "0412"));
-            Assert.True(foundNumbers.Any(telephoneNumber => telephoneNumber = "0468"));
+            Assert.Contains(foundNumbers, telephoneNumber => telephoneNumber == "0412");
+            Assert.Contains(foundNumbers, telephoneNumber => telephoneNumber == "0468");
         }
 
         [Fact]
@@ -50,15 +37,8 @@ namespace telephone_number.tests
         {
             var tree = new Tree();
 
-            tree.Insert(0);
-            tree.Insert(4);
-            tree.Insert(1);
-            tree.Insert(2);
-
-            tree.Insert(1);
-            tree.Insert(4);
-            tree.Insert(6);
-            tree.Insert(8);
+            tree.Insert("0412");
+            tree.Insert("1468");
 
             Assert.Equal(8, tree.NodeCount());
         }
