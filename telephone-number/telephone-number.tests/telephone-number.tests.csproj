@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RefData\Storage.csproj" />
     <ProjectReference Include="..\telephone-number\telephone-number.csproj" />
   </ItemGroup>
 

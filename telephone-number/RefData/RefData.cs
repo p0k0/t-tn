@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace telephone_number
+namespace Storage
 {
     public class RefData
     {
@@ -13,7 +13,7 @@ namespace telephone_number
 
         public char Data { get; set; }
 
-        public RefData(char data)
+        internal RefData(char data)
         {
             Data = data;
         }
@@ -36,6 +36,11 @@ namespace telephone_number
         }
     }
 
+    public class RefDataScope
+    {
+
+    }
+
     public class RefDataTraverser
     {
         private readonly IEnumerable<RefData> _refDatas;
@@ -48,6 +53,8 @@ namespace telephone_number
 
     public class RefDataFactory
     {
+        public RefData Create(char data) => new RefData(data);
+
         public IEnumerable<RefData> Create(string number)
         {
             var result = new List<RefData>();
