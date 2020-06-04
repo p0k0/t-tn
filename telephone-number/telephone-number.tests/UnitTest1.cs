@@ -44,5 +44,23 @@ namespace telephone_number.tests
             Assert.True(foundNumbers.Any(telephoneNumber => telephoneNumber = "0412"));
             Assert.True(foundNumbers.Any(telephoneNumber => telephoneNumber = "0468"));
         }
+
+        [Fact]
+        public void Telephone_numbers_different_leading_digits_should_not_overlap()
+        {
+            var tree = new Tree();
+
+            tree.Insert(0);
+            tree.Insert(4);
+            tree.Insert(1);
+            tree.Insert(2);
+
+            tree.Insert(1);
+            tree.Insert(4);
+            tree.Insert(6);
+            tree.Insert(8);
+
+            Assert.Equal(8, tree.NodeCount());
+        }
     }
 }
