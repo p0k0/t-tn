@@ -7,29 +7,26 @@ namespace telephone_number
 {
     public class Tree
     {
-        private IList<IList<char>> _rootTrees;//roots numbers
+        private IList<string> _data;//roots numbers
 
         public Tree()
         {
-            _rootTrees = new List<IList<char>>();
+            _data = new List<string>();
         }
 
-        public void Insert(string v)
+        public void Insert(string number)
         {
-            if (!_rootTrees.Any())
-                _rootTrees.Add(new List<char>());
-
-            _rootTrees.Where(x => x.FirstOrDefault() != null && x == ).Add(v);
+            _data.Add(number);
         }
 
         public int NodeCount()
         {
-            return _rootTrees.Count;
+            return _data.Count;
         }
 
-        public IEnumerable<string> Find(string v)
+        public IEnumerable<string> Find(string number)
         {
-            throw new NotImplementedException();
+            return _data.Where(storedNumber => storedNumber.Contains(number));
         }
     }
 }

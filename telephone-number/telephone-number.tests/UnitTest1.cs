@@ -24,6 +24,7 @@ namespace telephone_number.tests
 
             tree.Insert("0412");
             tree.Insert("0468");
+            tree.Insert("12");
 
             var foundNumbers = tree.Find("04");
 
