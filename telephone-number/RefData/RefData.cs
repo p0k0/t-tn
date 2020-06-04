@@ -9,7 +9,8 @@ namespace Storage
     {
         public static RefData Null = null;
 
-        public RefData Parent { get; private set; } = Null;
+        public RefData Root { get; private set; } = Null;
+        public IEnumerable<RefData> Nodes { get; private set; } = Enumerable.Empty<RefData>();
 
         public char Data { get; set; }
 
@@ -20,10 +21,11 @@ namespace Storage
 
         public void AppendSub(RefData subRefData)
         {
-            subRefData.Parent = this;
+            subRefData.Root = this;
+            Nodes = new List<RefData>{ subRefData }.Concat(Nodes);
         }
 
-        public bool HasParent() => Parent != Null;
+        public bool HasParent() => Root != Null;
 
         public override bool Equals(object obj)
         {
