@@ -38,6 +38,9 @@ namespace Storage
 
     public class RefDataScope // compactifyed refData groups, where two group with same lead digits can use same data
     {
+        //scopeHeads - mean numbers beginnigs
+        private IList<RefData> _heads;
+
         public void Add(string Number)
         {
 
