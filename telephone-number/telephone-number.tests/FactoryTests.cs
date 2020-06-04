@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace telephone_number.tests
         {
             var factory = new RefDataFactory();
             var result = factory.Create("0412").ToList();
-            var expected = new List<RefData> { new RefData('0'), new RefData('4'), new RefData('1'), new RefData('2') };
+            var expected = new List<RefData> { factory.Create('0'), factory.Create('4'), factory.Create('1'), factory.Create('2') };
             expected[3].Parent = expected[2];
             expected[2].Parent = expected[1];
             expected[1].Parent = expected[0];
