@@ -38,7 +38,10 @@ namespace Storage
 
     public class RefDataScope // compactifyed refData groups, where two group with same lead digits can use same data
     {
+        public void Add(string Number)
+        {
 
+        }
     }
 
     public class RefDataTraverser//find numbers over group of refData's
@@ -48,6 +51,23 @@ namespace Storage
         public RefDataTraverser(IEnumerable<RefData> refDatas)
         {
             _refDatas = refDatas ?? throw new ArgumentNullException(nameof(refDatas));
+        }
+
+        public bool TryFind(string prefix, out RefData refData)
+        {
+            var refHead = default(RefData);
+            foreach (var digit in prefix)
+            {
+                refHead = _refDatas.FirstOrDefault(x => x.Data == digit);
+                break;
+            }
+
+            refData = refHead;
+
+            if (refHead != default(RefData))
+                return true;
+
+            return false;
         }
     }
 
