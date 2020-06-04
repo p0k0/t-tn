@@ -36,12 +36,12 @@ namespace Storage
         }
     }
 
-    public class RefDataScope
+    public class RefDataScope // compactifyed refData groups, where two group with same lead digits can use same data
     {
 
     }
 
-    public class RefDataTraverser
+    public class RefDataTraverser//find numbers over group of refData's
     {
         private readonly IEnumerable<RefData> _refDatas;
 
