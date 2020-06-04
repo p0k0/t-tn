@@ -9,7 +9,7 @@ namespace Storage
     {
         public static RefData Null = null;
 
-        public RefData Parent { get; set; } = Null;
+        public RefData Parent { get; private set; } = Null;
 
         public char Data { get; set; }
 
@@ -18,7 +18,7 @@ namespace Storage
             Data = data;
         }
 
-        public void Append(RefData subRefData)
+        public void AppendSub(RefData subRefData)
         {
             subRefData.Parent = this;
         }
@@ -66,7 +66,7 @@ namespace Storage
             for (int i = 1; i < number.Length; i++)
             {
                 current = new RefData(number[i]);
-                head.Append(current);
+                head.AppendSub(current);
                 result.Add(current);
 
                 head = current;

@@ -15,9 +15,9 @@ namespace telephone_number.tests
             var factory = new RefDataFactory();
             var result = factory.Create("0412").ToList();
             var expected = new List<RefData> { factory.Create('0'), factory.Create('4'), factory.Create('1'), factory.Create('2') };
-            expected[3].Parent = expected[2];
-            expected[2].Parent = expected[1];
-            expected[1].Parent = expected[0];
+            expected[3].AppendSub(expected[2]);
+            expected[2].AppendSub(expected[1]);
+            expected[1].AppendSub(expected[0]);
 
             Assert.Equal(expected, result);
         }
