@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Storage
@@ -16,7 +18,7 @@ namespace Storage
         }
     }
 
-    public class RefDataTraverseWithCondition
+    public class RefDataDownsideTraverseWithCondition
     {
         public virtual bool Traverse(RefData node, VisitorWithCondition visitor)
         {
@@ -30,6 +32,32 @@ namespace Storage
             }
 
             return false;
+        }
+    }
+
+    //because possible path select when one branch is splitting - in that case we should use some kind of selection logic
+    public class RefDataDownsideAccumulateTraverseWithBranch
+    {
+        private Expression<Func<RefData, bool>> _branchSelectCondition;
+        private readonly string _sourceForCompare;
+
+        public RefDataDownsideAccumulateTraverseWithBranch(string sourceForCompare)
+        {
+            _sourceForCompare = sourceForCompare ?? throw new ArgumentNullException(nameof(sourceForCompare));
+        }
+
+        public virtual void Traverse(RefData node, AccumulateVisitor visitor)
+        {
+            visitor.Visit(node);
+
+            _branchSelectCondition = x => _sourceForCompare
+                                            .TrimStart(visitor.GetTraversedPath().ToCharArray())
+                                            .StartsWith(x.Data.ToString());
+
+            foreach (var sub in node.SubNodes.Where(_branchSelectCondition.Compile()))
+            {
+                Traverse(sub, visitor);
+            }
         }
     }
 }
