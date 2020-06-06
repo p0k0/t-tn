@@ -27,10 +27,10 @@ namespace telephone_number.tests
         {
             var factory = new RefDataFactory();
             var nodeA = factory.Create("12345");
-            var nodeB = factory.Create("397");
+            var nodeB = factory.Create("897");
             var comparer = new RefDataComparer();
 
-            var expected = "397";
+            var expected = "897";
             var result = comparer.Compare(nodeA, nodeB);
 
             Assert.Equal(expected, result);
