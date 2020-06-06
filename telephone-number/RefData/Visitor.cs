@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Storage
 {
-    public class Visitor
+    public abstract class Visitor
     {
-        public virtual void Visit(RefData node)
-        {
-
-        }
+        public abstract void Visit(RefData node);
     }
 
     public abstract class VisitorWithCondition
@@ -33,5 +31,22 @@ namespace Storage
 
             return true;
         }
+    }
+
+    public class AccumulateVisitor : Visitor
+    {
+        private readonly StringBuilder _path;
+
+        public AccumulateVisitor()
+        {
+            _path = new StringBuilder();
+        }
+
+        public override void Visit(RefData node)
+        {
+            _path.Append(node.Data);
+        }
+
+        public string GetTraversedPath() => _path.ToString();
     }
 }
