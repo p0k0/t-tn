@@ -13,13 +13,18 @@ namespace telephone_number.tests
         public void Factory_should_success_create_reference_structure()
         {
             var factory = new RefDataFactory();
-            var result = factory.Create("0412").ToList();
-            var expected = new List<RefData> { factory.Create('0'), factory.Create('4'), factory.Create('1'), factory.Create('2') };
-            expected[3].AppendSub(expected[2]);
-            expected[2].AppendSub(expected[1]);
-            expected[1].AppendSub(expected[0]);
+            var resultHead = factory.Create("0412");
+            var c1 = factory.Create('0');
+            var c2 = factory.Create('4');
+            var c3 = factory.Create('1');
+            var c4 = factory.Create('2');
+            
+            c1.AppendSub(c2);
+            c2.AppendSub(c3);
+            c3.AppendSub(c4);
 
-            Assert.Equal(expected, result);
+
+            Assert.Equal(c1, resultHead);
         }
     }
 }
