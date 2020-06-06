@@ -11,7 +11,7 @@ namespace Storage
          refData A = "12345"
          refData B = "12397"
          assume:
-         comparer(A,B) return "***45" or "***97"
+         comparer(A,B) return "***97"
          or 
          A.Compare(B) return "***97" //return part of B that different from A
          B.Compare(A) return "***45"//return part of A that different from B
@@ -29,6 +29,10 @@ namespace Storage
 
          */
 
+        public string Compare(RefData a, RefData b)
+        {
 
+            return string.Empty;
+        }
     }
 }
