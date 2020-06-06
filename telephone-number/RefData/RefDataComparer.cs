@@ -51,7 +51,11 @@ namespace Storage
             }
 
             //accumulateTraverser(bHead).Traverse -> 
-            //var accumulateTraverser = new RefDataDownsideAccumulateTraverseWithBranch();
+            var accumulateTraverser = new RefDataDownsideAccumulateTraverseWithStraightBranch(bHead);
+            var remainPartVisitor = new AccumulateVisitor();
+            accumulateTraverser.Traverse(bHead, remainPartVisitor);
+
+            matchedParts += remainPartVisitor.GetTraversedPath();
 
             return matchedParts;
         }
