@@ -10,7 +10,7 @@ namespace Storage
         public static RefData Null = null;
 
         public RefData Root { get; private set; } = Null;
-        public IEnumerable<RefData> SubNodes { get; private set; } = Enumerable.Empty<RefData>();
+        public IEnumerable<RefData> SubNodes { get; private set; } = new List<RefData>();
 
         public char Data { get; set; }
 

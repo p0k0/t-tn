@@ -68,8 +68,6 @@ namespace Storage
         public RefDataDownsideAccumulateTraverseWithStraightBranch(RefData sourceHead)
         {
             _currentHead = sourceHead ?? throw new ArgumentNullException(nameof(sourceHead));
-            if (!_currentHead.SubNodes.Any() || Enumerable.Count(_currentHead.SubNodes) != 1)
-                throw new ArgumentNullException(nameof(sourceHead));
         }
 
         public virtual void Traverse(RefData node, AccumulateVisitor visitor)
