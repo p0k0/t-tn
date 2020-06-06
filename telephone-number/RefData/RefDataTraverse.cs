@@ -15,4 +15,21 @@ namespace Storage
             }
         }
     }
+
+    public class RefDataTraverseWithCondition
+    {
+        public virtual bool Traverse(RefData node, VisitorWithCondition visitor)
+        {
+            if (visitor.Visit(node))
+                return true;
+
+            foreach (var sub in node.SubNodes)
+            {
+                if (Traverse(sub, visitor))
+                    return true;
+            }
+
+            return false;
+        }
+    }
 }
