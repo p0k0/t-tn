@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Storage
@@ -31,8 +32,25 @@ namespace Storage
 
         public string Compare(RefData a, RefData b)
         {
+            var bHead = b;
+            var aHead = a;
+            var visitor = new FindVisitor(bHead);
+            var traverser = new RefDataTraverseWithCondition();
+            var matchSuccess = traverser.Traverse(aHead, visitor);
+            var matchedParts = string.Empty;
 
-            return string.Empty;
+            while (matchSuccess)
+            {
+                matchedParts += "*";
+                matchSuccess = traverser.Traverse(aHead, visitor);
+
+                aHead = a.SubNodes.FirstOrDefault();
+                bHead = b.SubNodes.FirstOrDefault();
+
+                visitor = new FindVisitor(bHead);
+            }
+
+            return matchedParts;
         }
     }
 }
