@@ -50,6 +50,8 @@ namespace Storage
                 visitor = new FindVisitor(bHead);
             }
 
+            //accumulateTraverser(bHead).Traverse -> 
+
             return matchedParts;
         }
     }
