@@ -35,5 +35,18 @@ namespace telephone_number.tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void Positive_match_sample_should_start_with_asterisk()
+        {
+            var factory = new RefDataFactory();
+            var nodeA = factory.Create("12345");
+            var nodeB = factory.Create("12397");
+            var comparer = new RefDataComparer();
+
+            var result = comparer.Compare(nodeA, nodeB);
+
+            Assert.StartsWith("***", result);
+        }
     }
 }
