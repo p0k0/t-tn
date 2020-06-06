@@ -60,4 +60,28 @@ namespace Storage
             }
         }
     }
+
+    public class RefDataDownsideAccumulateTraverseWithStraightBranch
+    {
+        private RefData _currentHead;
+
+        public RefDataDownsideAccumulateTraverseWithStraightBranch(RefData sourceHead)
+        {
+            _currentHead = sourceHead ?? throw new ArgumentNullException(nameof(sourceHead));
+            if (!_currentHead.SubNodes.Any() || Enumerable.Count(_currentHead.SubNodes) != 1)
+                throw new ArgumentNullException(nameof(sourceHead));
+        }
+
+        public virtual void Traverse(RefData node, AccumulateVisitor visitor)
+        {
+            visitor.Visit(node);
+
+            _currentHead = _currentHead.SubNodes.FirstOrDefault();
+
+            foreach (var sub in node.SubNodes.Where(sub => _currentHead != null && sub.Data == _currentHead.Data))
+            {
+                Traverse(sub, visitor);
+            }
+        }
+    }
 }
