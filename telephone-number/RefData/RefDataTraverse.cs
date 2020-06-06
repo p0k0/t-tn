@@ -61,6 +61,9 @@ namespace Storage
         }
     }
 
+    /// <summary>
+    /// traverse refData by tree struture using straight sourceHead as map if any branchin accure
+    /// </summary>
     public class RefDataDownsideAccumulateTraverseWithStraightBranch
     {
         private RefData _currentHead;
