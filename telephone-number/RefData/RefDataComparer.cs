@@ -36,16 +36,16 @@ namespace Storage
             var aHead = a;
             var visitor = new FindVisitor(bHead);
             var traverser = new RefDataDownsideTraverseWithCondition();
-            var matchSuccess = traverser.Traverse(aHead, visitor);
             var matchedParts = string.Empty;
 
-            while (matchSuccess)
+            for (var matchSuccess = true;
+                 matchSuccess;
+                 matchSuccess = traverser.Traverse(aHead, visitor))
             {
                 matchedParts += "*";
-                matchSuccess = traverser.Traverse(aHead, visitor);
 
-                aHead = a.SubNodes.FirstOrDefault();
-                bHead = b.SubNodes.FirstOrDefault();
+                aHead = aHead.SubNodes.FirstOrDefault();
+                bHead = bHead.SubNodes.FirstOrDefault();
 
                 visitor = new FindVisitor(bHead);
             }
