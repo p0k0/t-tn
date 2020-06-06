@@ -35,7 +35,7 @@ namespace Storage
             var bHead = b;
             var aHead = a;
             var visitor = new FindVisitor(bHead);
-            var traverser = new RefDataTraverseWithCondition();
+            var traverser = new RefDataDownsideTraverseWithCondition();
             var matchSuccess = traverser.Traverse(aHead, visitor);
             var matchedParts = string.Empty;
 
@@ -51,6 +51,7 @@ namespace Storage
             }
 
             //accumulateTraverser(bHead).Traverse -> 
+            //var accumulateTraverser = new RefDataDownsideAccumulateTraverseWithBranch();
 
             return matchedParts;
         }
