@@ -12,12 +12,9 @@ namespace Storage
         }
     }
 
-    public class VisitorWithCondition
+    public abstract class VisitorWithCondition
     {
-        public virtual bool Visit(RefData node)
-        {
-            return false;
-        }
+        public abstract bool Visit(RefData node);
     }
 
     public class FindVisitor : VisitorWithCondition
