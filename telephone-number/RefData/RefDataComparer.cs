@@ -13,9 +13,22 @@ namespace Storage
          assume:
          comparer(A,B) return "***45" or "***97"
          or 
-         A.Comparer(B) return "***97" //return part of B that different from A
-         B.Comparer(A) return "***45"//return part of A that different from B
+         A.Compare(B) return "***97" //return part of B that different from A
+         B.Compare(A) return "***45"//return part of A that different from B
+         '*' means that some part(lead part only) are mached
+
+
+        given :
+        refData A = "12345"
+        refData B = "397"
+
+        A.Compare(B) return "397" //return part of B that different from A
+        B.Compare(A) return "12345" //return part of A that different from B
+
+        no '*' mean absent any lead-maching
 
          */
+
+
     }
 }
