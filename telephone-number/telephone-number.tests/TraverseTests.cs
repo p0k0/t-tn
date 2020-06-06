@@ -47,7 +47,7 @@ namespace telephone_number.tests
         }
 
         [Fact]
-        public void Accumulate_traverse_with_straight_source_branch_when_should_accumulate()
+        public void Accumulate_traverse_with_straight_source_branch_should_accumulate()
         {
             var factory = new RefDataFactory();
 
