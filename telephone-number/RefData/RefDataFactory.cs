@@ -11,8 +11,9 @@ namespace Storage
 
         public RefData Create(string number)
         {
+            var head = default(RefData);
             var node = default(RefData);
-            foreach (var digit in number.Reverse())
+            foreach (var digit in number)
             {
                 if (node != null)
                 {
@@ -22,10 +23,11 @@ namespace Storage
                 else
                 {
                     node = Create(digit);
+                    head = node;
                 }
             }
 
-            return node;
+            return head;
         }
     }
 }
