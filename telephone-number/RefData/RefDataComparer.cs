@@ -5,6 +5,11 @@ namespace Storage
 {
     public class RefDataComparer
     {
+        internal RefDataComparer()
+        {
+
+        }
+
         public string Compare(RefData a, RefData b)
         {
             var bHead = b;

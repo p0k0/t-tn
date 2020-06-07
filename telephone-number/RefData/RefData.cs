@@ -7,7 +7,8 @@ namespace Storage
 {
     public class RefData
     {
-        public static RefData Null = null;
+        internal static RefData Null = null;
+        internal static RefData EmptyRoot = new RefData('@');
 
         public RefData Root { get; private set; } = Null;
         public IEnumerable<RefData> SubNodes { get; private set; } = new List<RefData>();

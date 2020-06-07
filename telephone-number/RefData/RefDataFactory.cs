@@ -6,6 +6,10 @@ namespace Storage
     {
         public RefData Create(char data) => new RefData(data);
 
+        public RefData CreateRoot() => RefData.EmptyRoot;
+
+        public RefDataComparer CreateComparer() => new RefDataComparer();
+
         public RefData Create(string number)
         {
             var head = default(RefData);
