@@ -13,14 +13,15 @@ namespace telephone_number.tests
         {
             var factory = new RefDataFactory();
             var storage = factory.CreateStorage();
-            var number1 = "0412578440";
-            var number2 = "0412199803";
+            var numberPart = "041";
+            var number1 = $"{numberPart}2578440";
+            var number2 = $"{numberPart}2199803";
 
             storage.Save(number1);
             storage.Save(number2);
             storage.Save("112");
 
-            IEnumerable<string> autocompleteResult = storage.AssumeComplete("041");
+            IEnumerable<string> autocompleteResult = storage.FindCorrelations(numberPart);
             string[] expected = new string[] { number1, number2 };
 
             Assert.Contains(expected[0], autocompleteResult);
@@ -30,7 +31,21 @@ namespace telephone_number.tests
         [Fact]
         public void Storage_memory_optimization_should_work_success()
         {
+            var factory = new RefDataFactory();
+            var storage = factory.CreateStorage();
+            var numberPart = "041";
+            var number1 = $"{numberPart}2578440";
+            var number2 = $"{numberPart}2199803";
 
+            storage.Save(number1);
+            storage.Save(number2);
+            storage.Save("112");
+            storage.Save("15");
+
+            int memoryConsumed = storage.GetMemoryComsumption();
+            var expected = 20;
+
+            Assert.Equal(expected, memoryConsumed);
         }
     }
 }

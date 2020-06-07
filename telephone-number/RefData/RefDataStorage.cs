@@ -25,5 +25,20 @@ namespace Storage
         {
 
         }
+
+        public IEnumerable<string> FindCorrelations(string numberPart)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(string number1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetMemoryComsumption()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
