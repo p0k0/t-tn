@@ -14,7 +14,7 @@ namespace telephone_number.tests
             var factory = new RefDataFactory();
             var nodeA = factory.Create("12345");
             var nodeB = factory.Create("12397");
-            var comparer = new RefDataComparer();
+            var comparer = factory.CreateComparer();
 
             var expected = "***97";
             var result = comparer.Compare(nodeA, nodeB);
@@ -28,10 +28,25 @@ namespace telephone_number.tests
             var factory = new RefDataFactory();
             var nodeA = factory.Create("12345");
             var nodeB = factory.Create("897");
-            var comparer = new RefDataComparer();
+            var comparer = factory.CreateComparer();
 
             var expected = "897";
             var result = comparer.Compare(nodeA, nodeB);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Negative_matching_sample_with_root_should_success()
+        {
+            var factory = new RefDataFactory();
+            var number = "12345";
+            var nodeA = factory.Create(number);
+            var root = factory.CreateRoot();
+            var comparer = factory.CreateComparer();
+
+            var expected = "12345";
+            var result = comparer.Compare(root, nodeA);
 
             Assert.Equal(expected, result);
         }
@@ -42,7 +57,7 @@ namespace telephone_number.tests
             var factory = new RefDataFactory();
             var nodeA = factory.Create("12345");
             var nodeB = factory.Create("12397");
-            var comparer = new RefDataComparer();
+            var comparer = factory.CreateComparer();
 
             var result = comparer.Compare(nodeA, nodeB);
 
