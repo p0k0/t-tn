@@ -7,6 +7,7 @@ namespace Storage
 {
     public class RefData
     {
+        internal static char EqualPathSymbols = '*';
         internal static RefData Null = null;
         internal static RefData EmptyRoot = new RefData('@');
 
@@ -34,6 +35,19 @@ namespace Storage
         public override int GetHashCode()
         {
             return Data.GetHashCode();
+        }
+
+        public static RefData operator -(RefData minued, RefData subtrahend)
+        {
+            var factory = new RefDataFactory();
+            var comparer = factory.CreateComparer();
+            var result = comparer.Compare(minued, subtrahend);
+            if (result.All(x => x == RefData.EqualPathSymbols))
+                result = comparer.Compare(subtrahend, minued);
+
+            var pathBuilder = new StringBuilder(result.TrimStart(EqualPathSymbols));
+            
+            return factory.Create(pathBuilder.ToString());
         }
     }
 }
