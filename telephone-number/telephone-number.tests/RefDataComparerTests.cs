@@ -23,6 +23,35 @@ namespace telephone_number.tests
         }
 
         [Fact]
+        public void Positive_matching_sample_when_one_tree_is_equal_another_tree_part_should_success()
+        {
+            var factory = new RefDataFactory();
+            var nodeA = factory.Create("12345");
+            var nodeB = factory.Create("123");
+            var comparer = factory.CreateComparer();
+
+            var expected = "***";
+            var result = comparer.Compare(nodeA, nodeB);
+
+            Assert.Equal(expected, result);
+        }
+
+
+        [Fact]
+        public void Positive_matching_sample_when_one_tree_is_equal_another_tree_part_and_remain_should_be_found_success()
+        {
+            var factory = new RefDataFactory();
+            var nodeA = factory.Create("12345");
+            var nodeB = factory.Create("123");
+            var comparer = factory.CreateComparer();
+
+            var expected = "***45";
+            var result = comparer.Compare(nodeB, nodeA);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void Negative_matching_sample_should_success()
         {
             var factory = new RefDataFactory();
