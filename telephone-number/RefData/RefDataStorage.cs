@@ -8,6 +8,40 @@ namespace Storage
     public class RefDataStorage // compactifyed refData groups, where two group with same lead digits can use same data
     {
         /*
+         root (does not store any data just search entry point)
+         |      |      |
+         |      |      |
+         head1  head2  head3 (telephone number beginning)
+         |
+         .
+         .
+         . and so on...
+
+         */
+
+        private RefData _root;
+        private RefDataFactory _factory;
+        private RefDataComparer _comparer;
+
+        internal RefDataStorage()
+        {
+            _factory = new RefDataFactory();
+            _root = _factory.CreateRoot();
+            _comparer = _factory.CreateComparer();
+        }
+
+        public IEnumerable<string> FindCorrelations(string numberPart)
+        {
+            var node = _factory.Create(numberPart);
+            /*
+             find at root node
+             when traverse root with target path except found nodes via visitor
+             itera while that node exists
+             */
+        }
+
+
+        /*
         1 create number
         2 compare with other existing number (head)
           a. match found - append subtree
@@ -19,21 +53,27 @@ namespace Storage
          1. autocopletition 
          2. memory manage as RefData (don't repeat leading digits)
 
+         important note:
+         case:
+           store same number:
+           - store number of user1 as '1234'
+           - store number of user2 as '1234'
+           assume that we store '1234' but save both user?
          */
-
-        internal public RefDataStorage()
+        public void Save(string number)
         {
+            var node = _factory.Create(number);
 
-        }
+            var resultString = _comparer.Compare(_root, node);
+            var result = _factory.Create(resultString);
 
-        public IEnumerable<string> FindCorrelations(string numberPart)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(string number1)
-        {
-            throw new NotImplementedException();
+            if (result == node)
+                _root.AppendSub(node);
+            /*else
+            {
+                var branchRemainPart = node - separatePoint;
+                separatePoint.AppendSub(branchRemainPart);
+            }*/
         }
 
         public int GetMemoryComsumption()

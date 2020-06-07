@@ -61,10 +61,5 @@ namespace Storage
 
             return matchedParts.ToString();
         }
-
-        public RefData FindSeparatePoint(RefData a, RefData b)
-        {
-            return RefData.Null;
-        }
     }
 }
