@@ -39,6 +39,7 @@ namespace Storage
              when traverse root with target path except found nodes via visitor
              itera while that node exists
              */
+            yield return string.Empty;
         }
 
 

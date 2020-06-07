@@ -5,9 +5,9 @@ using System.Text;
 using Xunit;
 using System.Linq;
 
-namespace telephone_number.tests
+namespace Storage.Tests
 {
-    public class TraverseTests
+    public class RefDataTraverseTests
     {
         [Fact]
         public void Conditional_traverse_should_find_target_node()

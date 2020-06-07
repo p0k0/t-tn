@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace telephone_number.tests
+namespace Storage.Tests
 {
     public class RefDataStorageTests
     {
