@@ -23,6 +23,7 @@ namespace Storage
         private RefDataFactory _factory;
         private RefDataComparer _comparer;
 
+
         internal RefDataStorage()
         {
             _factory = new RefDataFactory();
@@ -60,20 +61,22 @@ namespace Storage
            - store number of user2 as '1234'
            assume that we store '1234' but save both user?
          */
-        public void Save(string number)
+        public RefData Save(string number)
         {
             var node = _factory.Create(number);
 
             var resultString = _comparer.Compare(_root, node);
-            var result = _factory.Create(resultString);
+            var compareResult = _factory.Create(resultString);
 
-            if (result == node)
+            if (compareResult == node)//this mean that given node does not still exists
                 _root.AppendSub(node);
             /*else
             {
                 var branchRemainPart = node - separatePoint;
                 separatePoint.AppendSub(branchRemainPart);
             }*/
+
+            return node;
         }
 
         public int GetMemoryComsumption()
