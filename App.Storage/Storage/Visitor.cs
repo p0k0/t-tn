@@ -54,15 +54,11 @@ namespace Storage
     public class VisitorWithStateAsString : Visitor<StringBuilder>
     {
         internal VisitorWithStateAsString() : base(new VisitorStateAsString()) { }
-
-        internal VisitorWithStateAsString(VisitorState<StringBuilder> state) : base(state) { }
     }
 
     public class VisitorWithStateAsRefData : Visitor<RefData>
     {
         internal VisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) { }
-
-        internal VisitorWithStateAsRefData(VisitorState<RefData> state) : base(state) { }
     }
 
     public class AccumulatingPathVisitorWithStateAsRefData : Visitor<RefData>
@@ -71,11 +67,6 @@ namespace Storage
         private IList<StringBuilder> _paths;
 
         internal AccumulatingPathVisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) 
-        {
-            _paths = new List<StringBuilder>();
-        }
-
-        internal AccumulatingPathVisitorWithStateAsRefData(VisitorState<RefData> state) : base(state) 
         {
             _paths = new List<StringBuilder>();
         }

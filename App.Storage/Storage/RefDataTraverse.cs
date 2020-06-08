@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Storage
 {
-    public class RefDataTraverse
+    public class RefDataTraverse//as DFS
     {
         public void Traverse(RefData node, Visitor visitor)
         {
@@ -86,16 +86,16 @@ namespace Storage
         }
     }
 
-    public class RefDataDownsideTraverserWithSeekSatisfiedPath
+    public class RefDataDownsideTraverserWithSeekSatisfiedPaths
     {
         private RefData _traversePath;
 
-        public RefDataDownsideTraverserWithSeekSatisfiedPath(RefData traversePath)
+        public RefDataDownsideTraverserWithSeekSatisfiedPaths(RefData traversePath)
         {
             _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
         }
 
-        public void Traverse(RefData node, VisitorWithStateAsRefData visitor)
+        public void Traverse(RefData node, AccumulatingPathVisitorWithStateAsRefData visitor)
         {
             visitor.Visit(node);
 
