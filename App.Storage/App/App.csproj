@@ -6,4 +6,8 @@
     <RootNamespace>App</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Storage.v2\Storage.v2.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -4,22 +4,18 @@ using System.IO;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using Storage.v2;
 
-class Solution
+namespace App
 {
-    static void Main(string[] args)
+    public class Solution
     {
-        int N = int.Parse(Console.ReadLine());
-        for (int i = 0; i < N; i++)
+        public static void Main(string[] args)
         {
-            string telephone = Console.ReadLine();
+            var g = new Graph();
+            g.AddVertices("873");
+            var s = "!";
         }
-
-        // Write an answer using Console.WriteLine()
-        // To debug: Console.Error.WriteLine("Debug messages...");
-
-
-        // The number of elements (referencing a number) stored in the structure.
-        Console.WriteLine("number");
     }
 }
