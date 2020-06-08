@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace Storage.v2
 {
-    public class SparseVector2D<T> : SparseVector1D<SparseVector1D<T>>
+    public class SparseVector2D<TIndex, TData> : SparseVector1D<TIndex, SparseVector1D<TIndex, TData>>
     {
         public SparseVector2D()
         {
-            _data = new Dictionary<int, SparseVector1D<T>>();
+            _data = new Dictionary<TIndex, SparseVector1D<TIndex, TData>>();
         }
 
-        public SparseVector2D(int i, int j, T value)
+        public SparseVector2D(TIndex i, TIndex j, TData value)
         {
-            _data = new Dictionary<int, SparseVector1D<T>>() { [i] = new SparseVector1D<T>(j, value) };
+            _data = new Dictionary<TIndex, SparseVector1D<TIndex, TData>>() { [i] = new SparseVector1D<TIndex, TData>(j, value) };
         }
 
         private int? _count;
@@ -29,12 +29,12 @@ namespace Storage.v2
             } 
         }
 
-        public override SparseVector1D<T> this[int i] 
+        public override SparseVector1D<TIndex, TData> this[TIndex i] 
         { 
             get
             {
                 if (!_data.TryGetValue(i, out _))
-                    _data.Add(i, new SparseVector1D<T>());
+                    _data.Add(i, new SparseVector1D<TIndex, TData>());
 
                 return _data[i];
             }
@@ -45,22 +45,22 @@ namespace Storage.v2
             }
         }
 
-        public T this[int i, int j]
+        public TData this[TIndex i, TIndex j]
         {
             get 
             {
                 if (!_data.TryGetValue(i, out _))
-                    _data.Add(i, new SparseVector1D<T>());
+                    _data.Add(i, new SparseVector1D<TIndex, TData>());
                 
                 return _data[i][j];
             }
             
             set 
             {
-                if (_data.TryGetValue(i, out var vector) && vector.IndexExists(j))
+                if (_data.TryGetValue(i, out var vector) && vector.HasValueAt(j))
                     vector[j] = value;
                 else
-                    _data.Add(i, new SparseVector1D<T>(j, value));
+                    _data.Add(i, new SparseVector1D<TIndex, TData>(j, value));
             }
         }
     }

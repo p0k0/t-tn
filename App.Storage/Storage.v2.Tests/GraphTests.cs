@@ -11,7 +11,7 @@ namespace Storage.v2.Test
             var g = new SparseGraph();
             g.AddVertices("0165");
 
-            Assert.Equal(4, g.Count);
+            Assert.Equal(3, g.Count);
         }
 
         [Fact]
@@ -21,7 +21,8 @@ namespace Storage.v2.Test
             g.AddVertices("0165");
 
             Assert.Equal(1, g[0][1]);
-            Assert.Equal(1, g[1][6]);
+            Assert.Equal(1,    g[1][6]);
+            Assert.Equal(1,       g[6][5]);
         }
     }
 }

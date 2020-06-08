@@ -9,7 +9,7 @@ namespace Storage
     {
         internal static char EqualPathSymbols = '*';
         internal static RefData Null = null;
-        internal static RefData EmptyRoot = new RefData('@');
+        internal static RefData EmptyRoot = new RefData(char.MinValue);
 
         public RefData Root { get; private set; } = Null;
         public IEnumerable<RefData> SubNodes { get; private set; } = new List<RefData>();

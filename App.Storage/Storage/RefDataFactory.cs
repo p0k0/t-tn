@@ -8,9 +8,6 @@ namespace Storage
 
         public RefData CreateRoot() => RefData.EmptyRoot;
 
-        public VisitorStateAsString CreateVisitorStateAsString() => new VisitorStateAsString();
-        public VisitorStateAsRefData CreateVisitorStateAsRefDate() => new VisitorStateAsRefData();
-
         public VisitorWithStateAsString CreateVisitorWithStateAsString()
             => new VisitorWithStateAsString();
 

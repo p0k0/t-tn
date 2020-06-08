@@ -10,7 +10,7 @@ namespace Storage.v2.Tests
         [Fact]
         public void One_dim_vector_init_should_success()
         {
-            var v1 = new SparseVector1D<int>();
+            var v1 = new SparseVector1D<int, int>();
             v1[0] = 100;
 
             Assert.Equal(100, v1[0]);
