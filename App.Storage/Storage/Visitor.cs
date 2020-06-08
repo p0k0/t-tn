@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -62,5 +63,36 @@ namespace Storage
         internal VisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) { }
 
         internal VisitorWithStateAsRefData(VisitorState<RefData> state) : base(state) { }
+    }
+
+    public class AccumulatingPathVisitorWithStateAsRefData : Visitor<RefData>
+    {
+        private int _counter;
+        private IList<StringBuilder> _paths;
+
+        internal AccumulatingPathVisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) 
+        {
+            _paths = new List<StringBuilder>();
+        }
+
+        internal AccumulatingPathVisitorWithStateAsRefData(VisitorState<RefData> state) : base(state) 
+        {
+            _paths = new List<StringBuilder>();
+        }
+
+        public override void Visit(RefData node)
+        {
+            if (node.SubNodes.Any())//it last node at curent path traverse
+            {
+                if (_paths[_counter] == null)
+                    _paths[_counter] = new StringBuilder();
+
+                _paths[_counter].Append(node.Data);
+            }
+            else
+            {
+                _counter++;
+            }
+        }
     }
 }
