@@ -33,7 +33,8 @@ namespace Storage.Tests.Traverser.VisitorWithState
                 new StringBuilder("01238888"),
             };
 
-            Assert.Equal(expected, visitor.GetVisitedPaths());
+            Assert.Contains(expected[0], visitor.GetVisitedPaths());
+            Assert.Contains(expected[1], visitor.GetVisitedPaths());
         }
     }
 }
