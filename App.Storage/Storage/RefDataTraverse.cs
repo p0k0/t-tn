@@ -61,12 +61,37 @@ namespace Storage
     }
 
     //because possible path select when one branch is splitting - in that case we should use some kind of selection logic
-    public class RefDataDownsideAccumulateTraverseWithBranchPathAsRefData
+    public class RefDataConcretePathTraverser
     {
         private Expression<Func<RefData, bool>> _nextNodePredicate;
         private RefData _traversePath;
 
-        public RefDataDownsideAccumulateTraverseWithBranchPathAsRefData(RefData traversePath)
+        public RefDataConcretePathTraverser(RefData traversePath)
+        {
+            _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
+        }
+
+        public void Traverse(RefData node, AccumulateVisitorWithStateAsRefData visitor)
+        {
+            visitor.Visit(node);
+
+            _traversePath = _traversePath.SubNodes.SingleOrDefault();
+
+            if (_traversePath == null)
+                return;
+
+            _nextNodePredicate = nextNode => nextNode.Data == _traversePath.Data;
+
+            Traverse(node.SubNodes.Where(_nextNodePredicate.Compile()).SingleOrDefault(), visitor);
+        }
+    }
+
+    public class RefDataDownsideTraverserWithSeekSatisfiedPath
+    {
+        private Expression<Func<RefData, bool>> _nextNodePredicate;
+        private RefData _traversePath;
+
+        public RefDataDownsideTraverserWithSeekSatisfiedPath(RefData traversePath)
         {
             _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
         }

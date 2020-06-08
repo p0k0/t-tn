@@ -47,7 +47,7 @@ namespace Storage.Tests.Traverser.VisitorWithAccumulate
 
             var target = factory.Create("012388");
             var visitor = factory.CreateAccumulateVisitorWithStateAsRefData();
-            var traverser = new RefDataDownsideAccumulateTraverseWithBranchPathAsRefData(target);
+            var traverser = new RefDataConcretePathTraverser(target);
 
             traverser.Traverse(nodeA, visitor);
 
