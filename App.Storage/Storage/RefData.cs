@@ -37,6 +37,11 @@ namespace Storage
             return Data.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return Data.ToString();
+        }
+
         public static RefData operator -(RefData minued, RefData subtrahend)
         {
             var factory = new RefDataFactory();

@@ -8,6 +8,15 @@ namespace Storage
 
         public RefData CreateRoot() => RefData.EmptyRoot;
 
+        public VisitorStateAsString CreateVisitorAsString() => new VisitorStateAsString();
+        public VisitorStateAsRefData CreateVisitorAsRefDate() => new VisitorStateAsRefData();
+
+        public AccumulateVisitorWithStateAsString CreateAccumulateVisitorWithStateAsString()
+            => new AccumulateVisitorWithStateAsString();
+
+        public AccumulateVisitorWithStateAsRefData CreateAccumulateVisitorWithStateAsRefData()
+            => new AccumulateVisitorWithStateAsRefData();
+
         public RefDataComparer CreateComparer() => new RefDataComparer();
 
         public RefData Create(string number)

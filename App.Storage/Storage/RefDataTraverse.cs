@@ -36,25 +36,49 @@ namespace Storage
     }
 
     //because possible path select when one branch is splitting - in that case we should use some kind of selection logic
-    public class RefDataDownsideAccumulateTraverseWithBranch
+    public class RefDataDownsideAccumulateTraverseWithBranchPathAsString
     {
-        private Expression<Func<RefData, bool>> _branchSelectCondition;
-        private readonly string _sourceForCompare;
+        private Expression<Func<RefData, bool>> _nextNodePredicate;
+        private readonly string _traversePath;
 
-        public RefDataDownsideAccumulateTraverseWithBranch(string sourceForCompare)
+        public RefDataDownsideAccumulateTraverseWithBranchPathAsString(string traversePath)
         {
-            _sourceForCompare = sourceForCompare ?? throw new ArgumentNullException(nameof(sourceForCompare));
+            _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
         }
 
-        public virtual void Traverse(RefData node, AccumulateVisitor visitor)
+        public void Traverse(RefData node, AccumulateVisitorWithStateAsString visitor)
         {
             visitor.Visit(node);
 
-            _branchSelectCondition = x => _sourceForCompare
-                                            .TrimStart(visitor.GetTraversedPath().ToCharArray())
-                                            .StartsWith(x.Data.ToString());
+            _nextNodePredicate = nextNode => _traversePath.TrimStart(visitor.GetState().ToString().ToCharArray())
+                                                          .StartsWith(nextNode.Data.ToString());
 
-            foreach (var sub in node.SubNodes.Where(_branchSelectCondition.Compile()))
+            foreach (var sub in node.SubNodes.Where(_nextNodePredicate.Compile()))
+            {
+                Traverse(sub, visitor);
+            }
+        }
+    }
+
+    //because possible path select when one branch is splitting - in that case we should use some kind of selection logic
+    public class RefDataDownsideAccumulateTraverseWithBranchPathAsRefData
+    {
+        private Expression<Func<RefData, bool>> _nextNodePredicate;
+        private RefData _traversePath;
+
+        public RefDataDownsideAccumulateTraverseWithBranchPathAsRefData(RefData traversePath)
+        {
+            _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
+        }
+
+        public void Traverse(RefData node, AccumulateVisitorWithStateAsRefData visitor)
+        {
+            visitor.Visit(node);
+
+            _traversePath = _traversePath.SubNodes.SingleOrDefault();
+            _nextNodePredicate = nextNode => nextNode == _traversePath;
+
+            foreach (var sub in node.SubNodes.Where(_nextNodePredicate.Compile()))
             {
                 Traverse(sub, visitor);
             }
@@ -73,7 +97,7 @@ namespace Storage
             _currentHead = sourceHead ?? throw new ArgumentNullException(nameof(sourceHead));
         }
 
-        public virtual void Traverse(RefData node, AccumulateVisitor visitor)
+        public void Traverse(RefData node, AccumulateVisitorWithStateAsString visitor)
         {
             visitor.Visit(node);
 

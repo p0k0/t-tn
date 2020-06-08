@@ -33,20 +33,34 @@ namespace Storage
         }
     }
 
-    public class AccumulateVisitor : Visitor
+    public abstract class AccumulateVisitor<T> : Visitor
     {
-        private readonly StringBuilder _path;
+        private readonly VisitorState<T> _state;
 
-        public AccumulateVisitor()
+        internal AccumulateVisitor(VisitorState<T> state)
         {
-            _path = new StringBuilder();
+            _state = state;
         }
 
         public override void Visit(RefData node)
         {
-            _path.Append(node.Data);
+            _state.ChangeState(node);
         }
 
-        public string GetTraversedPath() => _path.ToString();
+        public T GetState() => _state.Data;
+    }
+
+    public class AccumulateVisitorWithStateAsString : AccumulateVisitor<StringBuilder>
+    {
+        internal AccumulateVisitorWithStateAsString() : base(new VisitorStateAsString()) { }
+
+        internal AccumulateVisitorWithStateAsString(VisitorState<StringBuilder> state) : base(state) { }
+    }
+
+    public class AccumulateVisitorWithStateAsRefData : AccumulateVisitor<RefData>
+    {
+        internal AccumulateVisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) { }
+
+        internal AccumulateVisitorWithStateAsRefData(VisitorState<RefData> state) : base(state) { }
     }
 }

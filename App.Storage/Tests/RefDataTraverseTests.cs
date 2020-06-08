@@ -36,14 +36,14 @@ namespace Storage.Tests
                  .SubNodes.First()//node 3
                  .AppendSub(nodeB);
 
-            var visitor = new AccumulateVisitor();
-            var traverser = new RefDataDownsideAccumulateTraverseWithBranch("0123456789");
+            var visitor = factory.CreateAccumulateVisitorWithStateAsString();
+            var traverser = new RefDataDownsideAccumulateTraverseWithBranchPathAsString("0123456789");
 
             traverser.Traverse(nodeA, visitor);
 
             var expected = "0123456789";
 
-            Assert.Equal(expected, visitor.GetTraversedPath());
+            Assert.Equal(expected, visitor.GetState().ToString());
         }
 
         [Fact]
@@ -60,14 +60,14 @@ namespace Storage.Tests
                  .AppendSub(nodeB);
 
             var target = factory.Create("012388");
-            var visitor = new AccumulateVisitor();
+            var visitor = factory.CreateAccumulateVisitorWithStateAsString();
             var traverser = new RefDataDownsideAccumulateTraverseWithStraightBranch(target);
 
             traverser.Traverse(nodeA, visitor);
 
             var expected = "012388";
 
-            Assert.Equal(expected, visitor.GetTraversedPath());
+            Assert.Equal(expected, visitor.GetState().ToString());
         }
     }
 }

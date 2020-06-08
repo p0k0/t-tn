@@ -53,10 +53,10 @@ namespace Storage
             if (bHead != RefData.Null)
             {
                 var accumulateTraverser = new RefDataDownsideAccumulateTraverseWithStraightBranch(bHead);
-                var remainPartVisitor = new AccumulateVisitor();
+                var remainPartVisitor = new AccumulateVisitorWithStateAsString();
                 accumulateTraverser.Traverse(bHead, remainPartVisitor);
 
-                matchedParts.Append(remainPartVisitor.GetTraversedPath());
+                matchedParts.Append(remainPartVisitor.GetState());
             }
 
             return matchedParts.ToString();
