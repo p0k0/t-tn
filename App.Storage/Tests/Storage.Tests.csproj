@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>telephone_number.tests</RootNamespace>
+    <RootNamespace>Storage.Tests</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
