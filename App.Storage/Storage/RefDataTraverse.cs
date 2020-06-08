@@ -76,12 +76,13 @@ namespace Storage
             visitor.Visit(node);
 
             _traversePath = _traversePath.SubNodes.SingleOrDefault();
-            _nextNodePredicate = nextNode => nextNode == _traversePath;
 
-            foreach (var sub in node.SubNodes.Where(_nextNodePredicate.Compile()))
-            {
-                Traverse(sub, visitor);
-            }
+            if (_traversePath == null)
+                return;
+
+            _nextNodePredicate = nextNode => nextNode.Data == _traversePath.Data;
+
+            Traverse(node.SubNodes.Where(_nextNodePredicate.Compile()).SingleOrDefault(), visitor);
         }
     }
 
