@@ -4,7 +4,7 @@ using System.Text;
 using Xunit;
 using System.Linq;
 
-namespace Storage.Tests.Traverser.VisitorWithAccumulate
+namespace Storage.Tests.Traverser.VisitorWithState
 {
     public class RefDataTraverseWithStateAsStringTests
     {
@@ -21,7 +21,7 @@ namespace Storage.Tests.Traverser.VisitorWithAccumulate
                  .SubNodes.First()//node 3
                  .AppendSub(nodeB);
 
-            var visitor = factory.CreateAccumulateVisitorWithStateAsString();
+            var visitor = factory.CreateVisitorWithStateAsString();
             var traverser = new RefDataDownsideAccumulateTraverseWithBranchPathAsString("0123456789");
 
             traverser.Traverse(nodeA, visitor);

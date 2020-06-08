@@ -4,7 +4,7 @@ using System.Text;
 using Xunit;
 using System.Linq;
 
-namespace Storage.Tests.Traverser.VisitorWithAccumulate
+namespace Storage.Tests.Traverser.VisitorWithState
 {
     public class RefDataTraverseWithStateAsRefDataTests
     {
@@ -22,7 +22,7 @@ namespace Storage.Tests.Traverser.VisitorWithAccumulate
                  .AppendSub(nodeB);
 
             var target = factory.Create("012388");
-            var visitor = factory.CreateAccumulateVisitorWithStateAsString();
+            var visitor = factory.CreateVisitorWithStateAsString();
             var traverser = new RefDataDownsideAccumulateTraverseWithStraightBranch(target);
 
             traverser.Traverse(nodeA, visitor);
@@ -46,7 +46,7 @@ namespace Storage.Tests.Traverser.VisitorWithAccumulate
                  .AppendSub(nodeB);
 
             var target = factory.Create("012388");
-            var visitor = factory.CreateAccumulateVisitorWithStateAsRefData();
+            var visitor = factory.CreateVisitorWithStateAsRefData();
             var traverser = new RefDataConcretePathTraverser(target);
 
             traverser.Traverse(nodeA, visitor);

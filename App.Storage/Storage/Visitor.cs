@@ -33,11 +33,11 @@ namespace Storage
         }
     }
 
-    public abstract class AccumulateVisitor<T> : Visitor
+    public abstract class Visitor<T> : Visitor
     {
         private readonly VisitorState<T> _state;
 
-        internal AccumulateVisitor(VisitorState<T> state)
+        internal Visitor(VisitorState<T> state)
         {
             _state = state;
         }
@@ -50,17 +50,17 @@ namespace Storage
         public T GetState() => _state.Data;
     }
 
-    public class AccumulateVisitorWithStateAsString : AccumulateVisitor<StringBuilder>
+    public class VisitorWithStateAsString : Visitor<StringBuilder>
     {
-        internal AccumulateVisitorWithStateAsString() : base(new VisitorStateAsString()) { }
+        internal VisitorWithStateAsString() : base(new VisitorStateAsString()) { }
 
-        internal AccumulateVisitorWithStateAsString(VisitorState<StringBuilder> state) : base(state) { }
+        internal VisitorWithStateAsString(VisitorState<StringBuilder> state) : base(state) { }
     }
 
-    public class AccumulateVisitorWithStateAsRefData : AccumulateVisitor<RefData>
+    public class VisitorWithStateAsRefData : Visitor<RefData>
     {
-        internal AccumulateVisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) { }
+        internal VisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) { }
 
-        internal AccumulateVisitorWithStateAsRefData(VisitorState<RefData> state) : base(state) { }
+        internal VisitorWithStateAsRefData(VisitorState<RefData> state) : base(state) { }
     }
 }

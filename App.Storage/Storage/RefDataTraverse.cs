@@ -46,7 +46,7 @@ namespace Storage
             _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
         }
 
-        public void Traverse(RefData node, AccumulateVisitorWithStateAsString visitor)
+        public void Traverse(RefData node, VisitorWithStateAsString visitor)
         {
             visitor.Visit(node);
 
@@ -71,7 +71,7 @@ namespace Storage
             _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
         }
 
-        public void Traverse(RefData node, AccumulateVisitorWithStateAsRefData visitor)
+        public void Traverse(RefData node, VisitorWithStateAsRefData visitor)
         {
             visitor.Visit(node);
 
@@ -88,7 +88,6 @@ namespace Storage
 
     public class RefDataDownsideTraverserWithSeekSatisfiedPath
     {
-        private Expression<Func<RefData, bool>> _nextNodePredicate;
         private RefData _traversePath;
 
         public RefDataDownsideTraverserWithSeekSatisfiedPath(RefData traversePath)
@@ -96,7 +95,7 @@ namespace Storage
             _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
         }
 
-        public void Traverse(RefData node, AccumulateVisitorWithStateAsRefData visitor)
+        public void Traverse(RefData node, VisitorWithStateAsRefData visitor)
         {
             visitor.Visit(node);
 
@@ -105,9 +104,8 @@ namespace Storage
             if (_traversePath == null)
                 return;
 
-            _nextNodePredicate = nextNode => nextNode.Data == _traversePath.Data;
-
-            Traverse(node.SubNodes.Where(_nextNodePredicate.Compile()).SingleOrDefault(), visitor);
+            foreach (var sub in node.SubNodes)
+                Traverse(sub, visitor);            
         }
     }
 
@@ -123,7 +121,7 @@ namespace Storage
             _currentHead = sourceHead ?? throw new ArgumentNullException(nameof(sourceHead));
         }
 
-        public void Traverse(RefData node, AccumulateVisitorWithStateAsString visitor)
+        public void Traverse(RefData node, VisitorWithStateAsString visitor)
         {
             visitor.Visit(node);
 
