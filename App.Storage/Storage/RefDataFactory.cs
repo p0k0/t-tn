@@ -17,7 +17,7 @@ namespace Storage
         public VisitorWithStateAsRefData CreateVisitorWithStateAsRefData()
             => new VisitorWithStateAsRefData();
 
-        public AccumulatingPathVisitorWithStateAsRefData CreateAccumulatingVisitor()
+        public AccumulatingPathVisitorWithStateAsRefData CreateVisitorAccumulatingPaths()
             => new AccumulatingPathVisitorWithStateAsRefData();
 
         public RefDataComparer CreateComparer() => new RefDataComparer();

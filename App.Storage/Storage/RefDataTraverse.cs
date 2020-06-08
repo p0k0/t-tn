@@ -88,6 +88,7 @@ namespace Storage
 
     public class RefDataDownsideTraverserWithSeekSatisfiedPaths
     {
+        private Expression<Func<RefData, bool>> _nextNodePredicate;
         private RefData _traversePath;
 
         public RefDataDownsideTraverserWithSeekSatisfiedPaths(RefData traversePath)
@@ -99,13 +100,31 @@ namespace Storage
         {
             visitor.Visit(node);
 
-            _traversePath = _traversePath.SubNodes.SingleOrDefault();
+            var isTraverseAlongPath = _traversePath.SubNodes.Any();
+            if (isTraverseAlongPath)
+            {
+                _traversePath = _traversePath.SubNodes.SingleOrDefault();//go deeper
 
-            if (_traversePath == null)
-                return;
+                _nextNodePredicate = nextNode => nextNode.Data == _traversePath.Data;
 
-            foreach (var sub in node.SubNodes)
-                Traverse(sub, visitor);            
+                if (!node.SubNodes.Any())
+                    return;
+
+                foreach (var sub in node.SubNodes.Where(_nextNodePredicate.Compile()))
+                {
+                    Traverse(sub, visitor);
+                }
+            }
+            else
+            {
+                if (!node.SubNodes.Any())
+                    return;
+
+                foreach (var sub in node.SubNodes)
+                {
+                    Traverse(sub, visitor);
+                }
+            }
         }
     }
 
