@@ -22,19 +22,18 @@ namespace Storage.Tests.Traverser.VisitorWithState
                  .AppendSub(nodeB);
 
             var targetPathForTraverse = factory.Create("0123");
-            var visitor = factory.CreateVisitorAccumulatingPaths();
             var traverser = new RefDataDownsideTraverserWithSeekSatisfiedPaths(targetPathForTraverse);
 
-            traverser.Traverse(nodeA, visitor);
+            traverser.Traverse(nodeA);
 
             var expected = new List<StringBuilder> 
-            { 
-                new StringBuilder("0123456789"),
+            {
                 new StringBuilder("01238888"),
+                new StringBuilder("0123456789"),
             };
 
-            Assert.Contains(expected[0], visitor.GetVisitedPaths());
-            Assert.Contains(expected[1], visitor.GetVisitedPaths());
+            Assert.Equal(expected[0].ToString(), traverser.GetTraversedPaths()[0].ToString());
+            Assert.Equal(expected[1].ToString(), traverser.GetTraversedPaths()[1].ToString());
         }
     }
 }

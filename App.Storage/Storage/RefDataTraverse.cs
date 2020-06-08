@@ -86,44 +86,68 @@ namespace Storage
         }
     }
 
+    public class RefDataDownsideTraverserSavingAllSubnode
+    {
+        public RefDataDownsideTraverserSavingAllSubnode()
+        {
+
+        }
+
+        public void Traverse(RefData node, Visitor visitor)
+        {
+            visitor.Visit(node);
+            foreach (var sub in node.SubNodes)
+            {
+                Traverse(sub, visitor);
+            }
+        }
+    }
+
     public class RefDataDownsideTraverserWithSeekSatisfiedPaths
     {
         private Expression<Func<RefData, bool>> _nextNodePredicate;
-        private RefData _traversePath;
+        private IList<StringBuilder> _paths;
+
+        private Stack<char> _traversedPath;
+        private RefData _targetTraversePath;
 
         public RefDataDownsideTraverserWithSeekSatisfiedPaths(RefData traversePath)
         {
-            _traversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
+            _targetTraversePath = traversePath ?? throw new ArgumentNullException(nameof(traversePath));
+            _paths = new List<StringBuilder>();
+            _traversedPath = new Stack<char>();
         }
 
-        public void Traverse(RefData node, AccumulatingPathVisitorWithStateAsRefData visitor)
+        public void Traverse(RefData node)
         {
-            visitor.Visit(node);
-            
-            if (!node.SubNodes.Any())
-                return;
-
-
-            var isTraverseAlongPath = _traversePath.SubNodes.Any();
+            _traversedPath.Push(node.Data);
+            var nextNodes = Enumerable.Empty<RefData>();
+            var isTraverseAlongPath = _targetTraversePath.SubNodes.Any();
             if (isTraverseAlongPath)
             {
-                _traversePath = _traversePath.SubNodes.SingleOrDefault();//go deeper
-
-                _nextNodePredicate = nextNode => nextNode.Data == _traversePath.Data;
-
-                foreach (var sub in node.SubNodes.Where(_nextNodePredicate.Compile()))
-                {
-                    Traverse(sub, visitor);
-                }
+                _targetTraversePath = _targetTraversePath.SubNodes.SingleOrDefault();//next target node(from straight path)
+                _nextNodePredicate = nextNode => nextNode.Data == _targetTraversePath.Data;
+                nextNodes = node.SubNodes.Where(_nextNodePredicate.Compile());
             }
             else
             {
-                foreach (var sub in node.SubNodes)
-                {
-                    Traverse(sub, visitor);
-                }
+                nextNodes = node.SubNodes;
+            }
+
+            if (!nextNodes.Any())
+            {
+                _paths.Add(new StringBuilder(new string(_traversedPath.AsEnumerable().Reverse().ToArray())));
+                return;
+            }
+
+            foreach (var sub in nextNodes)
+            {
+                Traverse(sub);
+                _traversedPath.Pop();
             }
         }
+
+        public IList<StringBuilder> GetTraversedPaths() => _paths;
     }
 
     /// <summary>

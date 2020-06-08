@@ -60,34 +60,4 @@ namespace Storage
     {
         internal VisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) { }
     }
-
-    public class AccumulatingPathVisitorWithStateAsRefData : Visitor<RefData>
-    {
-        private int _counter;
-        private IList<StringBuilder> _paths;
-
-        internal AccumulatingPathVisitorWithStateAsRefData() : base(new VisitorStateAsRefData()) 
-        {
-            _paths = new List<StringBuilder>();
-        }
-
-        public override void Visit(RefData node)
-        {
-            if (node.SubNodes.Any())//it last node at curent path traverse
-            {
-                if (!_paths.Any())
-                    _paths.Add(new StringBuilder());
-
-                _paths[_counter].Append(node.Data);
-            }
-            else
-            {
-                _paths[_counter].Append(node.Data);
-                _paths.Add(new StringBuilder());
-                _counter++;
-            }
-        }
-
-        public IList<StringBuilder> GetVisitedPaths() => _paths;
-    }
 }
