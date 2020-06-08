@@ -75,15 +75,19 @@ namespace Storage
         {
             if (node.SubNodes.Any())//it last node at curent path traverse
             {
-                if (_paths[_counter] == null)
-                    _paths[_counter] = new StringBuilder();
+                if (!_paths.Any())
+                    _paths.Add(new StringBuilder());
 
                 _paths[_counter].Append(node.Data);
             }
             else
             {
+                _paths[_counter].Append(node.Data);
+                _paths.Add(new StringBuilder());
                 _counter++;
             }
         }
+
+        public IList<StringBuilder> GetVisitedPaths() => _paths;
     }
 }

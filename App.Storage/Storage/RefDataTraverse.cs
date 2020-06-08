@@ -99,6 +99,10 @@ namespace Storage
         public void Traverse(RefData node, AccumulatingPathVisitorWithStateAsRefData visitor)
         {
             visitor.Visit(node);
+            
+            if (!node.SubNodes.Any())
+                return;
+
 
             var isTraverseAlongPath = _traversePath.SubNodes.Any();
             if (isTraverseAlongPath)
@@ -107,9 +111,6 @@ namespace Storage
 
                 _nextNodePredicate = nextNode => nextNode.Data == _traversePath.Data;
 
-                if (!node.SubNodes.Any())
-                    return;
-
                 foreach (var sub in node.SubNodes.Where(_nextNodePredicate.Compile()))
                 {
                     Traverse(sub, visitor);
@@ -117,9 +118,6 @@ namespace Storage
             }
             else
             {
-                if (!node.SubNodes.Any())
-                    return;
-
                 foreach (var sub in node.SubNodes)
                 {
                     Traverse(sub, visitor);
