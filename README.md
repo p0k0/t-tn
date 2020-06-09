@@ -1,57 +1,66 @@
-﻿tree data structurer management
+﻿# _tree data structurer management_
 
-Дано:
+**_Дано:_**
 
 1. не ориентированный граф G
 
 2. pattern поиска - графа такой что:
-  a. pattern - не ветвящийся путь
-  b. pattern - может и не быть подграфом G
 
-Найти (Сделать) реализацию алгоритма:
+    a) pattern - не ветвящийся путь
+
+    aa) pattern - может и не быть подграфом G
+
+**_Найти (Сделать) реализацию алгоритма_**:
 
 можно поддерживать граф G:
-a. добавлять новые pattern
-aa. искать совпадения по pattern 
-    (совпадения считаются верными 
-    если нашелся путь из вершины G 
+
+1. добавлять новые pattern
+
+2. искать совпадения по pattern
+    (совпадения считаются верными
+    если нашелся путь из вершины G
     частично или полностью равный pattern)
 
-    пример (частичного совпадения):
-    G: a1 -> a2 -> a3 -> a4
-        \
-         a5 -> a6
-    
-    pattern: a1 -> a5 (буедт частичным совпадение)
-    pattern: a1 -> a6 (не буедт частичным совпадение)
+пример (частичного совпадения):
 
-    и возвращать найденные варианты "пройденные"
-    до листьев
+```graph notation
+G: a1 -> a2 -> a3 -> a4
+    \
+      a5 -> a6
 
-    пример
-    G: a1 -> a2 -> a3 -> a4
-                    \
-                      -> a5 -> a6
-    
-    pattern: a1 -> a2
-    find result:
-    1. a1 -> a2 -> a3 -> a4
-    2. a1 -> a2 -> a3 -> a5 -> a6
+pattern: a1 -> a5 (буедт частичным совпадение)
+pattern: a1 -> a6 (не буедт частичным совпадение)
+```
 
+и возвращать найденные варианты "пройденные"
+до листьев
 
+пример:
 
-main algorithm
+```graph notation
+G: a1 -> a2 -> a3 -> a4
+                \
+                  -> a5 -> a6
+
+pattern: a1 -> a2
+find result:
+1. a1 -> a2 -> a3 -> a4
+2. a1 -> a2 -> a3 -> a5 -> a6
+```
+***
+# Technical info
+
+## main algorithm
 
 -----
 
-1.Find equal history tail
+1. Find equal history tail
 
-2.Traverse to leaf (save leaf's)
+2. Traverse to leaf (save leaf's)
 
-3.Traverse to root from each saved leaf aggregating traversed path
+3. Traverse to root from each saved leaf aggregating traversed path
 
-
-additional functions
+## additional functions
 
 -----
 
@@ -59,9 +68,12 @@ additional functions
 
 2. merge trees by equal leading part
   example:
-  G1: a1 -> a2 -> a3
-  G2: a1 -> a2 -> a6
-  G3 will be merge result of G1 and G2
-  smth like this
-  G3: a1 -> a2 -> a3
-             \ -> a6
+```
+G1: a1 -> a2 -> a3
+G2: a1 -> a2 -> a6
+
+G3 will be merge result of G1 and G2 smth like this
+
+G3: a1 -> a2 -> a3
+            \ -> a6
+```
