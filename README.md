@@ -47,12 +47,18 @@ find result:
 1. a1 -> a2 -> a3 -> a4
 2. a1 -> a2 -> a3 -> a5 -> a6
 ```
+
 ***
+
 # Technical info
 
-## main algorithm
+* main algorithm
+* additional functions
+* aproximal time eval at _O(n)_  notation
 
------
+---
+
+## main algorithm
 
 1. Find equal history tail
 
@@ -62,13 +68,13 @@ find result:
 
 ## additional functions
 
------
-
 1. build tree from string
 
 2. merge trees by equal leading part
+
   example:
-```
+
+```graph notation
 G1: a1 -> a2 -> a3
 G2: a1 -> a2 -> a6
 
@@ -77,3 +83,22 @@ G3 will be merge result of G1 and G2 smth like this
 G3: a1 -> a2 -> a3
             \ -> a6
 ```
+
+## aproximal time eval at _O(n)_  notation
+
+1. Find equal history tail
+
+    * find required sub-tree head if G is not connected graph _O(n) < log2(n)_   
+    (bin search in ordered array of _n_ head)
+    * at founded head - traverse _s_ node until find history tail _O(n) < logX (n)_   
+    at current subtree with n node, where X = max child degree
+
+2. Traverse to leafs (save leaf's)
+
+    * if at sub graph G1 contain _t_ leaf then _O(n) < t * logX (n)_   
+    at current subtree with n node, where X = max child degree
+
+3. Traverse to root from each saved leaf aggregating traversed path
+
+    * if at sub graph G1 contain _t_ leaf then _O(n) < t * logX (n)_   
+    at current subtree with n node, where X = max child degree
