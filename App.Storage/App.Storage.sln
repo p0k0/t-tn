@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage", "Storage\Storage.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.Impl", "Storage.Impl\Storage.Impl.csproj", "{4A1CE5C9-D4C0-4392-9B01-6DFCBA92F083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.v2", "Storage.v2\Storage.v2.csproj", "{84CEEBEB-5815-4B00-B72F-D21265447787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.v2", "Storage.v2\Storage.v2.csproj", "{84CEEBEB-5815-4B00-B72F-D21265447787}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.v2.Tests", "Storage.v2.Tests\Storage.v2.Tests.csproj", "{3A3BB500-ED1E-49A0-812F-260055A97A5E}"
 EndProject
@@ -23,10 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v3", "v3", "{3829D53B-5EA4-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.v3", "Storage.v3\Storage.v3.csproj", "{DD44F90C-F498-4720-97E4-691F7671539D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.v3.Tests", "Storage.v3.Tests\Storage.v3.Tests.csproj", "{B33E3774-2288-44E8-93D1-156992B4EA2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.v3.Tests", "Storage.v3.Tests\Storage.v3.Tests.csproj", "{B33E3774-2288-44E8-93D1-156992B4EA2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0783988-5A0A-4D0E-9526-63CBDE29529C}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
