@@ -15,7 +15,7 @@ namespace Trees
                 return startNode;
 
             foreach (var sub in startNode.SubNodes.Where(x => x.Data == straightTraversePathHead.Data))
-                return Find(startNode: sub, predicate, straightTraversePathHead.SubNodes.FirstOrDefault());
+                return Find(startNode: sub, predicate, straightTraversePathHead.SubNodes.SingleOrDefault());
 
             return null;
         }
