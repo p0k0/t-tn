@@ -12,7 +12,7 @@ namespace Trees.Tests.Iterator
             var iterator = new DeepFirstSearchByNodeIterator();
 
             var treeHead = factory.CreateStraightTree("01234");
-            var searchResult = iterator.Find(treeHead, node => node.Data == '3');
+            var searchResult = iterator.FindNode(treeHead, node => node.Data == '3');
             var expected = new Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);
@@ -31,7 +31,7 @@ namespace Trees.Tests.Iterator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var searchResult = iterator.Find(treeHead, node => node.Data == '3');
+            var searchResult = iterator.FindNode(treeHead, node => node.Data == '3');
             var expected = new Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);
@@ -50,7 +50,7 @@ namespace Trees.Tests.Iterator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var searchResult = iterator.Find(treeHead, node => node.Data == '3');
+            var searchResult = iterator.FindNode(treeHead, node => node.Data == '3');
             var expected = new Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);
@@ -69,7 +69,7 @@ namespace Trees.Tests.Iterator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var searchResult = iterator.Find(treeHead, node => !node.SubNodes.Any());
+            var searchResult = iterator.FindNode(treeHead, node => !node.SubNodes.Any());
             var expected = new Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);

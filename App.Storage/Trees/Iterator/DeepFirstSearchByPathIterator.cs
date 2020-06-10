@@ -6,7 +6,7 @@ namespace Trees
 {
     public class DeepFirstSearchByPathIterator
     {
-        public Node Find(Node startNode, Expression<Func<Node, bool>> predicate, Node straightTraversePathHead)
+        public Node FindNode(Node startNode, Expression<Func<Node, bool>> predicate, Node straightTraversePathHead)
         {
             if (predicate.Compile().Invoke(startNode) && 
                 straightTraversePathHead != null && 
@@ -17,7 +17,7 @@ namespace Trees
                 return startNode;
 
             foreach (var sub in startNode.SubNodes.Where(x => x.Data == straightTraversePathHead.Data))
-                return Find(startNode: sub, predicate, straightTraversePathHead.SubNodes.SingleOrDefault());
+                return FindNode(startNode: sub, predicate, straightTraversePathHead.SubNodes.SingleOrDefault());
 
             return null;
         }

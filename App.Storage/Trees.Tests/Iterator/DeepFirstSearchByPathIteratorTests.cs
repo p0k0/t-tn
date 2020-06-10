@@ -19,7 +19,7 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.CreateStraightTree("123");
 
-            var searchResult = iterator.Find(treeHead, node => node.Data == '3', traversePathHead);
+            var searchResult = iterator.FindNode(treeHead, node => node.Data == '3', traversePathHead);
             var expected = new Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);
@@ -40,7 +40,7 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.CreateStraightTree("123");
 
-            var searchResult = iterator.Find(treeHead, node => node.Data == '3', traversePathHead);
+            var searchResult = iterator.FindNode(treeHead, node => node.Data == '3', traversePathHead);
             var expected = new Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);
@@ -62,7 +62,7 @@ namespace Trees.Tests.Iterator
             var traversePathHead = factory.CreateStraightTree("457");
 
             var targetNode = new Node { Data = '9' };
-            var searchResult = iterator.Find(treeHead, node => node == targetNode, traversePathHead);
+            var searchResult = iterator.FindNode(treeHead, node => node == targetNode, traversePathHead);
             var expected = new Node { Data = '7' };
 
             Assert.NotEqual(expected, targetNode);
@@ -84,7 +84,7 @@ namespace Trees.Tests.Iterator
             var traversePathHead = factory.CreateStraightTree("457");
 
             var targetNode = new Node { Data = '9' };
-            var searchResult = iterator.Find(treeHead, node => node == targetNode, traversePathHead);
+            var searchResult = iterator.FindNode(treeHead, node => node == targetNode, traversePathHead);
             var expected = new Node { Data = '7' };
 
             Assert.Equal(expected, searchResult);
