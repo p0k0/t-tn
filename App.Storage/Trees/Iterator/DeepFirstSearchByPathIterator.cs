@@ -12,7 +12,7 @@ namespace Trees
                 return startNode;
 
             if (straightTraversePathHead == null)
-                return null;
+                return startNode;
 
             foreach (var sub in startNode.SubNodes.Where(x => x.Data == straightTraversePathHead.Data))
                 return Find(startNode: sub, predicate, straightTraversePathHead.SubNodes.FirstOrDefault());

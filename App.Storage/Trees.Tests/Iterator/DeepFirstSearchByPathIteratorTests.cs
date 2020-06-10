@@ -54,16 +54,40 @@ namespace Trees.Tests.Iterator
 
             var treeHead = factory.CreateStraightTree("0");
             var subTreeA = factory.CreateStraightTree("1234");
-            var subTreeB = factory.CreateStraightTree("45378");
+            var subTreeB = factory.CreateStraightTree("4578");
 
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var traversePathHead = factory.CreateStraightTree("123");
+            var traversePathHead = factory.CreateStraightTree("457");
 
-            var searchResult = iterator.Find(treeHead, node => node.Data == '9', traversePathHead);
+            var targetNode = new Node { Data = '9' };
+            var searchResult = iterator.Find(treeHead, node => node == targetNode, traversePathHead);
+            var expected = new Node { Data = '7' };
 
-            Assert.Null(searchResult);
+            Assert.NotEqual(expected, targetNode);
+        }
+
+        [Fact]
+        public void Should_return_last_equal_node_at_traverse_path_when_target_node_does_not_exists()
+        {
+            var factory = new TreeFactory();
+            var iterator = new DeepFirstSearchByPathIterator();
+
+            var treeHead = factory.CreateStraightTree("0");
+            var subTreeA = factory.CreateStraightTree("1234");
+            var subTreeB = factory.CreateStraightTree("4578");
+
+            treeHead.AppendSub(subTreeA);
+            treeHead.AppendSub(subTreeB);
+
+            var traversePathHead = factory.CreateStraightTree("457");
+
+            var targetNode = new Node { Data = '9' };
+            var searchResult = iterator.Find(treeHead, node => node == targetNode, traversePathHead);
+            var expected = new Node { Data = '7' };
+
+            Assert.Equal(expected, searchResult);
         }
     }
 }
