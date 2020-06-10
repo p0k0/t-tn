@@ -6,7 +6,7 @@ namespace Trees.Accumulator
 {
     public class CollectivelyAccumulator
     {
-        public void Accumulate(Node startNode, Expression<Func<Node, bool>> predicate, AccumulateVisitor accumulateVisitor)
+        public void Accumulate(Node startNode, Expression<Func<Node, bool>> predicate, IVisitor accumulateVisitor)
         {
             accumulateVisitor.Visit(startNode);
 

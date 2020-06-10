@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace Trees.Visitor
 {
-    public class AccumulateVisitor
+    public class AccumulateVisitor : IVisitor
     {
         public StringBuilder TraversedPath { get; set; }
 
@@ -18,7 +16,7 @@ namespace Trees.Visitor
             TraversedPath = new StringBuilder(traversedPath);
         }
 
-        public AccumulateVisitor(AccumulateVisitor another)
+        public AccumulateVisitor(IVisitor another)
         {
             TraversedPath = new StringBuilder(another.ToString());
         }

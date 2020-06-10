@@ -8,14 +8,14 @@ namespace Trees.Accumulator
 {
     public class SeparatelyAccumulator
     {
-        private AccumulateVisitor _initialAccumulator;
+        private IVisitor _initialAccumulator;
 
         public SeparatelyAccumulator()
         {
             _initialAccumulator = new AccumulateVisitor();
         }
 
-        public IEnumerable<AccumulateVisitor> Accumulate(Node startNode, Expression<Func<Node, bool>> predicate)
+        public IEnumerable<IVisitor> Accumulate(Node startNode, Expression<Func<Node, bool>> predicate)
         {
             _initialAccumulator.Visit(startNode);
 
@@ -35,7 +35,7 @@ namespace Trees.Accumulator
             }
         }
 
-        public IEnumerable<AccumulateVisitor> Accumulate(Node startNode, Expression<Func<Node, bool>> predicate, AccumulateVisitor accumulateVisitor)
+        public IEnumerable<IVisitor> Accumulate(Node startNode, Expression<Func<Node, bool>> predicate, IVisitor accumulateVisitor)
         {
             accumulateVisitor.Visit(startNode);
 
