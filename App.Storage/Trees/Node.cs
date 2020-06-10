@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Trees.Accumulator;
+using Trees.Visitor;
 
 namespace Trees
 {
@@ -18,6 +20,15 @@ namespace Trees
         {
             newSubNode.Parent = this;
             SubNodes.Add(newSubNode);
+        }
+
+        public int OverallSubNodeCount()
+        {
+            var accumulator = new CollectivelyAccumulator();
+            var visitor = new CounterVisitor();
+            accumulator.Accumulate(this, node => !node.HasVisited, visitor);
+
+            return visitor.Counter;
         }
 
         public override bool Equals(object obj)

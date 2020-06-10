@@ -12,7 +12,6 @@ namespace Trees.Tests.Accumulator
         public void Collectively_accumulate_should_fill_visitor_travesed_path_that_present_all_tree()
         {
             var factory = new TreeFactory();
-            var accumulator = new CollectivelyAccumulator();
             var visitor = new AccumulateVisitor();
 
             var treeHead = factory.CreateStraightTree("0");
@@ -22,7 +21,9 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
+            var accumulator = new CollectivelyAccumulator();
             accumulator.Accumulate(treeHead, node => !node.HasVisited, visitor);
+
             var expectedPath = "0123453";
 
             Assert.Equal(expectedPath, visitor.TraversedPath.ToString());
