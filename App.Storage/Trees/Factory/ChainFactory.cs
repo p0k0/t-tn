@@ -50,7 +50,7 @@ namespace Trees.Factory
                 node = node.SubNodes[0] as ChainNode;
             }
 
-            return head as ChainNode;
+            return head;
         }
     }
 }
