@@ -8,6 +8,33 @@ namespace Trees.Accumulator
 {
     public class SeparatelyAccumulator
     {
+        private AccumulateVisitor _initialAccumulator;
+
+        public SeparatelyAccumulator()
+        {
+            _initialAccumulator = new AccumulateVisitor();
+        }
+
+        public IEnumerable<AccumulateVisitor> Accumulate(Node startNode, Expression<Func<Node, bool>> predicate)
+        {
+            _initialAccumulator.Visit(startNode);
+
+            if (predicate.Compile().Invoke(startNode))
+                yield return _initialAccumulator;
+
+            if (startNode.SubNodes.Count == 0)
+                yield return _initialAccumulator;
+
+            if (startNode.SubNodes.Count == 1)
+                yield return Accumulate(startNode.SubNodes.Single(), predicate, _initialAccumulator).Single();
+
+            if (startNode.SubNodes.Count > 1)
+            {
+                foreach (var sub in startNode.SubNodes)
+                    yield return Accumulate(sub, predicate, new AccumulateVisitor(_initialAccumulator)).Single();
+            }
+        }
+
         public IEnumerable<AccumulateVisitor> Accumulate(Node startNode, Expression<Func<Node, bool>> predicate, AccumulateVisitor accumulateVisitor)
         {
             accumulateVisitor.Visit(startNode);
