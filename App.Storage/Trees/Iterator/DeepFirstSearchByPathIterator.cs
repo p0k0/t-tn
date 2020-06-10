@@ -8,7 +8,9 @@ namespace Trees
     {
         public Node Find(Node startNode, Expression<Func<Node, bool>> predicate, Node straightTraversePathHead)
         {
-            if (predicate.Compile().Invoke(startNode))
+            if (predicate.Compile().Invoke(startNode) && 
+                straightTraversePathHead != null && 
+                !straightTraversePathHead.SubNodes.Any())
                 return startNode;
 
             if (straightTraversePathHead == null)
