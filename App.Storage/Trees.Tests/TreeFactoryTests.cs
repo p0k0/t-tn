@@ -1,4 +1,5 @@
 using System;
+using Trees.Factory;
 using Xunit;
 
 namespace Trees.Tests
@@ -8,9 +9,9 @@ namespace Trees.Tests
         [Fact]
         public void Should_create_tree()
         {
-            var factory = new TreeFactory();
+            var factory = new ChainFactory();
             
-            var treeHead = factory.CreateStraightTree("123678");
+            var treeHead = factory.Create("123678");
             var treeTail = treeHead      //1
                             .SubNodes[0] //2
                             .SubNodes[0] //3

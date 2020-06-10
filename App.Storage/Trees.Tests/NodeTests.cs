@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Trees.Factory;
+using Xunit;
 
 namespace Trees.Tests
 {
@@ -7,11 +8,11 @@ namespace Trees.Tests
         [Fact]
         public void Should_return_correct_subnodes_count()
         {
-            var factory = new TreeFactory();
+            var factory = new ChainFactory();
             var patternA = "0123";
             var patternB =     "456789";
-            var headA = factory.CreateStraightTree(patternA);
-            var headB = factory.CreateStraightTree(patternB);
+            var headA = factory.Create(patternA);
+            var headB = factory.Create(patternB);
             headA.AppendSub(headB);
             
             var result = headA.CountOverallSubNode();
@@ -23,13 +24,13 @@ namespace Trees.Tests
         [Fact]
         public void Should_return_correct_subnodes_count_case_two()
         {
-            var factory = new TreeFactory();
+            var factory = new ChainFactory();
             var patternA = "0123";
             var patternAAppendix = "873";
             var patternB = "456789";
-            var headA = factory.CreateStraightTree(patternA);
-            var headAAppendix = factory.CreateStraightTree(patternAAppendix);
-            var headB = factory.CreateStraightTree(patternB);
+            var headA = factory.Create(patternA);
+            var headAAppendix = factory.Create(patternAAppendix);
+            var headB = factory.Create(patternB);
 
             headA.AppendSub(headB);
             headA.AppendSub(headAAppendix);

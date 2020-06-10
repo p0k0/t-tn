@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Trees.Node;
 
 namespace Trees
 {
     public class DeepFirstSearchByNodeIterator
     {
-        public BaseNode FindNode(BaseNode startNode, Expression<Func<BaseNode, bool>> predicate)
+        public INode FindNode(INode startNode, Expression<Func<INode, bool>> predicate)
         {
             if (predicate.Compile().Invoke(startNode))
                 return startNode;

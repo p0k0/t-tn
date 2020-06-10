@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Trees.Node;
 using Trees.Visitor;
 
 namespace Trees.Accumulator
 {
     public class SeparatelyAccumulator
     {
-        public IEnumerable<IVisitor> Accumulate(BaseNode startNode, Expression<Func<BaseNode, bool>> predicate, IVisitor accumulateVisitor)
+        public IEnumerable<IVisitor> Accumulate(INode startNode, Expression<Func<INode, bool>> predicate, IVisitor accumulateVisitor)
         {
             accumulateVisitor.Visit(startNode);
 

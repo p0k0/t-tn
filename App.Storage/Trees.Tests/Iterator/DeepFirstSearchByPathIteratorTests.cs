@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Trees.Factory;
 using Xunit;
 
 namespace Trees.Tests.Iterator
@@ -8,21 +9,21 @@ namespace Trees.Tests.Iterator
         [Fact]
         public void Should_find_node_when_tree_with_branches()
         {
-            var factory = new TreeFactory();
+            var factory = new ChainFactory();
             var iterator = new DeepFirstSearchByPathIterator();
 
-            var treeHead = factory.CreateStraightTree("0");
-            var subTreeA = factory.CreateStraightTree("123");
-            var subTreeB = factory.CreateStraightTree("456");
+            var treeHead = factory.Create("0");
+            var subTreeA = factory.Create("123");
+            var subTreeB = factory.Create("456");
 
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var traversePathHead = factory.CreateStraightTree("123");
+            var traversePathHead = factory.Create("123");
 
             iterator.FindLastSatisfiedNode(treeHead, node => node.Data == '3', traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new BaseNode { Data = '3' };
+            var expected = new TreeNode { Data = '3' };
 
             Assert.Equal(expected, searchResult);
         }
@@ -30,21 +31,21 @@ namespace Trees.Tests.Iterator
         [Fact]
         public void Should_find_node_when_tree_with_branches_and_duplicate_node_data()
         {
-            var factory = new TreeFactory();
+            var factory = new ChainFactory();
             var iterator = new DeepFirstSearchByPathIterator();
 
-            var treeHead = factory.CreateStraightTree("0");
-            var subTreeA = factory.CreateStraightTree("123");
-            var subTreeB = factory.CreateStraightTree("453");
+            var treeHead = factory.Create("0");
+            var subTreeA = factory.Create("123");
+            var subTreeB = factory.Create("453");
 
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var traversePathHead = factory.CreateStraightTree("123");
+            var traversePathHead = factory.Create("123");
 
             iterator.FindLastSatisfiedNode(treeHead, node => node.Data == '3', traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new BaseNode { Data = '3' };
+            var expected = new TreeNode { Data = '3' };
 
             Assert.Equal(expected, searchResult);
         }
@@ -52,22 +53,22 @@ namespace Trees.Tests.Iterator
         [Fact]
         public void Should_not_find_node_when_target_node_does_not_exists()
         {
-            var factory = new TreeFactory();
+            var factory = new ChainFactory();
             var iterator = new DeepFirstSearchByPathIterator();
 
-            var treeHead = factory.CreateStraightTree("0");
-            var subTreeA = factory.CreateStraightTree("1234");
-            var subTreeB = factory.CreateStraightTree("4578");
+            var treeHead = factory.Create("0");
+            var subTreeA = factory.Create("1234");
+            var subTreeB = factory.Create("4578");
 
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var traversePathHead = factory.CreateStraightTree("457");
+            var traversePathHead = factory.Create("457");
 
-            var targetNode = new BaseNode { Data = '9' };
+            var targetNode = new TreeNode { Data = '9' };
             iterator.FindLastSatisfiedNode(treeHead, node => node == targetNode, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new BaseNode { Data = '7' };
+            var expected = new TreeNode { Data = '7' };
 
             Assert.NotEqual(expected, targetNode);
         }
@@ -75,22 +76,22 @@ namespace Trees.Tests.Iterator
         [Fact]
         public void Should_return_last_equal_node_at_traverse_path_when_target_node_does_not_exists()
         {
-            var factory = new TreeFactory();
+            var factory = new ChainFactory();
             var iterator = new DeepFirstSearchByPathIterator();
 
-            var treeHead = factory.CreateStraightTree("0");
-            var subTreeA = factory.CreateStraightTree("1234");
-            var subTreeB = factory.CreateStraightTree("4578");
+            var treeHead = factory.Create("0");
+            var subTreeA = factory.Create("1234");
+            var subTreeB = factory.Create("4578");
 
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var traversePathHead = factory.CreateStraightTree("457");
+            var traversePathHead = factory.Create("457");
 
-            var targetNode = new BaseNode { Data = '9' };
+            var targetNode = new TreeNode { Data = '9' };
             iterator.FindLastSatisfiedNode(treeHead, node => node == targetNode, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new BaseNode { Data = '7' };
+            var expected = new TreeNode { Data = '7' };
 
             Assert.Equal(expected, searchResult);
         }

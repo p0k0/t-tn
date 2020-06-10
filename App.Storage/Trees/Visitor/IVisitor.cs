@@ -1,7 +1,9 @@
-﻿namespace Trees.Visitor
+﻿using Trees.Node;
+
+namespace Trees.Visitor
 {
     public interface IVisitor
     {
-        void Visit(BaseNode node);
+        void Visit(INode node);
     }
 }

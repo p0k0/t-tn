@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Trees.Node;
 
 namespace Trees.Visitor
 {
     public class AccumulatePathAsNodeVisitor : IVisitor
     {
-        public IList<StraightTreeNode> TraversedNodes { get; set; }
+        public IList<ChainNode> TraversedNodes { get; set; }
 
         public AccumulatePathAsNodeVisitor()
         {
-            TraversedNodes = new List<StraightTreeNode>();
+            TraversedNodes = new List<ChainNode>();
         }
 
-        public void Visit(BaseNode viditedNode)
+        public void Visit(INode viditedNode)
         {
             viditedNode.HasVisited = true;
-            var newNode = new StraightTreeNode { Data = viditedNode.Data, HasVisited = true };
+            var newNode = new ChainNode { Data = viditedNode.Data, HasVisited = true };
             UpdatePreviousTraversedNode(newNode);
 
             TraversedNodes.Add(newNode);
         }
 
-        private void UpdatePreviousTraversedNode(StraightTreeNode newNode)
+        private void UpdatePreviousTraversedNode(ChainNode newNode)
         {
             if (TraversedNodes.Any())
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Trees.Node;
 using Trees.Visitor;
 
 namespace Trees
@@ -14,7 +15,7 @@ namespace Trees
             Visitor = new AccumulatePathAsNodeVisitor();
         }
 
-        public void FindLastSatisfiedNode(BaseNode startNode, Expression<Func<BaseNode, bool>> predicate, BaseNode straightTraversePathHead)
+        public void FindLastSatisfiedNode(INode startNode, Expression<Func<INode, bool>> predicate, INode straightTraversePathHead)
         {
             if (startNode == null)
                 return;
