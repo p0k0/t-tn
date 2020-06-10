@@ -2,7 +2,7 @@
 
 namespace Trees.Tests.Iterator
 {
-    public class DeepFirstSearchIteratorTests
+    public class DeepFirstSearchByNodeIteratorTests
     {
         [Fact]
         public void Should_find_node_when_it_possible()
