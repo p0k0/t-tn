@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Trees
 {
-    public class DeepFirstSearchIterator
+    public class DeepFirstSearchByNodeIterator
     {
         public Node Find(Node startNode, Expression<Func<Node, bool>> predicate)
         {
