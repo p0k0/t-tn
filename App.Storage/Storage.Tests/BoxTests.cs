@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -37,6 +38,23 @@ namespace Storage.Tests
 
             Assert.Equal(expectedResultA, foundResultByPatternA);
             Assert.Equal(expectedResultB, foundResultByPatternB);
+        }
+
+        [Fact]
+        public void Should_find_patterns_when_exists_more_one_pattern_with_equal_leading_part()
+        {
+            var box = new Box();
+            var leadingPart = "0123";
+            var patternA = $"{leadingPart}456789";
+            var patternB = $"{leadingPart}";
+
+            box.Add(patternA);
+            box.Add(patternB);
+
+            var foundResults = box.Find(leadingPart).ToList();
+
+            Assert.Contains(patternA, foundResults);
+            Assert.Contains(patternB, foundResults);
         }
     }
 }

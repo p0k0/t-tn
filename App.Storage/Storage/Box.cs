@@ -42,10 +42,9 @@ namespace Storage
             
             if (_heads.Contains(newSubTreeHead))
             {
-                var head = _heads.Single(x => x == newSubTreeHead);
+                var head = _heads.Single(x => x.Data == pattern.First());
                 var iterator = new DeepFirstSearchByNodeIterator();
-                var targetNode = new Node { Data = pattern.First() };
-                var foundHead = iterator.FindNode(head, node => node == targetNode);
+                var foundHead = iterator.FindNode(head, node => node.Data == pattern.First());
                 if (foundHead != null)
                 {
                     if (!newSubTreeHead.SubNodes.Any()) //current node still exists as foundHead and any sub adding does not required
