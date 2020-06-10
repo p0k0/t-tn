@@ -4,7 +4,7 @@ namespace Trees
 {
     public class TreeFactory
     {
-        public Node Create(string number)
+        public Node CreateStraightTree(string number)
         {
             var head = default(Node);
             var node = default(Node);

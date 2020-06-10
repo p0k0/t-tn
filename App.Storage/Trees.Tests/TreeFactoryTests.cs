@@ -10,7 +10,7 @@ namespace Trees.Tests
         {
             var factory = new TreeFactory();
             
-            var treeHead = factory.Create("123678");
+            var treeHead = factory.CreateStraightTree("123678");
             var treeTail = treeHead      //1
                             .SubNodes[0] //2
                             .SubNodes[0] //3
