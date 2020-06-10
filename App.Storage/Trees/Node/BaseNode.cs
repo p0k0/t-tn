@@ -4,19 +4,18 @@ using Trees.Visitor;
 
 namespace Trees
 {
-    public class Node
+    public class BaseNode
     {
-        public Node Parent { get; protected set; }
-        public IList<Node> SubNodes { get; protected set; }
+        public BaseNode Parent { get; protected set; }
+        public IList<BaseNode> SubNodes { get; protected set; }
         public char Data { get; set; }
         public bool HasVisited { get; set; }
 
-        public Node()
+        public BaseNode()
         {
-            SubNodes = new List<Node>();
+            SubNodes = new List<BaseNode>();
         }
-
-        public void AppendSub(Node newSubNode)
+        public void AppendSub(BaseNode newSubNode)
         {
             newSubNode.Parent = this;
             SubNodes.Add(newSubNode);
@@ -33,7 +32,7 @@ namespace Trees
 
         public override bool Equals(object obj)
         {
-            return Data.Equals(((Node)obj).Data);
+            return Data.Equals(((BaseNode)obj).Data);
         }
 
         public override int GetHashCode()

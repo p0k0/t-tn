@@ -4,22 +4,22 @@ namespace Trees
 {
     public class TreeFactory
     {
-        public Node CreateStraightTree(string number)
+        public StraightTreeNode CreateStraightTree(string number)
         {
-            var head = default(Node);
-            var node = default(Node);
-            var newNode = default(Node);
+            var head = default(BaseNode);
+            var node = default(BaseNode);
+            var newNode = default(BaseNode);
 
-            head = node = new Node { Data = number[0] };
+            head = node = new StraightTreeNode { Data = number[0] };
 
             foreach (var digit in number.Skip(1))
             {
-                newNode = new Node { Data = digit };
+                newNode = new StraightTreeNode { Data = digit };
                 node.AppendSub(newNode);
                 node = node.SubNodes[0];
             }
 
-            return head;
+            return head as StraightTreeNode;
         }
     }
 }

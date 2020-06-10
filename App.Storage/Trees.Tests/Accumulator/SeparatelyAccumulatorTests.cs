@@ -12,7 +12,7 @@ namespace Trees.Tests.Accumulator
         {
             var factory = new TreeFactory();
             var accumulator = new SeparatelyAccumulator();
-            var visitor = new AccumulateVisitor();
+            var visitor = new AccumulatePathAsStringVisitor();
 
             var treeHead = factory.CreateStraightTree("0");
             var subTreeA = factory.CreateStraightTree("123");
@@ -23,8 +23,8 @@ namespace Trees.Tests.Accumulator
 
             var filledVisitors = accumulator.Accumulate(treeHead, node => !node.HasVisited, visitor).ToList();
             Assert.Equal(2, filledVisitors.Count);
-            Assert.Contains(new AccumulateVisitor("0123"), filledVisitors);
-            Assert.Contains(new AccumulateVisitor("0453"), filledVisitors);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0123"), filledVisitors);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0453"), filledVisitors);
         }
 
         [Fact]
@@ -40,10 +40,10 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var filledVisitors = accumulator.Accumulate(treeHead, node => !node.HasVisited).ToList();
+            var filledVisitors = accumulator.Accumulate(treeHead, node => !node.HasVisited, new AccumulatePathAsStringVisitor()).ToList();
             Assert.Equal(2, filledVisitors.Count);
-            Assert.Contains(new AccumulateVisitor("0123"), filledVisitors);
-            Assert.Contains(new AccumulateVisitor("0453"), filledVisitors);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0123"), filledVisitors);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0453"), filledVisitors);
         }
     }
 }

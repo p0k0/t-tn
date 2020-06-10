@@ -4,7 +4,7 @@
     {
         public int Counter { get; private set; }
 
-        public void Visit(Node node)
+        public void Visit(BaseNode node)
         {
             node.HasVisited = true;
             Counter++;

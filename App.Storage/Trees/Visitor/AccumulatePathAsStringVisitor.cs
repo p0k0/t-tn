@@ -2,26 +2,26 @@
 
 namespace Trees.Visitor
 {
-    public class AccumulateVisitor : IVisitor
+    public class AccumulatePathAsStringVisitor : IVisitor
     {
         public StringBuilder TraversedPath { get; set; }
 
-        public AccumulateVisitor()
+        public AccumulatePathAsStringVisitor()
         {
             TraversedPath = new StringBuilder();
         }
 
-        public AccumulateVisitor(string traversedPath)
+        public AccumulatePathAsStringVisitor(string traversedPath)
         {
             TraversedPath = new StringBuilder(traversedPath);
         }
 
-        public AccumulateVisitor(IVisitor another)
+        public AccumulatePathAsStringVisitor(IVisitor another)
         {
             TraversedPath = new StringBuilder(another.ToString());
         }
 
-        public void Visit(Node node)
+        public void Visit(BaseNode node)
         {
             node.HasVisited = true;
             TraversedPath.Append(node.Data);
@@ -29,7 +29,7 @@ namespace Trees.Visitor
 
         public override bool Equals(object obj)
         {
-            return ToString().Equals( ((AccumulateVisitor)obj).ToString() );
+            return ToString().Equals( ((AccumulatePathAsStringVisitor)obj).ToString() );
         }
 
         public override int GetHashCode()

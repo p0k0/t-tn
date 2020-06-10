@@ -12,7 +12,7 @@ namespace Trees.Tests.Accumulator
         public void Collectively_accumulate_should_fill_visitor_travesed_path_that_present_all_tree()
         {
             var factory = new TreeFactory();
-            var visitor = new AccumulateVisitor();
+            var visitor = new AccumulatePathAsStringVisitor();
 
             var treeHead = factory.CreateStraightTree("0");
             var subTreeA = factory.CreateStraightTree("123");

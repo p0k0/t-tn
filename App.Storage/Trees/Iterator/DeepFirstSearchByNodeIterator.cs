@@ -5,7 +5,7 @@ namespace Trees
 {
     public class DeepFirstSearchByNodeIterator
     {
-        public Node FindNode(Node startNode, Expression<Func<Node, bool>> predicate)
+        public BaseNode FindNode(BaseNode startNode, Expression<Func<BaseNode, bool>> predicate)
         {
             if (predicate.Compile().Invoke(startNode))
                 return startNode;
