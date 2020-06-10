@@ -7,8 +7,11 @@ namespace Trees
     {
         public Node Find(Node startNode, Expression<Func<Node, bool>> predicate)
         {
-            if (predicate.Compile().Invoke(startNode))
+            if (!startNode.HasVisited && predicate.Compile().Invoke(startNode))
+            {
+                startNode.HasVisited = true;
                 return startNode;
+            }
 
             foreach (var sub in startNode.SubNodes)
                 return Find(startNode: sub, predicate);
