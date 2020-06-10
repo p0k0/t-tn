@@ -9,11 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trees", "Trees\Trees.csproj", "{98317477-7F76-4CEC-9352-234BB2E91C15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trees", "Trees\Trees.csproj", "{98317477-7F76-4CEC-9352-234BB2E91C15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trees.Tests", "Trees.Tests\Trees.Tests.csproj", "{5A3D8BAA-DC57-4415-BBD0-FD1D4344AADC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trees.Tests", "Trees.Tests\Trees.Tests.csproj", "{5A3D8BAA-DC57-4415-BBD0-FD1D4344AADC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage", "Storage\Storage.csproj", "{9D3705AD-D489-49C4-B30C-5CDCE3FC1DB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.Tests", "Storage.Tests\Storage.Tests.csproj", "{32A9C12C-1E08-4430-AB9A-D699004FE2E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{6346437E-3E8E-4341-AB8F-F2E3605529FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,17 @@ Global
 		{9D3705AD-D489-49C4-B30C-5CDCE3FC1DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D3705AD-D489-49C4-B30C-5CDCE3FC1DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D3705AD-D489-49C4-B30C-5CDCE3FC1DB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A9C12C-1E08-4430-AB9A-D699004FE2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A9C12C-1E08-4430-AB9A-D699004FE2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A9C12C-1E08-4430-AB9A-D699004FE2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A9C12C-1E08-4430-AB9A-D699004FE2E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A3D8BAA-DC57-4415-BBD0-FD1D4344AADC} = {6346437E-3E8E-4341-AB8F-F2E3605529FC}
+		{32A9C12C-1E08-4430-AB9A-D699004FE2E8} = {6346437E-3E8E-4341-AB8F-F2E3605529FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09482DBF-4467-493D-9140-533F598A405F}
