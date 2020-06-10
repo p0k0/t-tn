@@ -7,6 +7,7 @@ namespace Trees
         public Node Parent { get; protected set; }
         public IList<Node> SubNodes { get; protected set; }
         public char Data { get; set; }
+        public bool HasVisited { get; set; }
 
         public Node()
         {
