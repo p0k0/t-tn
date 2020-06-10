@@ -42,7 +42,6 @@ namespace Trees.Tests.Iterator
         public void Should_find_node_when_tree_with_branches_and_duplicate_node_data()
         {
             var factory = new ChainFactory();
-            var iterator = new DeepFirstSearchByNodeIterator();
 
             var treeHead = factory.Create("0");
             var subTreeA = factory.Create("123");
@@ -51,6 +50,7 @@ namespace Trees.Tests.Iterator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
+            var iterator = new DeepFirstSearchByNodeIterator();
             var searchResult = iterator.FindNode(treeHead, node => node.Data == '3');
             var expected = new TreeNode { Data = '3' };
 

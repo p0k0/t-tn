@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using Trees.Iterator;
 
 namespace Trees
 {
@@ -9,16 +10,19 @@ namespace Trees
 
         }
 
-        public static void ValidateRestrictions(TreeNode newSubNode)
-        {
-            if (newSubNode.SubNodes.Count > 1)
-                throw new NotSupportedException();
-        }
+        /*
+         minus operator act like this:
+         a -> b -> c -> d (minuend)
+         a -> b           (subtrahend)
+                   c -> d (result)
+             
+         */
 
         public static ChainNode operator - (ChainNode minuend, ChainNode subtrahend)
         {
+            var iterator = new ChainMinusIterator();
             
-            return new ChainNode();
+            return iterator.Minus(minuend, subtrahend) as ChainNode;
         }
     }
 }

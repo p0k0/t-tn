@@ -45,8 +45,9 @@ namespace Storage.Tests
         {
             var box = new Box();
             var leadingPart = "0123";
-            var patternA = $"{leadingPart}456789";
-            var patternB = $"{leadingPart}";
+            
+            var patternA = $"{leadingPart}";
+            var patternB = $"{leadingPart}456789";
 
             box.Add(patternA);
             box.Add(patternB);

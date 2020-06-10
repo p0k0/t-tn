@@ -35,7 +35,7 @@ namespace Trees.Factory
             return newNode;
         }
 
-        public ChainNode Create(string number)
+        public (ChainNode head, ChainNode tail) CreateWithHeadAndTail(string number)
         {
             var head = default(ChainNode);
             var node = default(ChainNode);
@@ -50,7 +50,11 @@ namespace Trees.Factory
                 node = node.SubNodes[0] as ChainNode;
             }
 
-            return head;
+            return (head, node);
         }
+
+        public ChainNode Create(string number) =>
+            CreateWithHeadAndTail(number).head;
+        
     }
 }

@@ -22,13 +22,10 @@ namespace Trees
 
             Visitor.Visit(startNode);
             
-            if (predicate.Compile().Invoke(startNode) && 
-                straightTraversePathHead != null && !straightTraversePathHead.SubNodes.Any())
+            if (straightTraversePathHead == null ||
+                straightTraversePathHead != null && !straightTraversePathHead.SubNodes.Any() && predicate.Compile().Invoke(startNode))
                 return;
 
-            if (straightTraversePathHead == null)
-                return;
-            
             foreach (var sub in startNode.SubNodes.Where(x => x.Data == straightTraversePathHead.Data))
                 FindLastSatisfiedNode(startNode: sub, predicate, straightTraversePathHead.SubNodes.SingleOrDefault());
         }

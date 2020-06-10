@@ -13,6 +13,20 @@ namespace Trees
         public char Data { get; set; }
         public bool HasVisited { get; set; }
 
+        private int? _overallSubNodeCount;
+        public int OverallSubNodeCount 
+        { 
+            get 
+            {
+                if (!_overallSubNodeCount.HasValue)
+                {
+                    _overallSubNodeCount = CountOverallSubNode();
+                }
+
+                return _overallSubNodeCount.Value; 
+            }
+        }
+
         public TreeNode()
         {
             SubNodes = new List<INode>();
@@ -27,7 +41,7 @@ namespace Trees
             SubNodes.Add(newSubNode);
         }
 
-        public int CountOverallSubNode()
+        private int CountOverallSubNode()
         {
             var accumulator = new CollectivelyAccumulator();
             var visitor = new CounterVisitor();

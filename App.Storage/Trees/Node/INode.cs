@@ -8,5 +8,6 @@ namespace Trees.Node
         IList<INode> SubNodes { get; set; }
         char Data { get; set; }
         bool HasVisited { get; set; }
+        int OverallSubNodeCount { get; }
     }
 }

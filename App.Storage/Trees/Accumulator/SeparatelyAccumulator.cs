@@ -12,7 +12,7 @@ namespace Trees.Accumulator
         public IEnumerable<IVisitor> Accumulate(INode startNode, Expression<Func<INode, bool>> predicate, IVisitor accumulateVisitor)
         {
             accumulateVisitor.Visit(startNode);
-
+            
             if (predicate.Compile().Invoke(startNode))
                 yield return accumulateVisitor;
 
@@ -28,7 +28,11 @@ namespace Trees.Accumulator
             if (startNode.SubNodes.Count > 1)
             {
                 foreach (var sub in startNode.SubNodes)
-                    yield return Accumulate(sub, predicate, new AccumulatePathAsStringVisitor(accumulateVisitor)).Single();
+                {
+                    var subResult = Accumulate(sub, predicate, new AccumulatePathAsStringVisitor(accumulateVisitor));
+                    foreach (var x in subResult)
+                        yield return x;
+                }
             }
         }
     }

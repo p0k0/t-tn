@@ -10,7 +10,6 @@ namespace Trees.Tests.Iterator
         public void Should_find_node_when_tree_with_branches()
         {
             var factory = new ChainFactory();
-            var iterator = new DeepFirstSearchByPathIterator();
 
             var treeHead = factory.Create("0");
             var subTreeA = factory.Create("123");
@@ -21,6 +20,7 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.Create("123");
 
+            var iterator = new DeepFirstSearchByPathIterator();
             iterator.FindLastSatisfiedNode(treeHead, node => node.Data == '3', traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
             var expected = new TreeNode { Data = '3' };

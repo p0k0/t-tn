@@ -38,36 +38,69 @@ namespace Storage
             if (pattern == string.Empty)
                 return;
 
-            var factory = new ChainFactory();
-            var newSubTreeHead = factory.Create(pattern);
-            
-            if (_heads.Contains(newSubTreeHead))
+            var chainFactory = new ChainFactory();
+            var (newChainHead, newChainTail)= chainFactory.CreateWithHeadAndTail(pattern);
+
+            if (_heads.Contains(newChainHead))
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
-                var iterator = new DeepFirstSearchByPathIterator();
-                var traversePathHead = newSubTreeHead.SubNodes.Single();
-                iterator.FindLastSatisfiedNode(head, node => node.Data == pattern.First(), traversePathHead);
-                var foundNode = iterator.Visitor.TraversedNodes.Last();
-                if (foundNode != null)
+                var tailSearchIterator = new DeepFirstSearchByPathIterator();
+                var traversePathHead = newChainHead.SubNodes.Single();
+
+                tailSearchIterator.FindLastSatisfiedNode(head, node => node.Data == pattern.First(), traversePathHead);
+                /*
+                //a
+                var last = tailSearchIterator.Visitor.TraversedNodes.Last();
+                if (newChainHead.OverallSubNodeCount > tailSearchIterator.Visitor.TraversedNodes.Count)
                 {
-                    if (!newSubTreeHead.SubNodes.Any()) //current node still exists as foundHead and any sub adding does not required
-                        return;
-
-                    if (foundNode.CountOverallSubNode() == traversePathHead.GetLeaf().CountOverallSubNode())//this pattern already exists and has been found
-                        return;
-
-                    foundNode.AppendSub(newSubTreeHead - foundNode);
+                    var diffHead = chainFactory.DeepCopy(traversePathHead) - last;
+                    NewChainHeadNodeCountGreaterThanEqualTraversedNodeCountAtStoredHead(last, diffHead);
                 }
+                else
+                {
+                    var diffHead = chainFactory.DeepCopy(traversePathHead) - last;
+                    NewChainHeadNodeCountSmallerThanEqualTraversedNodeCountAtStoredHead(last, diffHead);//require tree rebuild
+                }
+                //a
+                */
+                
+                //b
+                var foundTailNode = tailSearchIterator.Visitor.TraversedNodes.Last();
+                var foundHeadNode = tailSearchIterator.Visitor.TraversedNodes.First();
+
+                if (foundTailNode != null)
+                {
+                    if (!newChainHead.SubNodes.Any()) //current node still exists as foundHead and any sub adding does not required
+                        return;
+
+                    if (foundTailNode.OverallSubNodeCount == foundHeadNode.OverallSubNodeCount)//this pattern already exists and has been found
+                        return;
+
+                    if (foundTailNode.OverallSubNodeCount < newChainTail.OverallSubNodeCount)//node for insert still exists
+                        foundTailNode.AppendSub(newChainTail - foundTailNode);
+                }
+                //b   
+             
             }
             else
             {
-                _heads.Add(newSubTreeHead);
+                _heads.Add(newChainHead);
             }
         }
 
         public int CountNode()
         {
-            return _heads.Sum(head => head.CountOverallSubNode());
+            return _heads.Sum(head => head.OverallSubNodeCount);
+        }
+
+        private void NewChainHeadNodeCountGreaterThanEqualTraversedNodeCountAtStoredHead(ChainNode newChainLastTraversedTail, ChainNode diffHead)
+        {
+
+        }
+
+        private void NewChainHeadNodeCountSmallerThanEqualTraversedNodeCountAtStoredHead(ChainNode newChainLastTraversedTail, ChainNode diffHead)
+        {
+
         }
     }
 }
