@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -56,5 +56,33 @@ namespace Storage.Tests
             Assert.Contains(patternA, foundResults);
             Assert.Contains(patternB, foundResults);
         }
+
+        [Theory]
+        [ClassData(typeof(BoxTestCountData))]
+        public void CountNode_should_be_correct(List<string> patterns, int expectedNodeCount)
+        {
+            var box = new Box();
+
+            patterns.ForEach(pattern => box.Add(pattern));
+
+            var count = box.CountNode();
+
+            Assert.Equal(expectedNodeCount, count);
+        }
+    }
+
+    internal class BoxTestCountData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            yield return new object[] { new List<string> { "0467123456" }, 10 };
+            yield return new object[] { new List<string> { "0123456789", "1123456789" }, 20 };
+            yield return new object[] { new List<string> { "0123456789", "0123" }, 10 };
+            yield return new object[] { new List<string> { "0412578440", "0412199803", "0468892011", "112", "15" }, 28 };
+        }
+
+        IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator() => GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

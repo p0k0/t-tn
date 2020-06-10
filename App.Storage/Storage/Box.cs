@@ -20,7 +20,7 @@ namespace Storage
         {
             var factory = new TreeFactory();
             var accumulator = new SeparatelyAccumulator();
-            var eachBrachVisitors = Enumerable.Empty<AccumulateVisitor>();
+            var eachBrachVisitors = Enumerable.Empty<IVisitor>();
 
             var targetNode = factory.CreateStraightTree(pattern);
             if (!_heads.Contains(targetNode))
@@ -57,6 +57,11 @@ namespace Storage
             {
                 _heads.Add(newSubTreeHead);
             }
+        }
+
+        public int CountNode()
+        {
+            return _heads.Sum(head => head.CountOverallSubNode());
         }
     }
 }

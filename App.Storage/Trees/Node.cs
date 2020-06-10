@@ -22,7 +22,7 @@ namespace Trees
             SubNodes.Add(newSubNode);
         }
 
-        public int OverallSubNodeCount()
+        public int CountOverallSubNode()
         {
             var accumulator = new CollectivelyAccumulator();
             var visitor = new CounterVisitor();

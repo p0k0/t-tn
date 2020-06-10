@@ -14,7 +14,7 @@ namespace Trees.Tests
             var headB = factory.CreateStraightTree(patternB);
             headA.AppendSub(headB);
             
-            var result = headA.OverallSubNodeCount();
+            var result = headA.CountOverallSubNode();
             var expected = 10;
 
             Assert.Equal(expected, result);
@@ -34,7 +34,7 @@ namespace Trees.Tests
             headA.AppendSub(headB);
             headA.AppendSub(headAAppendix);
 
-            var result = headA.OverallSubNodeCount();
+            var result = headA.CountOverallSubNode();
             var expected = 13;
 
             Assert.Equal(expected, result);
