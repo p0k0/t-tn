@@ -6,17 +6,15 @@ namespace Trees.Iterator
 {
     public class AccumulateIterator
     {
-        public Node Accumulate(Node startNode, Expression<Func<Node, bool>> predicate, AccumulateVisitor accumulateVisitor)
+        public void Accumulate(Node startNode, Expression<Func<Node, bool>> predicate, AccumulateVisitor accumulateVisitor)
         {
             accumulateVisitor.Visit(startNode);
 
             if (predicate.Compile().Invoke(startNode))
-                return startNode;
+                return;
 
             foreach (var sub in startNode.SubNodes)
-                return Accumulate(startNode: sub, predicate, accumulateVisitor);
-
-            return null;
+                Accumulate(startNode: sub, predicate, accumulateVisitor);
         }
     }
 }
