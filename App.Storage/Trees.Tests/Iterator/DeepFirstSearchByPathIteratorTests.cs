@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Trees.Accumulator;
 using Trees.Factory;
 using Xunit;
 
@@ -20,7 +21,7 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.Create("123");
 
-            var iterator = new DeepFirstSearchByPathIterator();
+            var iterator = new SingleTraversedPathAccumulator();
             iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
             var expected = new TreeNode { Data = '3' };
@@ -32,7 +33,7 @@ namespace Trees.Tests.Iterator
         public void Should_find_node_when_tree_with_branches_and_duplicate_node_data()
         {
             var factory = new ChainFactory();
-            var iterator = new DeepFirstSearchByPathIterator();
+            var iterator = new SingleTraversedPathAccumulator();
 
             var treeHead = factory.Create("0");
             var subTreeA = factory.Create("123");
@@ -54,7 +55,7 @@ namespace Trees.Tests.Iterator
         public void Should_not_find_node_when_target_node_does_not_exists()
         {
             var factory = new ChainFactory();
-            var iterator = new DeepFirstSearchByPathIterator();
+            var iterator = new SingleTraversedPathAccumulator();
 
             var treeHead = factory.Create("0");
             var subTreeA = factory.Create("1234");
@@ -77,7 +78,7 @@ namespace Trees.Tests.Iterator
         public void Should_return_last_equal_node_at_traverse_path_when_target_node_does_not_exists()
         {
             var factory = new ChainFactory();
-            var iterator = new DeepFirstSearchByPathIterator();
+            var iterator = new SingleTraversedPathAccumulator();
 
             var treeHead = factory.Create("0");
             var subTreeA = factory.Create("1234");

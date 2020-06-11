@@ -61,7 +61,7 @@ namespace Storage.Tests
 
         [Theory]
         [ClassData(typeof(BoxTestCountData))]
-        public void Added_node_should_be_found_successfully(List<string> patterns, int expectedNodeCount)
+        public void Added_node_should_be_found_successfully(List<string> patterns, int _)
         {
             var box = new Box();
 
@@ -94,10 +94,9 @@ namespace Storage.Tests
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            /*
             yield return new object[] { new List<string> { "0467123456" }, 10,  };
             yield return new object[] { new List<string> { "0123456789", "1123456789" }, 20 };
-            yield return new object[] { new List<string> { "0123456789", "0123" }, 10 };*/
+            yield return new object[] { new List<string> { "0123456789", "0123" }, 10 };
             yield return new object[] { new List<string> { "0412578440", "0412199803", "0468892011", "112", "15" }, 28 };
         }
 

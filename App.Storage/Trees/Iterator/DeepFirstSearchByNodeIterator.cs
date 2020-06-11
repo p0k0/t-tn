@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Trees.Node;
 
-namespace Trees
+namespace Trees.Iterator
 {
     public class DeepFirstSearchByNodeIterator
     {

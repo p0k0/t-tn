@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Trees.Factory;
+using Trees.Iterator;
 using Xunit;
 
 namespace Trees.Tests.Iterator

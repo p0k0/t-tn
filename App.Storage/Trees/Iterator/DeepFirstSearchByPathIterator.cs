@@ -1,24 +1,20 @@
 ﻿using System.Linq;
 using Trees.Node;
-using Trees.Visitor;
 
-namespace Trees
+namespace Trees.Iterator
 {
     public class DeepFirstSearchByPathIterator
     {
-        public AccumulatePathAsNodeVisitor Visitor { get; protected set; }
+        public INode LastTraversedNode { get; protected set; }
+        public INode TraverseRemainder { get; protected set; }
 
-        public DeepFirstSearchByPathIterator()
+        public void Traverse(INode startNode, INode straightTraversePathHead)
         {
-            Visitor = new AccumulatePathAsNodeVisitor();
-        }
-
-        public void FindLastSatisfiedNode(INode startNode, INode straightTraversePathHead)
-        {   
             if (startNode == null)
                 return;
 
-            Visitor.Visit(startNode);
+            LastTraversedNode = startNode;
+            TraverseRemainder = straightTraversePathHead;
 
             if (straightTraversePathHead == null)
                 return;
@@ -26,7 +22,7 @@ namespace Trees
             var nextStartNode = startNode.SubNodes.Where(x => x.Data == straightTraversePathHead.Data).FirstOrDefault();
             var nextTraversePathNode = straightTraversePathHead.SubNodes.SingleOrDefault();
 
-            FindLastSatisfiedNode(nextStartNode, nextTraversePathNode);
+            Traverse(nextStartNode, nextTraversePathNode);
         }
     }
 }

@@ -1,20 +1,24 @@
 ﻿using System.Linq;
 using Trees.Node;
+using Trees.Visitor;
 
-namespace Trees
+namespace Trees.Accumulator
 {
-    public class DeepFirstSearchByPathIterator2
+    public class SingleTraversedPathAccumulator
     {
-        public INode Result { get; protected set; }
-        public INode TraverseRemainder { get; protected set; }
+        public AccumulatePathAsNodeVisitor Visitor { get; protected set; }
+
+        public SingleTraversedPathAccumulator()
+        {
+            Visitor = new AccumulatePathAsNodeVisitor();
+        }
 
         public void FindLastSatisfiedNode(INode startNode, INode straightTraversePathHead)
-        {   
+        {
             if (startNode == null)
                 return;
 
-            Result = startNode;
-            TraverseRemainder = straightTraversePathHead;
+            Visitor.Visit(startNode);
 
             if (straightTraversePathHead == null)
                 return;

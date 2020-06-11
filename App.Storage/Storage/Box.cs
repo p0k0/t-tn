@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Trees;
 using Trees.Accumulator;
 using Trees.Factory;
-using Trees.Node;
+using Trees.Iterator;
 using Trees.Visitor;
 
 namespace Storage
@@ -22,7 +20,7 @@ namespace Storage
         public IEnumerable<string> Find(string searchPattern)
         {
             var factory = new ChainFactory();
-            var accumulator = new SeparatelyAccumulator();
+            var accumulator = new SubBranchesTraverser();
             var eachBrachVisitors = Enumerable.Empty<IVisitor>();
 
             var targetNode = factory.Create(searchPattern);
@@ -33,7 +31,7 @@ namespace Storage
             
             eachBrachVisitors = accumulator.Accumulate(searchHead, new AccumulatePathAsStringVisitor()).ToList();
 
-            var iterator = new DeepFirstSearchByPathIterator();
+            var iterator = new SingleTraversedPathAccumulator();
             iterator.FindLastSatisfiedNode(searchHead, straightTraversePathHead: targetNode.SubNodes.LastOrDefault());
 
             var partiallySatisfiedResult = new string(iterator.Visitor.TraversedNodes.Select(node => node.Data).ToArray());
@@ -46,16 +44,16 @@ namespace Storage
                 return;
 
             var chainFactory = new ChainFactory();
-            var (newChainHead, newChainTail)= chainFactory.CreateWithHeadAndTail(pattern);
+            var newChainHead = chainFactory.Create(pattern);
 
             if (_heads.Contains(newChainHead))
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
-                var pathIterator = new DeepFirstSearchByPathIterator2();
+                var iterator = new DeepFirstSearchByPathIterator();
                 var traversePathHead = newChainHead.SubNodes.Single();
 
-                pathIterator.FindLastSatisfiedNode(head, traversePathHead);
-                (pathIterator.Result as TreeNode).AppendSub(pathIterator.TraverseRemainder);
+                iterator.Traverse(head, traversePathHead);
+                (iterator.LastTraversedNode as TreeNode).AppendSub(iterator.TraverseRemainder);
             }
             else
             {

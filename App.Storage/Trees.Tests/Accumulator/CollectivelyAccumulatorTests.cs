@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Text;
-using Trees.Accumulator;
+﻿using Trees.Accumulator;
 using Trees.Factory;
 using Trees.Visitor;
 using Xunit;
@@ -22,8 +20,8 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var accumulator = new CollectivelyAccumulator();
-            accumulator.Accumulate(treeHead, node => !node.HasVisited, visitor);
+            var accumulator = new DeepFindSearchAccumulator();
+            accumulator.Accumulate(treeHead, visitor);
 
             var expectedPath = "0123453";
 

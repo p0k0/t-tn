@@ -43,9 +43,9 @@ namespace Trees
 
         private int CountOverallSubNode()
         {
-            var accumulator = new CollectivelyAccumulator();
+            var accumulator = new DeepFindSearchAccumulator();
             var visitor = new CounterVisitor();
-            accumulator.Accumulate(this, node => !node.HasVisited, visitor);
+            accumulator.Accumulate(this, visitor);
 
             return visitor.Counter;
         }

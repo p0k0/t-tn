@@ -12,8 +12,6 @@ namespace Trees.Tests.Accumulator
         public void Separately_accumulate_with_three_args_should_fill_each_visited_brach_with_they_own_visitor_that_will_contain_traversed_path()
         {
             var factory = new ChainFactory();
-            var visitor = new AccumulatePathAsStringVisitor();
-
             var treeHead = factory.Create("0");
             var subTreeA = factory.Create("123");
             var subTreeB = factory.Create("453");
@@ -21,7 +19,8 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var accumulator = new SeparatelyAccumulator();
+            var accumulator = new SubBranchesTraverser();
+            var visitor = new AccumulatePathAsStringVisitor();
             var filledVisitors = accumulator.Accumulate(treeHead, visitor).ToList();
 
             Assert.Equal(2, filledVisitors.Count);
@@ -41,7 +40,7 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var accumulator = new SeparatelyAccumulator();
+            var accumulator = new SubBranchesTraverser();
             var filledVisitors = accumulator.Accumulate(treeHead, new AccumulatePathAsStringVisitor()).ToList();
 
             Assert.Equal(2, filledVisitors.Count);

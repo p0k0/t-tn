@@ -5,7 +5,7 @@ using Trees.Visitor;
 
 namespace Trees.Accumulator
 {
-    public class SeparatelyAccumulator
+    public class SubBranchesTraverser
     {
         public IEnumerable<IVisitor> Accumulate(INode startNode, IVisitor accumulateVisitor)
         {
@@ -23,8 +23,8 @@ namespace Trees.Accumulator
             if (startNode.SubNodes.Count > 1)//больше 2ух ветвей значит копируем аккумулятор и прокидываем в каждую ветвь
             {
                 foreach (var sub in startNode.SubNodes)
-                foreach (var x in Accumulate(sub, new AccumulatePathAsStringVisitor(accumulateVisitor)))//yield unwind
-                    yield return x;
+                    foreach (var x in Accumulate(sub, new AccumulatePathAsStringVisitor(accumulateVisitor)))//yield unwind
+                        yield return x;
             }
         }
     }
