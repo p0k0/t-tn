@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using Trees.Node;
 
 namespace Trees.Iterator
@@ -26,10 +24,10 @@ namespace Trees.Iterator
             var subtrahendNextHead = subtrahend.SubNodes.SingleOrDefault();
             var minuendNextHead = subtrahendNextHead != null
                                 ? minuend.SubNodes.Where(x => x.Data == subtrahendNextHead.Data).SingleOrDefault()
-                                : minuend.SubNodes.Single();
+                                : minuend.SubNodes.SingleOrDefault();
             
             if (minuendNextHead == null)
-                return minuend;
+                return ChainNode.Emtpy;
             
             if (subtrahendNextHead == null)
                 return minuendNextHead;

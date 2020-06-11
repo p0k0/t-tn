@@ -10,6 +10,8 @@ namespace Trees
 
         }
 
+        public static ChainNode Emtpy => new ChainNode { Data = char.MinValue };
+
         /*
          minus operator act like this:
          a -> b -> c -> d (minuend)
