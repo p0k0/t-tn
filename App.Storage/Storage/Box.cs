@@ -20,22 +20,21 @@ namespace Storage
         public IEnumerable<string> Find(string searchPattern)
         {
             var factory = new ChainFactory();
-            var accumulator = new SubBranchesAccumulator();
-            var eachBrachVisitors = Enumerable.Empty<IVisitor>();
 
             var targetNode = factory.Create(searchPattern);
             if (!_heads.Contains(targetNode))
                 return Enumerable.Empty<string>();
 
             var searchHead = _heads.SingleOrDefault(x => x.Data == searchPattern.First());
-            
-            eachBrachVisitors = accumulator.Accumulate(searchHead, new AccumulatePathAsStringVisitor()).ToList();
 
+            var accumulator = new SubBranchesAccumulator();
+            accumulator.Accumulate(searchHead, new AccumulatePathAsStringVisitor());
+            
             var iterator = new SingleTraversedPathAccumulator();
             iterator.FindLastSatisfiedNode(searchHead, straightTraversePathHead: targetNode.SubNodes.LastOrDefault());
 
             var partiallySatisfiedResult = new string(iterator.Visitor.TraversedNodes.Select(node => node.Data).ToArray());
-            return eachBrachVisitors.Select(visitor => visitor.ToString()).Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
+            return accumulator.Visitors.Select(visitor => visitor.ToString()).Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
         }
 
         public void Add(string pattern)

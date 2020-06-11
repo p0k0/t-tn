@@ -21,11 +21,11 @@ namespace Trees.Tests.Accumulator
 
             var accumulator = new SubBranchesAccumulator();
             var visitor = new AccumulatePathAsStringVisitor();
-            var filledVisitors = accumulator.Accumulate(treeHead, visitor).ToList();
+            accumulator.Accumulate(treeHead, visitor);
 
-            Assert.Equal(2, filledVisitors.Count);
-            Assert.Contains(new AccumulatePathAsStringVisitor("0123"), filledVisitors);
-            Assert.Contains(new AccumulatePathAsStringVisitor("0453"), filledVisitors);
+            Assert.Equal(2, accumulator.Visitors.Count);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0123"), accumulator.Visitors);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0453"), accumulator.Visitors);
         }
 
         [Fact]
@@ -41,11 +41,11 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeB);
 
             var accumulator = new SubBranchesAccumulator();
-            var filledVisitors = accumulator.Accumulate(treeHead, new AccumulatePathAsStringVisitor()).ToList();
+            accumulator.Accumulate(treeHead, new AccumulatePathAsStringVisitor());
 
-            Assert.Equal(2, filledVisitors.Count);
-            Assert.Contains(new AccumulatePathAsStringVisitor("0123"), filledVisitors);
-            Assert.Contains(new AccumulatePathAsStringVisitor("0453"), filledVisitors);
+            Assert.Equal(2, accumulator.Visitors.Count);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0123"), accumulator.Visitors);
+            Assert.Contains(new AccumulatePathAsStringVisitor("0453"), accumulator.Visitors);
         }
     }
 }
