@@ -4,11 +4,11 @@ using Trees.Visitor;
 
 namespace Trees.Accumulator
 {
-    public class SubBranchesAccumulator
+    public class AccumulateBranchIterator
     {
         public IList<IVisitor> Visitors { get; private set; }
 
-        public SubBranchesAccumulator()
+        public AccumulateBranchIterator()
         {
             Visitors = new List<IVisitor>();
         }

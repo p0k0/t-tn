@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Trees.Accumulator;
+using Trees.Iterator;
 using Trees.Node;
 using Trees.Visitor;
 
@@ -42,7 +42,7 @@ namespace Trees
         private int CountOverallSubNode()
         {
             var visitor = new CounterVisitor();
-            var accumulator = new DeepFindSearchAccumulator(visitor);
+            var accumulator = new TraverseSubNodeIterator(visitor);
             
             accumulator.Accumulate(this);
 

@@ -3,7 +3,7 @@ using Trees.Node;
 
 namespace Trees.Iterator
 {
-    public class DeepFirstSearchByPathIterator
+    public class TraverseSubNodeByPathIterator
     {
         public INode LastTraversedNode { get; protected set; }
         public INode TraverseRemainder { get; protected set; }

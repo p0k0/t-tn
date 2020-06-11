@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Trees.Tests.Iterator
 {
-    public class DeepFirstSearchByPathIterator2Tests
+    public class TraverseSubNodeByPathIteratorTests
     {
         [Fact]
         public void Should_find_node_when_tree_with_branches()
@@ -20,7 +20,7 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.Create("123");
 
-            var iterator = new DeepFirstSearchByPathIterator();
+            var iterator = new TraverseSubNodeByPathIterator();
             iterator.Traverse(treeHead, traversePathHead);
             var expected = subTreeA.SubNodes[0] //2
                                    .SubNodes[0]; //3
