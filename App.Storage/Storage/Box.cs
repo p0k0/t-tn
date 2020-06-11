@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
 using Trees;
 using Trees.Accumulator;
 using Trees.Factory;
+using Trees.Node;
 using Trees.Visitor;
 
 namespace Storage
@@ -17,20 +20,26 @@ namespace Storage
             _heads = new HashSet<TreeNode>();
         }
 
-        public IEnumerable<string> Find(string pattern)
+        public IEnumerable<string> Find(string searchPattern)
         {
             var factory = new ChainFactory();
             var accumulator = new SeparatelyAccumulator();
             var eachBrachVisitors = Enumerable.Empty<IVisitor>();
 
-            var targetNode = factory.Create(pattern);
+            var targetNode = factory.Create(searchPattern);
             if (!_heads.Contains(targetNode))
                 return Enumerable.Empty<string>();
-
-            var headForEdit = _heads.SingleOrDefault(x => x.Data == pattern.First());
-            eachBrachVisitors = accumulator.Accumulate(startNode: headForEdit, node => !node.HasVisited, new AccumulatePathAsStringVisitor()).ToList();
             
-            return eachBrachVisitors.Select(visitor => visitor.ToString()).DefaultIfEmpty();
+            Expression<Func<INode, bool>> findExpression = node => !node.HasVisited; //пока не прошли до листьев
+
+            var searchHead = _heads.SingleOrDefault(x => x.Data == searchPattern.First());
+            
+            eachBrachVisitors = accumulator.Accumulate(startNode: searchHead, findExpression, new AccumulatePathAsStringVisitor()).ToList();
+
+            var iterator = new DeepFirstSearchByPathIterator();
+            iterator.FindLastSatisfiedNode(searchHead, straightTraversePathHead: targetNode.SubNodes.LastOrDefault());
+            var partiallySatisfiedResult = new string(iterator.Visitor.TraversedNodes.Select(node => node.Data).ToArray());
+            return eachBrachVisitors.Select(visitor => visitor.ToString()).Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
         }
 
         public void Add(string pattern)
@@ -41,47 +50,24 @@ namespace Storage
             var chainFactory = new ChainFactory();
             var (newChainHead, newChainTail)= chainFactory.CreateWithHeadAndTail(pattern);
 
-            if (!newChainHead.SubNodes.Any()) //current node still exists as foundHead and any sub adding does not required
-                return;
-
             if (_heads.Contains(newChainHead))
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
-                var tailSearchIterator = new DeepFirstSearchByPathIterator();
+                var pathIterator = new DeepFirstSearchByPathIterator();
                 var traversePathHead = newChainHead.SubNodes.Single();
 
-                tailSearchIterator.FindLastSatisfiedNode(head, node => node.Data == pattern.First(), traversePathHead);
-                /*
-                //a
-                var last = tailSearchIterator.Visitor.TraversedNodes.Last();
-                if (newChainHead.OverallSubNodeCount > tailSearchIterator.Visitor.TraversedNodes.Count)
-                {
-                    var diffHead = chainFactory.DeepCopy(traversePathHead) - last;
-                    NewChainHeadNodeCountGreaterThanEqualTraversedNodeCountAtStoredHead(last, diffHead);
-                }
-                else
-                {
-                    var diffHead = chainFactory.DeepCopy(traversePathHead) - last;
-                    NewChainHeadNodeCountSmallerThanEqualTraversedNodeCountAtStoredHead(last, diffHead);//require tree rebuild
-                }
-                //a
-                */
-                
-                //b
-                var foundTailNode = tailSearchIterator.Visitor.TraversedNodes.Last();
-                var foundHeadNode = tailSearchIterator.Visitor.TraversedNodes.First();
+                pathIterator.FindLastSatisfiedNode(head, /*node => node.Data == pattern.First(), */traversePathHead);
 
-                if (foundTailNode != null)
+                var foundChainTailNode = pathIterator.Visitor.TraversedNodes.Last();
+                var foundChainHeadNode = pathIterator.Visitor.TraversedNodes.First();
+
+                if (foundChainTailNode != null &&
+                    newChainHead.OverallSubNodeCount > foundChainHeadNode.OverallSubNodeCount)
                 {
-
-                    if (foundTailNode.OverallSubNodeCount == foundHeadNode.OverallSubNodeCount)//this pattern already exists and has been found
-                        return;
-
-                    if (foundTailNode.OverallSubNodeCount < newChainTail.OverallSubNodeCount)//node for insert still exists
-                        foundTailNode.AppendSub(newChainTail - foundTailNode);
+                    var cutStartIndex = newChainHead.OverallSubNodeCount - foundChainHeadNode.OverallSubNodeCount;
+                    var newChain = chainFactory.Create(pattern.Substring(cutStartIndex));
+                    foundChainTailNode.AppendSub(newChain);
                 }
-                //b   
-             
             }
             else
             {
