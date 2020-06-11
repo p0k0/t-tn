@@ -10,7 +10,6 @@ namespace Trees.Factory
             var newNode = new TreeNode
             {
                 Data = node.Data,
-                HasVisited = node.HasVisited
             };
 
             foreach (var sub in node.SubNodes)
@@ -27,7 +26,6 @@ namespace Trees.Factory
             var newNode = new TreeNode
             {
                 Data = node.Data,
-                HasVisited = node.HasVisited
             };
 
             return newNode;

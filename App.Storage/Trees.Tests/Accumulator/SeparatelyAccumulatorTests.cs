@@ -19,7 +19,7 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var accumulator = new SubBranchesTraverser();
+            var accumulator = new SubBranchesAccumulator();
             var visitor = new AccumulatePathAsStringVisitor();
             var filledVisitors = accumulator.Accumulate(treeHead, visitor).ToList();
 
@@ -40,7 +40,7 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var accumulator = new SubBranchesTraverser();
+            var accumulator = new SubBranchesAccumulator();
             var filledVisitors = accumulator.Accumulate(treeHead, new AccumulatePathAsStringVisitor()).ToList();
 
             Assert.Equal(2, filledVisitors.Count);

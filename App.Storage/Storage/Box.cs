@@ -20,7 +20,7 @@ namespace Storage
         public IEnumerable<string> Find(string searchPattern)
         {
             var factory = new ChainFactory();
-            var accumulator = new SubBranchesTraverser();
+            var accumulator = new SubBranchesAccumulator();
             var eachBrachVisitors = Enumerable.Empty<IVisitor>();
 
             var targetNode = factory.Create(searchPattern);

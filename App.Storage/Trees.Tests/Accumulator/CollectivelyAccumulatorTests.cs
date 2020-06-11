@@ -20,8 +20,8 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var accumulator = new DeepFindSearchAccumulator();
-            accumulator.Accumulate(treeHead, visitor);
+            var accumulator = new DeepFindSearchAccumulator(visitor);
+            accumulator.Accumulate(treeHead);
 
             var expectedPath = "0123453";
 

@@ -13,7 +13,6 @@ namespace Trees.Factory
             var newNode = new ChainNode
             {
                 Data = node.Data,
-                HasVisited = node.HasVisited
             };
 
             newNode.AppendSub(DeepCopy(node.SubNodes.SingleOrDefault()));
@@ -29,7 +28,6 @@ namespace Trees.Factory
             var newNode = new ChainNode
             {
                 Data = node.Data,
-                HasVisited = node.HasVisited
             };
 
             return newNode;

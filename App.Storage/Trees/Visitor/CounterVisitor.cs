@@ -8,7 +8,6 @@ namespace Trees.Visitor
         
         public void Visit(INode node)
         {
-            node.HasVisited = true;
             Counter++;
         }
     }
