@@ -22,7 +22,7 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeB);
 
             var accumulator = new SeparatelyAccumulator();
-            var filledVisitors = accumulator.Accumulate(treeHead, node => !node.HasVisited, visitor).ToList();
+            var filledVisitors = accumulator.Accumulate(treeHead, visitor).ToList();
 
             Assert.Equal(2, filledVisitors.Count);
             Assert.Contains(new AccumulatePathAsStringVisitor("0123"), filledVisitors);
@@ -42,7 +42,7 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeB);
 
             var accumulator = new SeparatelyAccumulator();
-            var filledVisitors = accumulator.Accumulate(treeHead, node => !node.HasVisited, new AccumulatePathAsStringVisitor()).ToList();
+            var filledVisitors = accumulator.Accumulate(treeHead, new AccumulatePathAsStringVisitor()).ToList();
 
             Assert.Equal(2, filledVisitors.Count);
             Assert.Contains(new AccumulatePathAsStringVisitor("0123"), filledVisitors);

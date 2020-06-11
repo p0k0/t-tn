@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using Trees;
 using Trees.Accumulator;
 using Trees.Factory;
@@ -29,12 +28,10 @@ namespace Storage
             var targetNode = factory.Create(searchPattern);
             if (!_heads.Contains(targetNode))
                 return Enumerable.Empty<string>();
-            
-            Expression<Func<INode, bool>> findExpression = node => !node.HasVisited; //пока не прошли до листьев
 
             var searchHead = _heads.SingleOrDefault(x => x.Data == searchPattern.First());
             
-            eachBrachVisitors = accumulator.Accumulate(startNode: searchHead, findExpression, new AccumulatePathAsStringVisitor()).ToList();
+            eachBrachVisitors = accumulator.Accumulate(searchHead, new AccumulatePathAsStringVisitor()).ToList();
 
             var iterator = new DeepFirstSearchByPathIterator();
             iterator.FindLastSatisfiedNode(searchHead, straightTraversePathHead: targetNode.SubNodes.LastOrDefault());
