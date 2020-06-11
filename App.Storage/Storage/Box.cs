@@ -41,6 +41,9 @@ namespace Storage
             var chainFactory = new ChainFactory();
             var (newChainHead, newChainTail)= chainFactory.CreateWithHeadAndTail(pattern);
 
+            if (!newChainHead.SubNodes.Any()) //current node still exists as foundHead and any sub adding does not required
+                return;
+
             if (_heads.Contains(newChainHead))
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
@@ -70,8 +73,6 @@ namespace Storage
 
                 if (foundTailNode != null)
                 {
-                    if (!newChainHead.SubNodes.Any()) //current node still exists as foundHead and any sub adding does not required
-                        return;
 
                     if (foundTailNode.OverallSubNodeCount == foundHeadNode.OverallSubNodeCount)//this pattern already exists and has been found
                         return;
