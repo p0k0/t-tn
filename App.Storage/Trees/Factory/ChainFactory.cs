@@ -41,13 +41,13 @@ namespace Trees.Factory
             var node = default(ChainNode);
             var newNode = default(ChainNode);
 
-            head = node = new ChainNode { Data = number[0] };
+            head = node = new ChainNode { Data = number.FirstOrDefault() };
 
             foreach (var digit in number.Skip(1))
             {
                 newNode = new ChainNode { Data = digit };
                 node.AppendSub(newNode);
-                node = node.SubNodes[0] as ChainNode;
+                node = node.SubNodes.First() as ChainNode;
             }
 
             return (head, node);
