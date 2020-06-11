@@ -1,13 +1,13 @@
 ﻿using Trees.Node;
 using Trees.Visitor;
 
-namespace Trees.Accumulator
+namespace Trees.Iterator
 {
-    public class DeepFindSearchAccumulator
+    public class TraverseSubNodeIterator
     {
         private readonly IVisitor _accumulateVisitor;
 
-        public DeepFindSearchAccumulator(IVisitor accumulateVisitor)
+        public TraverseSubNodeIterator(IVisitor accumulateVisitor)
         {
             _accumulateVisitor = accumulateVisitor;
         }

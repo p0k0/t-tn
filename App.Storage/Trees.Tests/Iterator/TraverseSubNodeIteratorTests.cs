@@ -1,11 +1,11 @@
-﻿using Trees.Accumulator;
-using Trees.Factory;
+﻿using Trees.Factory;
+using Trees.Iterator;
 using Trees.Visitor;
 using Xunit;
 
-namespace Trees.Tests.Accumulator
+namespace Trees.Tests.Iterator
 {
-    public class CollectivelyAccumulatorTests
+    public class TraverseSubNodeIteratorTests
     {
         [Fact]
         public void Collectively_accumulate_should_fill_visitor_travesed_path_that_present_all_tree()
@@ -20,7 +20,7 @@ namespace Trees.Tests.Accumulator
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var accumulator = new DeepFindSearchAccumulator(visitor);
+            var accumulator = new TraverseSubNodeIterator(visitor);
             accumulator.Accumulate(treeHead);
 
             var expectedPath = "0123453";

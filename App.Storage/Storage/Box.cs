@@ -27,13 +27,14 @@ namespace Storage
 
             var searchHead = _heads.SingleOrDefault(x => x.Data == searchPattern.First());
 
-            var accumulator = new SubBranchesAccumulator();
+            var accumulator = new AccumulateBranchIterator();
             accumulator.Accumulate(searchHead, new AccumulatePathAsStringVisitor());
-            
-            var iterator = new SingleTraversedPathAccumulator();
+
+            var accVisitor = new AccumulatePathAsNodeVisitor();
+            var iterator = new AccumulateNodeIterator(accVisitor);
             iterator.FindLastSatisfiedNode(searchHead, straightTraversePathHead: targetNode.SubNodes.LastOrDefault());
 
-            var partiallySatisfiedResult = new string(iterator.Visitor.TraversedNodes.Select(node => node.Data).ToArray());
+            var partiallySatisfiedResult = new string(accVisitor.TraversedNodes.Select(node => node.Data).ToArray());
             return accumulator.Visitors.Select(visitor => visitor.ToString()).Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
         }
 
@@ -48,7 +49,7 @@ namespace Storage
             if (_heads.Contains(newChainHead))
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
-                var iterator = new DeepFirstSearchByPathIterator();
+                var iterator = new TraverseSubNodeByPathIterator();
                 var traversePathHead = newChainHead.SubNodes.Single();
 
                 iterator.Traverse(head, traversePathHead);

@@ -4,13 +4,17 @@ using Trees.Visitor;
 
 namespace Trees.Accumulator
 {
-    public class SingleTraversedPathAccumulator
+    public class AccumulateNodeIterator
     {
         public AccumulatePathAsNodeVisitor Visitor { get; protected set; }
 
-        public SingleTraversedPathAccumulator()
+        public AccumulateNodeIterator(AccumulatePathAsNodeVisitor visitor)
         {
-            Visitor = new AccumulatePathAsNodeVisitor();
+            Visitor = visitor;
+        }
+
+        public AccumulateNodeIterator() : this(new AccumulatePathAsNodeVisitor())
+        {
         }
 
         public void FindLastSatisfiedNode(INode startNode, INode straightTraversePathHead)
