@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Trees.Tests
 {
-    public class NodeTests
+    public class ChainNodeTests
     {
         [Fact]
         public void Should_return_correct_subnodes_count()
@@ -40,5 +40,30 @@ namespace Trees.Tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void Minus_operator_should_return_correct_result_when_minuend_greater_subtrahend()
+        { }
+
+        [Fact]
+        public void Minus_operator_should_return_correct_result_when_minuend_lower_subtrahend()
+        { }
+
+        [Fact]
+        public void Minus_operator_should_return_correct_result_when_minuend_equal_subtrahend()
+        {
+            var factory = new ChainFactory();
+            var minuendStr   = "0123789";
+            var subtrhendStr = "0123";
+            var expectedStr  =     "789";
+            var minuend = factory.Create(minuendStr);
+            var subtrahend = factory.Create(subtrhendStr);
+            var expected = factory.Create(expectedStr);
+
+            var result = minuend - subtrahend;
+
+            Assert.Equal(expected, result);
+        }
+
     }
 }
