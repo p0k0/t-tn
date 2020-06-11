@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Trees.Node;
 using Trees.Visitor;
@@ -8,6 +8,7 @@ namespace Trees.Accumulator
     public class CollectivelyAccumulator
     {
         public void Accumulate(INode startNode, Expression<Func<INode, bool>> predicate, IVisitor accumulateVisitor)
+
         {
             accumulateVisitor.Visit(startNode);
 

@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Trees.Accumulator;
 using Trees.Factory;
 using Trees.Visitor;
@@ -47,6 +47,7 @@ namespace Trees.Tests.Accumulator
             Assert.Equal(2, filledVisitors.Count);
             Assert.Contains(new AccumulatePathAsStringVisitor("0123"), filledVisitors);
             Assert.Contains(new AccumulatePathAsStringVisitor("0453"), filledVisitors);
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Trees.Node;
 using Trees.Visitor;
@@ -25,6 +25,7 @@ namespace Trees.Accumulator
                 foreach (var sub in startNode.SubNodes)
                 foreach (var x in Accumulate(sub, new AccumulatePathAsStringVisitor(accumulateVisitor)))//yield unwind
                     yield return x;
+
             }
         }
     }

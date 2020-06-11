@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Trees.Factory;
 using Xunit;
 
@@ -24,6 +24,7 @@ namespace Trees.Tests.Iterator
             iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
             var expected = new TreeNode { Data = '3' };
+
 
             Assert.Equal(expected, searchResult);
         }
@@ -59,6 +60,7 @@ namespace Trees.Tests.Iterator
             var treeHead = factory.Create("0");
             var subTreeA = factory.Create("1234");
             var subTreeB = factory.Create("4578");
+
 
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
