@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using Trees.Node;
 using Trees.Visitor;
 
@@ -15,19 +13,20 @@ namespace Trees
             Visitor = new AccumulatePathAsNodeVisitor();
         }
 
-        public void FindLastSatisfiedNode(INode startNode, Expression<Func<INode, bool>> predicate, INode straightTraversePathHead)
-        {
+        public void FindLastSatisfiedNode(INode startNode, INode straightTraversePathHead)
+        {   
             if (startNode == null)
                 return;
 
             Visitor.Visit(startNode);
-            
-            if (straightTraversePathHead == null ||
-                straightTraversePathHead != null && !straightTraversePathHead.SubNodes.Any() && predicate.Compile().Invoke(startNode))
+
+            if (straightTraversePathHead == null)
                 return;
 
-            foreach (var sub in startNode.SubNodes.Where(x => x.Data == straightTraversePathHead.Data))
-                FindLastSatisfiedNode(startNode: sub, predicate, straightTraversePathHead.SubNodes.SingleOrDefault());
+            var nextStartNode = startNode.SubNodes.Where(x => x.Data == straightTraversePathHead.Data).FirstOrDefault();
+            var nextTraversePathNode = straightTraversePathHead.SubNodes.SingleOrDefault();
+
+            FindLastSatisfiedNode(nextStartNode, nextTraversePathNode);
         }
     }
 }

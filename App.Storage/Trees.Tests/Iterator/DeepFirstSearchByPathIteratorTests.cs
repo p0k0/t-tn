@@ -21,7 +21,7 @@ namespace Trees.Tests.Iterator
             var traversePathHead = factory.Create("123");
 
             var iterator = new DeepFirstSearchByPathIterator();
-            iterator.FindLastSatisfiedNode(treeHead, node => node.Data == '3', traversePathHead);
+            iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
             var expected = new TreeNode { Data = '3' };
 
@@ -43,7 +43,7 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.Create("123");
 
-            iterator.FindLastSatisfiedNode(treeHead, node => node.Data == '3', traversePathHead);
+            iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
             var expected = new TreeNode { Data = '3' };
 
@@ -66,7 +66,7 @@ namespace Trees.Tests.Iterator
             var traversePathHead = factory.Create("457");
 
             var targetNode = new TreeNode { Data = '9' };
-            iterator.FindLastSatisfiedNode(treeHead, node => node == targetNode, traversePathHead);
+            iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
             var expected = new TreeNode { Data = '7' };
 
@@ -89,7 +89,7 @@ namespace Trees.Tests.Iterator
             var traversePathHead = factory.Create("457");
 
             var targetNode = new TreeNode { Data = '9' };
-            iterator.FindLastSatisfiedNode(treeHead, node => node == targetNode, traversePathHead);
+            iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
             var expected = new TreeNode { Data = '7' };
 
