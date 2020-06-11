@@ -25,14 +25,11 @@ namespace Trees.Accumulator
                     yield return subResult;
             }
 
-            if (startNode.SubNodes.Count > 1)
+            if (startNode.SubNodes.Count > 1)//больше 2ух ветвей значит копируем аккумулятор и прокидываем в каждую ветвь
             {
                 foreach (var sub in startNode.SubNodes)
-                {
-                    var subResult = Accumulate(sub, predicate, new AccumulatePathAsStringVisitor(accumulateVisitor));
-                    foreach (var x in subResult)
-                        yield return x;
-                }
+                foreach (var x in Accumulate(sub, predicate, new AccumulatePathAsStringVisitor(accumulateVisitor)))//yield unwind
+                    yield return x;
             }
         }
     }
