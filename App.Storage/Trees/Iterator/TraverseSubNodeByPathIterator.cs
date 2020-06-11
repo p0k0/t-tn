@@ -1,14 +1,14 @@
 ﻿using System.Linq;
-using Trees.Node;
+
 
 namespace Trees.Iterator
 {
     public class TraverseSubNodeByPathIterator
     {
-        public INode LastTraversedNode { get; protected set; }
-        public INode TraverseRemainder { get; protected set; }
+        public Node LastTraversedNode { get; protected set; }
+        public Node TraverseRemainder { get; protected set; }
 
-        public void Traverse(INode startNode, INode straightTraversePathHead)
+        public void Traverse(Node startNode, Node straightTraversePathHead)
         {
             if (startNode == null)
                 return;

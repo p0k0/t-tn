@@ -1,36 +1,35 @@
 ﻿using System.Collections.Generic;
 using Trees.Iterator;
-using Trees.Node;
 using Trees.Visitor;
 
 namespace Trees
 {
-    public class TreeNode : INode
+    public class Node
     {
-        public INode Parent { get; set; }
-        public IList<INode> SubNodes { get; set; }
+        public Node Parent { get; set; }
+        public IList<Node> SubNodes { get; set; }
         public char Data { get; set; }
 
         private int? _overallSubNodeCount;
-        public int OverallSubNodeCount 
-        { 
-            get 
+        public int OverallSubNodeCount
+        {
+            get
             {
                 if (!_overallSubNodeCount.HasValue)
                 {
                     _overallSubNodeCount = CountOverallSubNode();
                 }
 
-                return _overallSubNodeCount.Value; 
+                return _overallSubNodeCount.Value;
             }
         }
 
-        public TreeNode()
+        public Node()
         {
-            SubNodes = new List<INode>();
+            SubNodes = new List<Node>();
         }
 
-        public virtual void AppendSub(INode newSubNode)
+        public virtual void AppendSub(Node newSubNode)
         {
             if (newSubNode == null)
                 return;
@@ -43,7 +42,7 @@ namespace Trees
         {
             var visitor = new CounterVisitor();
             var accumulator = new TraverseSubNodeIterator(visitor);
-            
+
             accumulator.Accumulate(this);
 
             return visitor.Counter;
@@ -51,7 +50,7 @@ namespace Trees
 
         public override bool Equals(object obj)
         {
-            return Data.Equals(((TreeNode)obj).Data);
+            return Data.Equals(((Node)obj).Data);
         }
 
         public override int GetHashCode()

@@ -1,13 +1,10 @@
-﻿using System.Linq;
-using Trees.Node;
-
-namespace Trees.Factory
+﻿namespace Trees.Factory
 {
     public class TreeFactory
     {
-        public TreeNode DeepCopy(INode node)
+        public Node DeepCopy(Node node)
         {
-            var newNode = new TreeNode
+            var newNode = new Node
             {
                 Data = node.Data,
             };
@@ -18,12 +15,12 @@ namespace Trees.Factory
             return newNode;
         }
 
-        public TreeNode ShallowCopy(INode node)
+        public Node ShallowCopy(Node node)
         {
             if (node == null)
                 return null;
 
-            var newNode = new TreeNode
+            var newNode = new Node
             {
                 Data = node.Data,
             };

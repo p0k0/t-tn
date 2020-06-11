@@ -25,7 +25,7 @@ namespace Trees.Tests.Iterator
             var iterator = new AccumulateNodeIterator();
             iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new TreeNode { Data = '3' };
+            var expected = new Trees.Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);
         }
@@ -47,7 +47,7 @@ namespace Trees.Tests.Iterator
 
             iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new TreeNode { Data = '3' };
+            var expected = new Trees.Node { Data = '3' };
 
             Assert.Equal(expected, searchResult);
         }
@@ -67,10 +67,10 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.Create("457");
 
-            var targetNode = new TreeNode { Data = '9' };
+            var targetNode = new Trees.Node { Data = '9' };
             iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new TreeNode { Data = '7' };
+            var expected = new Trees.Node { Data = '7' };
 
             Assert.NotEqual(expected, targetNode);
         }
@@ -90,10 +90,10 @@ namespace Trees.Tests.Iterator
 
             var traversePathHead = factory.Create("457");
 
-            var targetNode = new TreeNode { Data = '9' };
+            var targetNode = new Trees.Node { Data = '9' };
             iterator.FindLastSatisfiedNode(treeHead, traversePathHead);
             var searchResult = iterator.Visitor.TraversedNodes.Last();
-            var expected = new TreeNode { Data = '7' };
+            var expected = new Trees.Node { Data = '7' };
 
             Assert.Equal(expected, searchResult);
         }

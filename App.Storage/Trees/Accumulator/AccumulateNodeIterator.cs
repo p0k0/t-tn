@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Trees.Node;
+
 using Trees.Visitor;
 
 namespace Trees.Accumulator
@@ -17,7 +17,7 @@ namespace Trees.Accumulator
         {
         }
 
-        public void FindLastSatisfiedNode(INode startNode, INode straightTraversePathHead)
+        public void FindLastSatisfiedNode(Node startNode, Node straightTraversePathHead)
         {
             if (startNode == null)
                 return;

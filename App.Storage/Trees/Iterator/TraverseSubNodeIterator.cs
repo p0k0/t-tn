@@ -1,4 +1,4 @@
-﻿using Trees.Node;
+﻿
 using Trees.Visitor;
 
 namespace Trees.Iterator
@@ -12,7 +12,7 @@ namespace Trees.Iterator
             _accumulateVisitor = accumulateVisitor;
         }
 
-        public void Accumulate(INode startNode)
+        public void Accumulate(Node startNode)
         {
             _accumulateVisitor.Visit(startNode);
 

@@ -10,11 +10,11 @@ namespace Storage
 {
     public class Box
     {
-        private HashSet<TreeNode> _heads;
+        private HashSet<Node> _heads;
 
         public Box()
         {
-            _heads = new HashSet<TreeNode>();
+            _heads = new HashSet<Node>();
         }
 
         public IEnumerable<string> Find(string searchPattern)
@@ -53,7 +53,7 @@ namespace Storage
                 var traversePathHead = newChainHead.SubNodes.Single();
 
                 iterator.Traverse(head, traversePathHead);
-                (iterator.LastTraversedNode as TreeNode).AppendSub(iterator.TraverseRemainder);
+                (iterator.LastTraversedNode as Node).AppendSub(iterator.TraverseRemainder);
             }
             else
             {
