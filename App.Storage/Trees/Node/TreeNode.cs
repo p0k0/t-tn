@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Trees.Accumulator;
 using Trees.Node;
 using Trees.Visitor;
@@ -11,7 +10,6 @@ namespace Trees
         public INode Parent { get; set; }
         public IList<INode> SubNodes { get; set; }
         public char Data { get; set; }
-        public bool HasVisited { get; set; }
 
         private int? _overallSubNodeCount;
         public int OverallSubNodeCount 
@@ -43,9 +41,10 @@ namespace Trees
 
         private int CountOverallSubNode()
         {
-            var accumulator = new DeepFindSearchAccumulator();
             var visitor = new CounterVisitor();
-            accumulator.Accumulate(this, visitor);
+            var accumulator = new DeepFindSearchAccumulator(visitor);
+            
+            accumulator.Accumulate(this);
 
             return visitor.Counter;
         }

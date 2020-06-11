@@ -5,12 +5,19 @@ namespace Trees.Accumulator
 {
     public class DeepFindSearchAccumulator
     {
-        public void Accumulate(INode startNode, IVisitor accumulateVisitor)
+        private readonly IVisitor _accumulateVisitor;
+
+        public DeepFindSearchAccumulator(IVisitor accumulateVisitor)
         {
-            accumulateVisitor.Visit(startNode);
+            _accumulateVisitor = accumulateVisitor;
+        }
+
+        public void Accumulate(INode startNode)
+        {
+            _accumulateVisitor.Visit(startNode);
 
             foreach (var sub in startNode.SubNodes)
-                Accumulate(sub, accumulateVisitor);
+                Accumulate(sub);
         }
     }
 }

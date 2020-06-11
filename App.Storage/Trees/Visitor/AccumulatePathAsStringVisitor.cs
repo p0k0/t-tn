@@ -24,7 +24,7 @@ namespace Trees.Visitor
 
         public void Visit(INode node)
         {
-            node.HasVisited = true;
+            //node.HasVisited = true;
             TraversedPath.Append(node.Data);
         }
 

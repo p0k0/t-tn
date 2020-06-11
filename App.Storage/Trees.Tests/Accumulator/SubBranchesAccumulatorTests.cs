@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Trees.Tests.Iterator
 {
-    public class DeepFirstSearchByPathIteratorTests
+    public class SubBranchesAccumulatorTests
     {
         [Fact]
         public void Should_find_node_when_tree_with_branches()

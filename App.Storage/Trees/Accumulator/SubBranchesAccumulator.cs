@@ -5,7 +5,7 @@ using Trees.Visitor;
 
 namespace Trees.Accumulator
 {
-    public class SubBranchesTraverser
+    public class SubBranchesAccumulator
     {
         public IEnumerable<IVisitor> Accumulate(INode startNode, IVisitor accumulateVisitor)
         {

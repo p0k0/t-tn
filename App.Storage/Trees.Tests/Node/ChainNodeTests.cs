@@ -40,52 +40,5 @@ namespace Trees.Tests.Node
 
             Assert.Equal(expected, result);
         }
-
-        [Fact]
-        public void Minus_operator_should_return_correct_result_when_minuend_greater_subtrahend()
-        {
-            var factory = new ChainFactory();
-            var minuendStr = "0123789";
-            var subtrhendStr = "0123";
-            var expectedStr = "789";
-            var minuend = factory.Create(minuendStr);
-            var subtrahend = factory.Create(subtrhendStr);
-            var expected = factory.Create(expectedStr);
-
-            var result = minuend - subtrahend;
-
-            Assert.Equal(expected, result);
-        }
-
-        [Fact]
-        public void Minus_operator_should_return_correct_result_when_minuend_lower_subtrahend()
-        {
-            var factory = new ChainFactory();
-            var minuendStr = "0123";
-            var subtrhendStr = "0123789";
-            var minuend = factory.Create(minuendStr);
-            var subtrahend = factory.Create(subtrhendStr);
-            var expected = ChainNode.Emtpy;
-
-            var result = minuend - subtrahend;
-
-            Assert.Equal(expected, result);
-        }
-
-        [Fact]
-        public void Minus_operator_should_return_correct_result_when_minuend_equal_subtrahend()
-        {
-            var factory = new ChainFactory();
-            var minuendStr = "0123";
-            var subtrhendStr = "0123";
-            var minuend = factory.Create(minuendStr);
-            var subtrahend = factory.Create(subtrhendStr);
-            var expected = ChainNode.Emtpy;
-
-            var result = minuend - subtrahend;
-
-            Assert.Equal(expected, result);
-        }
-
     }
 }
