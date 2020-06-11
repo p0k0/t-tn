@@ -1,7 +1,7 @@
 ﻿using Trees.Factory;
 using Xunit;
 
-namespace Trees.Tests
+namespace Trees.Tests.Node
 {
     public class ChainNodeTests
     {
@@ -10,11 +10,11 @@ namespace Trees.Tests
         {
             var factory = new ChainFactory();
             var patternA = "0123";
-            var patternB =     "456789";
+            var patternB = "456789";
             var headA = factory.Create(patternA);
             var headB = factory.Create(patternB);
             headA.AppendSub(headB);
-            
+
             var result = headA.OverallSubNodeCount;
             var expected = 10;
 
@@ -45,9 +45,9 @@ namespace Trees.Tests
         public void Minus_operator_should_return_correct_result_when_minuend_greater_subtrahend()
         {
             var factory = new ChainFactory();
-            var minuendStr   = "0123789";
+            var minuendStr = "0123789";
             var subtrhendStr = "0123";
-            var expectedStr  =     "789";
+            var expectedStr = "789";
             var minuend = factory.Create(minuendStr);
             var subtrahend = factory.Create(subtrhendStr);
             var expected = factory.Create(expectedStr);
@@ -61,7 +61,7 @@ namespace Trees.Tests
         public void Minus_operator_should_return_correct_result_when_minuend_lower_subtrahend()
         {
             var factory = new ChainFactory();
-            var minuendStr   = "0123";
+            var minuendStr = "0123";
             var subtrhendStr = "0123789";
             var minuend = factory.Create(minuendStr);
             var subtrahend = factory.Create(subtrhendStr);
@@ -76,7 +76,7 @@ namespace Trees.Tests
         public void Minus_operator_should_return_correct_result_when_minuend_equal_subtrahend()
         {
             var factory = new ChainFactory();
-            var minuendStr   = "0123";
+            var minuendStr = "0123";
             var subtrhendStr = "0123";
             var minuend = factory.Create(minuendStr);
             var subtrahend = factory.Create(subtrhendStr);

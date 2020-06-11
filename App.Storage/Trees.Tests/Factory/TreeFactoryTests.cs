@@ -2,7 +2,7 @@ using System;
 using Trees.Factory;
 using Xunit;
 
-namespace Trees.Tests
+namespace Trees.Tests.Factory
 {
     public class TreeFactoryTests
     {
@@ -10,7 +10,7 @@ namespace Trees.Tests
         public void Should_create_tree()
         {
             var factory = new ChainFactory();
-            
+
             var treeHead = factory.Create("123678");
             var treeTail = treeHead      //1
                             .SubNodes[0] //2
@@ -18,7 +18,7 @@ namespace Trees.Tests
                             .SubNodes[0] //6
                             .SubNodes[0] //7
                             .SubNodes[0];//8
-            
+
             var expectedHead = '1';
             var expectedTail = '8';
 

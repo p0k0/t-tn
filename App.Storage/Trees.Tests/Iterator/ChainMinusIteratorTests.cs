@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Trees.Factory;
+﻿using Trees.Factory;
 using Trees.Iterator;
 using Xunit;
 
