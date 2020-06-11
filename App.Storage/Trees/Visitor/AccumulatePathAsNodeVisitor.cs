@@ -15,7 +15,7 @@ namespace Trees.Visitor
 
         public void Visit(INode viditedNode)
         {
-            viditedNode.HasVisited = true;
+            //viditedNode.HasVisited = true;
             var newNode = new ChainNode { Data = viditedNode.Data, HasVisited = true };
             UpdatePreviousTraversedNode(newNode);
 

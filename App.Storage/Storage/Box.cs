@@ -38,6 +38,7 @@ namespace Storage
 
             var iterator = new DeepFirstSearchByPathIterator();
             iterator.FindLastSatisfiedNode(searchHead, straightTraversePathHead: targetNode.SubNodes.LastOrDefault());
+
             var partiallySatisfiedResult = new string(iterator.Visitor.TraversedNodes.Select(node => node.Data).ToArray());
             return eachBrachVisitors.Select(visitor => visitor.ToString()).Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
         }
@@ -53,21 +54,11 @@ namespace Storage
             if (_heads.Contains(newChainHead))
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
-                var pathIterator = new DeepFirstSearchByPathIterator();
+                var pathIterator = new DeepFirstSearchByPathIterator2();
                 var traversePathHead = newChainHead.SubNodes.Single();
 
-                pathIterator.FindLastSatisfiedNode(head, /*node => node.Data == pattern.First(), */traversePathHead);
-
-                var foundChainTailNode = pathIterator.Visitor.TraversedNodes.Last();
-                var foundChainHeadNode = pathIterator.Visitor.TraversedNodes.First();
-
-                if (foundChainTailNode != null &&
-                    newChainHead.OverallSubNodeCount > foundChainHeadNode.OverallSubNodeCount)
-                {
-                    var cutStartIndex = newChainHead.OverallSubNodeCount - foundChainHeadNode.OverallSubNodeCount;
-                    var newChain = chainFactory.Create(pattern.Substring(foundChainHeadNode.OverallSubNodeCount, cutStartIndex));
-                    foundChainTailNode.AppendSub(newChain);
-                }
+                pathIterator.FindLastSatisfiedNode(head, traversePathHead);
+                (pathIterator.Result as TreeNode).AppendSub(pathIterator.TraverseRemainder);
             }
             else
             {
