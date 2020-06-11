@@ -58,9 +58,27 @@ namespace Storage.Tests
             Assert.Contains(patternB, foundResults);
         }
 
+
         [Theory]
         [ClassData(typeof(BoxTestCountData))]
-        public void CountNode_should_be_correct(List<string> patterns, int expectedNodeCount)
+        public void Added_node_should_be_found_successfully(List<string> patterns, int expectedNodeCount)
+        {
+            var box = new Box();
+
+            patterns.ForEach(pattern => box.Add(pattern));
+
+            var foundResult = default(IEnumerable<string>);
+
+            foreach (var pattern in patterns)
+            {
+                foundResult = box.Find(pattern);
+                Assert.Contains(pattern, foundResult);
+            }
+        }
+
+        [Theory]
+        [ClassData(typeof(BoxTestCountData))]
+        public void Storage_used_node_count_should_as_expected(List<string> patterns, int expectedNodeCount)
         {
             var box = new Box();
 
@@ -76,9 +94,10 @@ namespace Storage.Tests
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { new List<string> { "0467123456" }, 10 };
+            /*
+            yield return new object[] { new List<string> { "0467123456" }, 10,  };
             yield return new object[] { new List<string> { "0123456789", "1123456789" }, 20 };
-            yield return new object[] { new List<string> { "0123456789", "0123" }, 10 };
+            yield return new object[] { new List<string> { "0123456789", "0123" }, 10 };*/
             yield return new object[] { new List<string> { "0412578440", "0412199803", "0468892011", "112", "15" }, 28 };
         }
 

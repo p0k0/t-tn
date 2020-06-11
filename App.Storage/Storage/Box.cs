@@ -65,7 +65,7 @@ namespace Storage
                     newChainHead.OverallSubNodeCount > foundChainHeadNode.OverallSubNodeCount)
                 {
                     var cutStartIndex = newChainHead.OverallSubNodeCount - foundChainHeadNode.OverallSubNodeCount;
-                    var newChain = chainFactory.Create(pattern.Substring(cutStartIndex));
+                    var newChain = chainFactory.Create(pattern.Substring(foundChainHeadNode.OverallSubNodeCount, cutStartIndex));
                     foundChainTailNode.AppendSub(newChain);
                 }
             }
@@ -78,16 +78,6 @@ namespace Storage
         public int CountNode()
         {
             return _heads.Sum(head => head.OverallSubNodeCount);
-        }
-
-        private void NewChainHeadNodeCountGreaterThanEqualTraversedNodeCountAtStoredHead(ChainNode newChainLastTraversedTail, ChainNode diffHead)
-        {
-
-        }
-
-        private void NewChainHeadNodeCountSmallerThanEqualTraversedNodeCountAtStoredHead(ChainNode newChainLastTraversedTail, ChainNode diffHead)
-        {
-
         }
     }
 }
