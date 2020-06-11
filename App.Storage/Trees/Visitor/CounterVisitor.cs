@@ -1,4 +1,4 @@
-﻿using Trees.Node;
+﻿
 
 namespace Trees.Visitor
 {
@@ -6,7 +6,7 @@ namespace Trees.Visitor
     {
         public int Counter { get; private set; }
 
-        public void Visit(INode node)
+        public void Visit(Node node)
         {
             Counter++;
         }

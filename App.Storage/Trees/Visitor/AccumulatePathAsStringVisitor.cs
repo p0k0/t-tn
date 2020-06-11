@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Trees.Node;
+
 
 namespace Trees.Visitor
 {
@@ -22,7 +22,7 @@ namespace Trees.Visitor
             TraversedPath = new StringBuilder(another.ToString());
         }
 
-        public void Visit(INode node)
+        public void Visit(Node node)
         {
             TraversedPath.Append(node.Data);
         }

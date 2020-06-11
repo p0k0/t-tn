@@ -1,9 +1,9 @@
 ﻿using Trees.Factory;
 using Xunit;
 
-namespace Trees.Tests.Node
+namespace Trees.Tests
 {
-    public class ChainNodeTests
+    public class NodeTests
     {
         [Fact]
         public void Should_return_correct_subnodes_count()

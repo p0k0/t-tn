@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Trees.Node;
+
 using Trees.Visitor;
 
 namespace Trees.Accumulator
@@ -13,7 +13,7 @@ namespace Trees.Accumulator
             Visitors = new List<IVisitor>();
         }
 
-        public void Accumulate(INode startNode, IVisitor accumulateVisitor)
+        public void Accumulate(Node startNode, IVisitor accumulateVisitor)
         {
             accumulateVisitor.Visit(startNode);
 

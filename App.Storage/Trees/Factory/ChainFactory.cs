@@ -1,16 +1,16 @@
 ﻿using System.Linq;
-using Trees.Node;
+
 
 namespace Trees.Factory
 {
     public class ChainFactory
     {
-        public ChainNode DeepCopy(INode node)
+        public Node DeepCopy(Node node)
         {
             if (node == null)
                 return null;
 
-            var newNode = new ChainNode
+            var newNode = new Node
             {
                 Data = node.Data,
             };
@@ -20,12 +20,12 @@ namespace Trees.Factory
             return newNode;
         }
 
-        public ChainNode ShallowCopy(INode node)
+        public Node ShallowCopy(Node node)
         {
             if (node == null)
                 return null;
 
-            var newNode = new ChainNode
+            var newNode = new Node
             {
                 Data = node.Data,
             };
@@ -33,25 +33,25 @@ namespace Trees.Factory
             return newNode;
         }
 
-        public (ChainNode head, ChainNode tail) CreateWithHeadAndTail(string number)
+        public (Node head, Node tail) CreateWithHeadAndTail(string number)
         {
-            var head = default(ChainNode);
-            var node = default(ChainNode);
-            var newNode = default(ChainNode);
+            var head = default(Node);
+            var node = default(Node);
+            var newNode = default(Node);
 
-            head = node = new ChainNode { Data = number.FirstOrDefault() };
+            head = node = new Node { Data = number.FirstOrDefault() };
 
             foreach (var digit in number.Skip(1))
             {
-                newNode = new ChainNode { Data = digit };
+                newNode = new Node { Data = digit };
                 node.AppendSub(newNode);
-                node = node.SubNodes.First() as ChainNode;
+                node = node.SubNodes.First() as Node;
             }
 
             return (head, node);
         }
 
-        public ChainNode Create(string number) =>
+        public Node Create(string number) =>
             CreateWithHeadAndTail(number).head;
         
     }
