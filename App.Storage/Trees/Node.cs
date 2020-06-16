@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Trees.Iterator;
-using Trees.Visitor;
+using Trees.Enumerable;
+using System.Linq;
 
 namespace Trees
 {
@@ -22,6 +22,11 @@ namespace Trees
 
                 return _overallSubNodeCount.Value;
             }
+
+            private set
+            {
+                _overallSubNodeCount = value;
+            }
         }
 
         public Node()
@@ -34,18 +39,17 @@ namespace Trees
             if (newSubNode == null)
                 return;
 
+            _overallSubNodeCount = null;
+
             newSubNode.Parent = this;
             SubNodes.Add(newSubNode);
         }
 
         private int CountOverallSubNode()
         {
-            var visitor = new CounterVisitor();
-            var accumulator = new TraverseSubNodeIterator(visitor);
+            var enumerable = new EnumerableByDeepFindSearch(this);
 
-            accumulator.Accumulate(this);
-
-            return visitor.Counter;
+            return enumerable.Count();
         }
 
         public override bool Equals(object obj)
