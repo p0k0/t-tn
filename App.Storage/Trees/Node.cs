@@ -39,7 +39,7 @@ namespace Trees
             if (newSubNode == null)
                 return;
 
-            OverallSubNodeCount += newSubNode.OverallSubNodeCount;
+            _overallSubNodeCount = null;
 
             newSubNode.Parent = this;
             SubNodes.Add(newSubNode);

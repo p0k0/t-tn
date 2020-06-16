@@ -2,8 +2,8 @@
 using System.Linq;
 using Trees;
 using Trees.Accumulator;
+using Trees.Enumerator;
 using Trees.Factory;
-using Trees.Iterator;
 using Trees.Visitor;
 
 namespace Storage
@@ -49,11 +49,14 @@ namespace Storage
             if (_heads.Contains(newChainHead))
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
-                var iterator = new TraverseSubNodeByPathIterator();
                 var traversePathHead = newChainHead.SubNodes.Single();
+                var enumerator = new EnumeratorByConcretePath(head, traversePathHead);
+                
+                while (enumerator.MoveNext()) { }
 
-                iterator.Traverse(head, traversePathHead);
-                (iterator.LastTraversedNode as Node).AppendSub(iterator.TraverseRemainder);
+                if (!enumerator.IsDestinationReached() && 
+                    !enumerator.LastTraversedNode.SubNodes.Contains(enumerator.TraverseRemainder))
+                    enumerator.LastTraversedNode.AppendSub(enumerator.TraverseRemainder);
             }
             else
             {

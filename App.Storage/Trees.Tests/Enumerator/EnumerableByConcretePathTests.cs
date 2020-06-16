@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Trees.Enumerable;
 using Trees.Factory;
 using Xunit;
@@ -43,14 +44,14 @@ namespace Trees.Tests
 
             var enumerable = new EnumerableByConcretePath(treeHead, traversePathHead);
             var enumerator = enumerable.GetEnumerator();
-            var current = enumerator.Current;
             while (enumerator.MoveNext()) { }
 
-            var expected = subTreeA.SubNodes[0] //2
-                                   .SubNodes[0]; //3
+            var expected = subTreeA // 1
+                                .SubNodes.FirstOrDefault() //2
+                                .SubNodes.FirstOrDefault(); //3
 
-            Assert.Equal(expected, enumerator.LastTraversedNode);
-            Assert.Equal(expected.OverallSubNodeCount, enumerator.LastTraversedNode.OverallSubNodeCount);
+            Assert.Equal(expected, enumerator.Current);
+            Assert.Equal(expected.OverallSubNodeCount, ((Node)enumerator.Current).OverallSubNodeCount);
         }
     }
 }
