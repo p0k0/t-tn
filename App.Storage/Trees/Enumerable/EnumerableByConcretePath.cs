@@ -1,6 +1,7 @@
 ﻿using System.Collections;
+using Trees.Enumerator;
 
-namespace Trees.Enumerator
+namespace Trees.Enumerable
 {
     public class EnumerableByConcretePath : IEnumerable
     {
