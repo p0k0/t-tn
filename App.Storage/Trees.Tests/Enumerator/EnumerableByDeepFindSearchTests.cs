@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Trees.Enumerable;
 using Trees.Enumerator;
+using Trees.Enumerator.Specified;
 using Trees.Factory;
 using Xunit;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Trees.Enumerator;
+using Trees.Enumerator.Specified;
 
 namespace Trees.Enumerable
 {
