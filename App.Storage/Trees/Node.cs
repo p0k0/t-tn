@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Trees.Enumerable;
 using System.Linq;
-using Trees.Visitor;
 
 namespace Trees
 {
@@ -48,7 +47,7 @@ namespace Trees
 
         private int CountOverallSubNode()
         {
-            var enumerable = new EnumerableByDeepFindSearch(this);
+            var enumerable = new EnumerableTreeByDFS(this);
 
             return enumerable.Count();
         }

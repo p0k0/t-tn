@@ -3,6 +3,7 @@ using System.Linq;
 using Trees;
 using Trees.Accumulator;
 using Trees.Enumerator;
+using Trees.Enumerator.Specified;
 using Trees.Factory;
 using Trees.Visitor;
 
@@ -27,15 +28,16 @@ namespace Storage
 
             var searchHead = _heads.SingleOrDefault(x => x.Data == searchPattern.First());
 
-            var accumulator = new AccumulateBranchIterator();
-            accumulator.Accumulate(searchHead, new AccumulatePathAsStringVisitor());
+            var accumulator = new PathAccumulator();
+            var enumerator = new EnumeratorAccumulatingBranches(searchHead, accumulator);
+            while(enumerator.MoveNext()) { }
 
             var accVisitor = new AccumulatePathAsNodeVisitor();
             var iterator = new AccumulateNodeIterator(accVisitor);
-            iterator.FindLastSatisfiedNode(searchHead, straightTraversePathHead: targetNode.SubNodes.LastOrDefault());
+            iterator.FindLastSatisfiedNode(searchHead, targetNode.SubNodes.LastOrDefault());
 
             var partiallySatisfiedResult = new string(accVisitor.TraversedNodes.Select(node => node.Data).ToArray());
-            return accumulator.Visitors.Select(visitor => visitor.ToString()).Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
+            return accumulator.Paths.Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
         }
 
         public void Add(string pattern)
@@ -50,7 +52,7 @@ namespace Storage
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
                 var traversePathHead = newChainHead.SubNodes.Single();
-                var enumerator = new ConcretePathEnumerator(head, traversePathHead);
+                var enumerator = new EnumeratorTraversingSpecifiedPath(head, traversePathHead);
                 
                 while (enumerator.MoveNext()) { }
 
