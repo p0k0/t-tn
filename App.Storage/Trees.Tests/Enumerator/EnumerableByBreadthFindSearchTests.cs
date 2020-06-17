@@ -17,7 +17,7 @@ namespace Trees.Tests
             headNode.AppendSub(subNode);
 
             var visited = new List<Node>();
-            var enumerable = new EnumerableByBreadthFindSearch(headNode);
+            var enumerable = new EnumerableTreeByBFS(headNode);
             foreach (Node node in enumerable)
                 visited.Add(node);
 
@@ -36,7 +36,7 @@ namespace Trees.Tests
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var enumerable = new EnumerableByBreadthFindSearch(treeHead);
+            var enumerable = new EnumerableTreeByBFS(treeHead);
             var buffer = new StringBuilder();
             foreach (Node node in enumerable)
             {

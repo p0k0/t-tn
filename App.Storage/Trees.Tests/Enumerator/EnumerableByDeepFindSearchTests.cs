@@ -20,7 +20,7 @@ namespace Trees.Tests
             headNode.AppendSub(subNode);
 
             var visited = new List<Node>();
-            var enumerable = new EnumerableByDeepFindSearch(headNode);
+            var enumerable = new EnumerableTreeByDFS(headNode);
             foreach (Node node in enumerable)
                 visited.Add(node);
 
@@ -39,7 +39,7 @@ namespace Trees.Tests
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
 
-            var enumerable = new EnumerableByDeepFindSearch(treeHead);
+            var enumerable = new EnumerableTreeByDFS(treeHead);
             var buffer = new StringBuilder();
             foreach (Node node in enumerable)
             {
@@ -65,12 +65,18 @@ namespace Trees.Tests
 
             treeHead.AppendSub(subTreeA);
             treeHead.AppendSub(subTreeB);
-            
-            var enumerable = new DeepFindSearchWithHooksEnumerator(treeHead);
+
+            var accumulator = new PathAccumulator();
+
+            var enumerable = new EnumeratorAccumulatingBranches(treeHead, accumulator);
 
             while (enumerable.MoveNext()) { }
 
-            Assert.Equal(2, enumerable.Paths.Count);
+            var expected = new List<string> { "0123", "0453" };
+
+            Assert.Equal(2, accumulator.Paths.Count);
+            Assert.Contains(expected[0], accumulator.Paths);
+            Assert.Contains(expected[1], accumulator.Paths);
         }
     }
 }

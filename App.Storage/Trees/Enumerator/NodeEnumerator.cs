@@ -4,7 +4,7 @@ using Trees.Strategy.Firing;
 
 namespace Trees.Enumerator
 {
-    public class NodeEnumerator : IEnumerator<Node>
+    public abstract class NodeEnumerator : IEnumerator<Node>
     {
         public NodeEnumerator(NodeEnumerator other)
         {
@@ -28,7 +28,7 @@ namespace Trees.Enumerator
         }
 
         public Node StartNode { get; protected set; }
-        public IFiringStrategy FiringStrategy { get; }
+        public IFiringStrategy FiringStrategy { get; private set; }
         public Node Current { get; protected set; }
 
         Node IEnumerator<Node>.Current => Current;
@@ -37,7 +37,6 @@ namespace Trees.Enumerator
         public void Dispose()
         {
             StartNode = null;
-            Current = null;
         }
 
         public virtual bool MoveNext()
@@ -45,21 +44,21 @@ namespace Trees.Enumerator
             if (FiringStrategy.IsFiringEnd)
                 return false;
 
-            Current = FiringStrategy.FlamePeek;
+            Current = FiringStrategy.Current;
 
             if (Current == null)
                 return false;
 
-            var stewNode = FiringStrategy.StewFlamesTongue();
+            var stewNode = FiringStrategy.StewNode();
             foreach (var subnode in stewNode.SubNodes)
-                FiringStrategy.FeedFlame(subnode);
+                FiringStrategy.Burn(subnode);
 
             return true;
         }
 
         public void Reset()
         {
-            Current = StartNode;
+            FiringStrategy = FiringStrategy.Create(StartNode);
         }
     }
 }

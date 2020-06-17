@@ -21,7 +21,7 @@ namespace Trees.Tests
             headNode.AppendSub(subNode2);
 
             var visited = new List<Node>();
-            var enumerable = new EnumerableByConcretePath(headNode, startTraversePath);
+            var enumerable = new EnumerableTreeBySpecifiedPath(headNode, startTraversePath);
             foreach (Node node in enumerable)
                 visited.Add(node);
 
@@ -42,7 +42,7 @@ namespace Trees.Tests
 
             var traversePathHead = factory.Create("123");
 
-            var enumerable = new EnumerableByConcretePath(treeHead, traversePathHead);
+            var enumerable = new EnumerableTreeBySpecifiedPath(treeHead, traversePathHead);
             var enumerator = enumerable.GetEnumerator();
             while (enumerator.MoveNext()) { }
 
