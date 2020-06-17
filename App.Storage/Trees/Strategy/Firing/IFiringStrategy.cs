@@ -14,18 +14,20 @@
         /// <summary>
         /// Смотрим верхушку пламени. При этом верхушка продолжает гореть
         /// </summary>
-        Node FlamePeek { get; }
+        Node Current { get; }
 
         /// <summary>
-        /// Тушим верхушку пламени
+        /// Тушим текущий узел
         /// </summary>
         /// <returns>Возвращается сгоревший узел дерева (графа)</returns>
-        Node StewFlamesTongue();
+        Node StewNode();
 
         /// <summary>
-        /// Кормим пламя. Пожигаем дальше
+        /// Поджигаем узел
         /// </summary>
         /// <param name="node">Узел дерева (графа)</param>
-        void FeedFlame(Node node);
+        void Burn(Node node);
+
+        IFiringStrategy Create(Node node);
     }
 }

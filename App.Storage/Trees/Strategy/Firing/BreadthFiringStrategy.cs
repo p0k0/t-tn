@@ -12,13 +12,20 @@ namespace Trees.Strategy.Firing
         public BreadthFiringStrategy(Node node)
         {
             _flame = new Queue<Node>();
-            FeedFlame(node);
+            Burn(node);
         }
 
         public bool IsFiringEnd => _flame.Count == 0;
-        public Node FlamePeek => _flame.Peek();
+        public Node Current => _flame.Peek();
 
-        public Node StewFlamesTongue() => _flame.Dequeue();
-        public void FeedFlame(Node node) => _flame.Enqueue(node);
+        public Node StewNode() => _flame.Dequeue();
+        public void Burn(Node node) => _flame.Enqueue(node);
+
+        IFiringStrategy IFiringStrategy.Create(Node node) => Create(node);
+
+        public IFiringStrategy Create(Node node)
+        {
+            return new BreadthFiringStrategy(node);
+        }
     }
 }
