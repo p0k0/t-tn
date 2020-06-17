@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Trees.Enumerable;
 using System.Linq;
+using Trees.Visitor;
 
 namespace Trees
 {

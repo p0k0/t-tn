@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Trees.Enumerable;
+using Trees.Enumerator;
 using Trees.Factory;
 using Xunit;
 
@@ -51,6 +52,25 @@ namespace Trees.Tests
             var expected = new List<string> { expectedPath1, expectedPath2 };
 
             Assert.Contains(expected, x => x == buffer.ToString());
+        }
+
+        [Fact]
+        public void Able_accumulate_all_paths()
+        {
+            var factory = new ChainFactory();
+
+            var treeHead = factory.Create("0");
+            var subTreeA = factory.Create("123");
+            var subTreeB = factory.Create("453");
+
+            treeHead.AppendSub(subTreeA);
+            treeHead.AppendSub(subTreeB);
+            
+            var enumerable = new DeepFindSearchWithHooksEnumerator(treeHead);
+
+            while (enumerable.MoveNext()) { }
+
+            Assert.Equal(2, enumerable.Paths.Count);
         }
     }
 }
