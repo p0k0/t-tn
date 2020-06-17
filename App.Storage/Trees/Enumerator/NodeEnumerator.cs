@@ -1,31 +1,65 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Trees.Strategy.Firing;
 
 namespace Trees.Enumerator
 {
-    public abstract class NodeEnumerator : IEnumerator, IEnumerator<Node>
+    public class NodeEnumerator : IEnumerator<Node>
     {
-        protected Node _startNode;
+        public NodeEnumerator(NodeEnumerator other)
+        {
+            StartNode = other.StartNode;
+            FiringStrategy = other.FiringStrategy;
+        }
 
-        public virtual object Current { get; protected set; }
+        public NodeEnumerator(IEnumerator<Node> other)
+        {
+            var otherCasted = ((NodeEnumerator)other);
+            StartNode = otherCasted.StartNode;
+            FiringStrategy = otherCasted.FiringStrategy;
+        }
 
-        Node IEnumerator<Node>.Current => throw new NotImplementedException();
+        public NodeEnumerator(Node node) : this(node, new DeepFiringStrategy(node)) { }
+
+        public NodeEnumerator(Node node, IFiringStrategy firingStrategy)
+        {
+            StartNode = node;
+            FiringStrategy = firingStrategy;
+        }
+
+        public Node StartNode { get; protected set; }
+        public IFiringStrategy FiringStrategy { get; }
+        public Node Current { get; protected set; }
+
+        Node IEnumerator<Node>.Current => Current;
+        object IEnumerator.Current => Current;
 
         public void Dispose()
         {
-            _startNode = null;
+            StartNode = null;
             Current = null;
         }
 
         public virtual bool MoveNext()
         {
-            throw new NotImplementedException();
+            if (FiringStrategy.IsFiringEnd)
+                return false;
+
+            Current = FiringStrategy.FlamePeek;
+
+            if (Current == null)
+                return false;
+
+            var stewNode = FiringStrategy.StewFlamesTongue();
+            foreach (var subnode in stewNode.SubNodes)
+                FiringStrategy.FeedFlame(subnode);
+
+            return true;
         }
 
         public void Reset()
         {
-            Current = _startNode;
+            Current = StartNode;
         }
     }
 }
