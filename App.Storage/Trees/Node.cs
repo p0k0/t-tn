@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Trees.Iterator;
-using Trees.Visitor;
 
 namespace Trees
 {
@@ -9,20 +7,6 @@ namespace Trees
         public Node Parent { get; set; }
         public IList<Node> SubNodes { get; set; }
         public char Data { get; set; }
-
-        private int? _overallSubNodeCount;
-        public int OverallSubNodeCount
-        {
-            get
-            {
-                if (!_overallSubNodeCount.HasValue)
-                {
-                    _overallSubNodeCount = CountOverallSubNode();
-                }
-
-                return _overallSubNodeCount.Value;
-            }
-        }
 
         public Node()
         {
@@ -38,29 +22,25 @@ namespace Trees
             SubNodes.Add(newSubNode);
         }
 
-        private int CountOverallSubNode()
-        {
-            var visitor = new CounterVisitor();
-            var accumulator = new TraverseSubNodeIterator(visitor);
-
-            accumulator.Accumulate(this);
-
-            return visitor.Counter;
-        }
-
         public override bool Equals(object obj)
         {
-            return Data.Equals(((Node)obj).Data);
+            return obj is Node node &&
+                   Data == node.Data;
         }
 
         public override int GetHashCode()
         {
-            return Data.GetHashCode();
+            return -301143667 + Data.GetHashCode();
         }
 
-        public override string ToString()
+        public static bool operator ==(Node left, Node right)
         {
-            return Data.ToString();
+            return EqualityComparer<Node>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(Node left, Node right)
+        {
+            return !(left == right);
         }
     }
 }
