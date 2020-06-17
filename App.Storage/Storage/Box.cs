@@ -50,7 +50,7 @@ namespace Storage
             {
                 var head = _heads.Single(x => x.Data == pattern.First());
                 var traversePathHead = newChainHead.SubNodes.Single();
-                var enumerator = new EnumeratorByConcretePath(head, traversePathHead);
+                var enumerator = new ConcretePathEnumerator(head, traversePathHead);
                 
                 while (enumerator.MoveNext()) { }
 

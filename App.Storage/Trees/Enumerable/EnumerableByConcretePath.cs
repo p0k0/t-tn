@@ -17,7 +17,7 @@ namespace Trees.Enumerable
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public EnumeratorByConcretePath GetEnumerator() => new EnumeratorByConcretePath(_startNode, _pathStartNode);
+        public ConcretePathEnumerator GetEnumerator() => new ConcretePathEnumerator(_startNode, _pathStartNode);
 
         IEnumerator<Node> IEnumerable<Node>.GetEnumerator() => GetEnumerator();
     }

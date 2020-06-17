@@ -2,12 +2,12 @@
 
 namespace Trees.Enumerator
 {
-    public class EnumeratorByDeepFindSearch : NodeEnumerator
+    public class DeepFindSearchEnumerator : NodeEnumerator
     {
         private Stack<Node> _firingNode;
         private Node _currentNode;
 
-        internal EnumeratorByDeepFindSearch(Node node)
+        internal DeepFindSearchEnumerator(Node node)
         {
             _firingNode = new Stack<Node>();
             _firingNode.Push(node);

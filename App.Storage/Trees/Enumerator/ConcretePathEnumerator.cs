@@ -2,7 +2,7 @@
 
 namespace Trees.Enumerator
 {
-    public class EnumeratorByConcretePath : NodeEnumerator
+    public class ConcretePathEnumerator : NodeEnumerator
     {
         public Node LastTraversedNode { get; private set; }
         public Node TraverseRemainder { get; private set; }
@@ -10,7 +10,7 @@ namespace Trees.Enumerator
         private Node _traversePathHead;
         private Node _currentNode;
 
-        public EnumeratorByConcretePath(Node startNode, Node traversePathHead)
+        public ConcretePathEnumerator(Node startNode, Node traversePathHead)
         {
             _currentNode = _startNode = startNode;
             _traversePathHead = traversePathHead;

@@ -16,7 +16,7 @@ namespace Trees.Enumerable
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public EnumeratorByDeepFindSearch GetEnumerator() => new EnumeratorByDeepFindSearch(_startNode);
+        public DeepFindSearchEnumerator GetEnumerator() => new DeepFindSearchEnumerator(_startNode);
 
         IEnumerator<Node> IEnumerable<Node>.GetEnumerator()
         {
