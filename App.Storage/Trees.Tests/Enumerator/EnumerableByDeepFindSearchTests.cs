@@ -25,7 +25,7 @@ namespace Trees.Tests
             foreach (Node node in enumerable)
                 visited.Add(node);
 
-            Assert.Equal(visited.Count, headNode.OverallSubNodeCount);
+            Assert.Equal(visited.Count, enumerable.Count());
         }
 
         [Fact]

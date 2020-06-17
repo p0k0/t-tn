@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Trees.Enumerable;
 using Trees.Factory;
@@ -21,7 +22,7 @@ namespace Trees.Tests
             foreach (Node node in enumerable)
                 visited.Add(node);
 
-            Assert.Equal(visited.Count, headNode.OverallSubNodeCount);
+            Assert.Equal(visited.Count, enumerable.Count());
         }
 
         [Fact]

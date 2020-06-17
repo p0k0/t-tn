@@ -2,6 +2,7 @@
 using System.Linq;
 using Trees.Enumerable;
 using Trees.Factory;
+using Trees;
 using Xunit;
 
 namespace Trees.Tests
@@ -22,10 +23,10 @@ namespace Trees.Tests
 
             var visited = new List<Node>();
             var enumerable = new EnumerableTreeBySpecifiedPath(headNode, startTraversePath);
-            foreach (Node node in enumerable)
-                visited.Add(node);
-
-            Assert.Equal(visited.Count, startTraversePath.OverallSubNodeCount);
+            var enumerator = enumerable.GetEnumerator();
+            while(enumerator.MoveNext()) { visited.Add(enumerator.Current); }
+            
+            Assert.True(enumerator.IsDestinationReached);
         }
 
         [Fact]
@@ -49,9 +50,9 @@ namespace Trees.Tests
             var expected = subTreeA // 1
                                 .SubNodes.FirstOrDefault() //2
                                 .SubNodes.FirstOrDefault(); //3
+            var expectedEnumerable = new EnumerableTreeByDFS(expected);
 
             Assert.Equal(expected, enumerator.Current);
-            Assert.Equal(expected.OverallSubNodeCount, ((Node)enumerator.Current).OverallSubNodeCount);
         }
     }
 }

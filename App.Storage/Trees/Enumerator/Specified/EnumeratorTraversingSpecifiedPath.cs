@@ -22,17 +22,18 @@ namespace Trees.Enumerator.Specified
             _traversePathHead = traversePathHead;
         }
 
-        public bool IsDestinationReached() => MoveNext() == false && TraverseRemainder == Current;
+        public bool IsDestinationReached => MoveNext() == false && TraverseRemainder.Equals(Current);
 
         public bool MoveNext()
         {
             if (_currentNode == null)
                 return false;
 
+            LastTraversedNode = _currentNode;
+
             if (_traversePathHead == null)
                 return false;
 
-            LastTraversedNode = _currentNode;
             TraverseRemainder = _traversePathHead;
 
             _currentNode = _currentNode.SubNodes.Where(x => x.Data == _traversePathHead.Data).FirstOrDefault();

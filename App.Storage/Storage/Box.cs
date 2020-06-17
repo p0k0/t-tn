@@ -2,6 +2,7 @@
 using System.Linq;
 using Trees;
 using Trees.Accumulator;
+using Trees.Enumerable;
 using Trees.Enumerator;
 using Trees.Enumerator.Specified;
 using Trees.Factory;
@@ -26,7 +27,7 @@ namespace Storage
             if (!_heads.Contains(targetNode))
                 return Enumerable.Empty<string>();
 
-            var searchHead = _heads.SingleOrDefault(x => x.Data == searchPattern.First());
+            var searchHead = _heads.SingleOrDefault(x => x.Data.Equals(searchPattern.First()));
 
             var accumulator = new PathAccumulator();
             var enumerator = new EnumeratorAccumulatingBranches(searchHead, accumulator);
@@ -56,7 +57,7 @@ namespace Storage
                 
                 while (enumerator.MoveNext()) { }
 
-                if (!enumerator.IsDestinationReached() && 
+                if (!enumerator.IsDestinationReached && 
                     !enumerator.LastTraversedNode.SubNodes.Contains(enumerator.TraverseRemainder))
                     enumerator.LastTraversedNode.AppendSub(enumerator.TraverseRemainder);
             }
@@ -68,7 +69,7 @@ namespace Storage
 
         public int CountNode()
         {
-            return _heads.Sum(head => head.OverallSubNodeCount);
+            return _heads.Sum(head => new EnumerableTreeByDFS(head).Count());
         }
     }
 }
