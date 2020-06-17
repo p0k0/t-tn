@@ -5,18 +5,18 @@ using Trees.Enumerator;
 
 namespace Trees.Enumerable
 {
-    public class EnumerableByDeepFindSearch : IEnumerable, IEnumerable<Node>
+    public class EnumerableTreeByDFS : IEnumerable, IEnumerable<Node>
     {
         private readonly Node _startNode;
 
-        public EnumerableByDeepFindSearch(Node startNode)
+        public EnumerableTreeByDFS(Node startNode)
         {
             _startNode = startNode;
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public EnumeratorByDeepFindSearch GetEnumerator() => new EnumeratorByDeepFindSearch(_startNode);
+        public EnumeratorDFS GetEnumerator() => new EnumeratorDFS(_startNode);
 
         IEnumerator<Node> IEnumerable<Node>.GetEnumerator()
         {

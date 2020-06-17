@@ -1,4 +1,6 @@
-﻿using Trees.Factory;
+﻿using System.Linq;
+using Trees.Enumerable;
+using Trees.Factory;
 using Xunit;
 
 namespace Trees.Tests
@@ -15,7 +17,9 @@ namespace Trees.Tests
             var headB = factory.Create(patternB);
             headA.AppendSub(headB);
 
-            var result = headA.OverallSubNodeCount;
+            var treeHeadA = new EnumerableTreeByDFS(headA);
+
+            var result = treeHeadA.Count();
             var expected = 10;
 
             Assert.Equal(expected, result);
@@ -34,11 +38,29 @@ namespace Trees.Tests
 
             headA.AppendSub(headB);
             headA.AppendSub(headAAppendix);
-
-            var result = headA.OverallSubNodeCount;
+            var treeHeadA = new EnumerableTreeByDFS(headA);
+            var result = treeHeadA.Count();
             var expected = 13;
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Two_node_with_same_data_should_be_equal()
+        {
+            var node1 = new Node() { Data = '1' };
+            var node2 = new Node() { Data = '1' };
+
+            Assert.Equal(node1, node2);
+        }
+
+        [Fact]
+        public void Two_node_with_different_data_should_be_unequal()
+        {
+            var node1 = new Node() { Data = '1' };
+            var node2 = new Node() { Data = '2' };
+
+            Assert.NotEqual(node1, node2);
         }
     }
 }

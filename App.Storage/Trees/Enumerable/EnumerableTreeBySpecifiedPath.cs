@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Trees.Enumerator;
+using Trees.Enumerator.Specified;
 
 namespace Trees.Enumerable
 {
-    public class EnumerableByConcretePath : IEnumerable, IEnumerable<Node>
+    public class EnumerableTreeBySpecifiedPath : IEnumerable, IEnumerable<Node>
     {
         private readonly Node _startNode;
         private readonly Node _pathStartNode;
 
-        public EnumerableByConcretePath(Node startNode, Node pathStartNode)
+        public EnumerableTreeBySpecifiedPath(Node startNode, Node pathStartNode)
         {
             _startNode = startNode;
             _pathStartNode = pathStartNode;
@@ -17,7 +17,7 @@ namespace Trees.Enumerable
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public EnumeratorByConcretePath GetEnumerator() => new EnumeratorByConcretePath(_startNode, _pathStartNode);
+        public EnumeratorTraversingSpecifiedPath GetEnumerator() => new EnumeratorTraversingSpecifiedPath(_startNode, _pathStartNode);
 
         IEnumerator<Node> IEnumerable<Node>.GetEnumerator() => GetEnumerator();
     }

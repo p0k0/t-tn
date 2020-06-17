@@ -1,31 +1,64 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Trees.Strategy.Firing;
 
 namespace Trees.Enumerator
 {
-    public abstract class NodeEnumerator : IEnumerator, IEnumerator<Node>
+    public abstract class NodeEnumerator : IEnumerator<Node>
     {
-        protected Node _startNode;
+        public NodeEnumerator(NodeEnumerator other)
+        {
+            StartNode = other.StartNode;
+            FiringStrategy = other.FiringStrategy;
+        }
 
-        public virtual object Current { get; protected set; }
+        public NodeEnumerator(IEnumerator<Node> other)
+        {
+            var otherCasted = ((NodeEnumerator)other);
+            StartNode = otherCasted.StartNode;
+            FiringStrategy = otherCasted.FiringStrategy;
+        }
 
-        Node IEnumerator<Node>.Current => throw new NotImplementedException();
+        public NodeEnumerator(Node node) : this(node, new DeepFiringStrategy(node)) { }
+
+        public NodeEnumerator(Node node, IFiringStrategy firingStrategy)
+        {
+            StartNode = node;
+            FiringStrategy = firingStrategy;
+        }
+
+        public Node StartNode { get; protected set; }
+        public IFiringStrategy FiringStrategy { get; private set; }
+        public Node Current { get; protected set; }
+
+        Node IEnumerator<Node>.Current => Current;
+        object IEnumerator.Current => Current;
 
         public void Dispose()
         {
-            _startNode = null;
-            Current = null;
+            StartNode = null;
         }
 
         public virtual bool MoveNext()
         {
-            throw new NotImplementedException();
+            if (FiringStrategy.IsFiringEnd)
+                return false;
+
+            Current = FiringStrategy.Current;
+
+            if (Current == null)
+                return false;
+
+            var stewNode = FiringStrategy.StewNode();
+            foreach (var subnode in stewNode.SubNodes)
+                FiringStrategy.Burn(subnode);
+
+            return true;
         }
 
         public void Reset()
         {
-            Current = _startNode;
+            FiringStrategy = FiringStrategy.Create(StartNode);
         }
     }
 }
