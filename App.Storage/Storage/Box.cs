@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Trees;
-using Trees.Accumulator;
 using Trees.Enumerable;
 using Trees.Enumerator;
 using Trees.Enumerator.Specified;
 using Trees.Factory;
-using Trees.Visitor;
 
 namespace Storage
 {
@@ -33,12 +31,15 @@ namespace Storage
             var enumerator = new EnumeratorAccumulatingBranches(searchHead, accumulator);
             while(enumerator.MoveNext()) { }
 
-            var accVisitor = new AccumulatePathAsNodeVisitor();
-            var iterator = new AccumulateNodeIterator(accVisitor);
-            iterator.FindLastSatisfiedNode(searchHead, targetNode.SubNodes.LastOrDefault());
+            var pathEnumerator = new EnumeratorTraversingSpecifiedPath(searchHead, targetNode.SubNodes.LastOrDefault());
+            while (pathEnumerator.MoveNext()) { }
 
-            var partiallySatisfiedResult = new string(accVisitor.TraversedNodes.Select(node => node.Data).ToArray());
-            return accumulator.Paths.Concat(new string[] { partiallySatisfiedResult }).DefaultIfEmpty();
+            IEnumerable<string> result = accumulator.Paths;
+
+            if (pathEnumerator.IsDestinationReached)
+                result = result.Concat(new string[] { searchPattern });
+
+            return result;
         }
 
         public void Add(string pattern)

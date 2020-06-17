@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Trees\Trees.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Visitor\" />
-  </ItemGroup>
-
 </Project>
