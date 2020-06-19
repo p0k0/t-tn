@@ -1,11 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/p0k0/t-tn</PackageProjectUrl>
+    <Version>0.2.0</Version>
+    <NeutralLanguage />
+    <Authors>bulat</Authors>
+    <Description>Library implemeting storage based on idea data manage as tree/graph</Description>
+    <PackageId>StorageBox</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Trees\Trees.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
